@@ -1,9 +1,12 @@
+
+
 import java.io.File;
 
 /**
  * SoundClip is a class representing a digital
  * sound clip file on disk.
  */
+
 public class SoundClip {
 
 	private final File file;
@@ -12,6 +15,7 @@ public class SoundClip {
 	 * Make a SoundClip from a file.
 	 * Requires file != null.
 	 */
+	
 	public SoundClip(File file) {
 		assert file != null;
 		this.file = file;
@@ -20,6 +24,7 @@ public class SoundClip {
 	/**
 	 * @return the file containing this sound clip.
 	 */
+	
 	public File getFile() {
 		return file;
 	}
