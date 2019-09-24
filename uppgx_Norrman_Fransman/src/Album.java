@@ -2,6 +2,7 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Album {
 
@@ -79,6 +80,11 @@ public class Album {
 	
 	
 	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 	
 	
 	
@@ -132,8 +138,10 @@ public class Album {
 	 */
 	
 	
-	public boolean removeSoundClip(SoundClip soundClipToBeRemoved) { 
+	public boolean removeSoundClip(SoundClip soundClipToBeRemoved) {
 			
+		
+		
 		//Precondition
 		assert (soundClips.size() > 0): "No soundclips to be removed";
 				
@@ -148,6 +156,34 @@ public class Album {
 						
 			}
 					
+		}
+			
+		return false;
+			
+		}
+	
+	
+	public boolean removeSoundClips(List<SoundClip> soundClipsToBeRemoved) {
+			
+		
+		for (SoundClip soundClipToBeRemoved:soundClipsToBeRemoved) {
+
+			
+			
+			//Precondition
+			assert (soundClips.size() > 0): "No soundclips to be removed";
+					
+			for(int i = 0; i < soundClips.size(); i++) { 
+						
+				if(soundClips.get(i).equals(soundClipToBeRemoved)) {
+							
+					System.out.println("gay");
+					soundClips.remove(i);			
+							
+				}
+						
+			}
+				
 		}
 			
 		return false;

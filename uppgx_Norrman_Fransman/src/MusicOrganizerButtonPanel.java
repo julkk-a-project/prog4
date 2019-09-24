@@ -79,7 +79,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		deleteAlbumButton.setToolTipText("Delete Selected Album");
 		deleteAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.deleteAlbum();
+				controller.removeAlbum();
 			}
 		});
 		return deleteAlbumButton;

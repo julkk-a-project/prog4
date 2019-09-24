@@ -1,12 +1,17 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import javax.swing.JOptionPane;
 
 public class MusicOrganizerController {
 
 	private MusicOrganizerWindow view;
 	private SoundClipBlockingQueue queue;
 	private Album root;
+	private Album selectedAlbum;
+	private SoundClip selectedSoundClip;
 	
 	public MusicOrganizerController() {
 		
@@ -46,20 +51,50 @@ public class MusicOrganizerController {
 	 */
 	public void addNewAlbum(){ //TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
 		// TODO: Add your code here
+		
+		assert (!(selectedAlbum.equals(null)));
+		
+		
+		
+		String name = view.promptForAlbumName();
+		
+		
+		
+		view.onAlbumAdded(new Album(selectedAlbum, name));
+		 
+		
 	}
 	
 	/**
 	 * Removes an album from the Music Organizer
 	 */
-	public void deleteAlbum(){ //TODO Update parameters if needed
+	public void removeAlbum(){ //TODO Update parameters if needed
 		// TODO: Add your code here
+
+		
+		if(selectedAlbum.getParent() != null) {
+			view.onAlbumRemoved(selectedAlbum);			
+		}
+		
 	}
 	
 	/**
 	 * Adds sound clips to an album
 	 */
-	public void addSoundClips(){ //TODO Update parameters if needed
-		// TODO: Add your code here
+	public void addSoundClips(){
+		
+		String directory = JOptionPane.showInputDialog("where is ur file??? please define the path :)", "C:\\Users\\julkk\\git\\prog4\\uppgx_Norrman_Fransman\\sample-sound\\punk.wav");
+		
+		
+		System.out.println(directory);
+		
+		selectedAlbum.addSoundClip(new File(directory));
+		
+
+		System.out.println(directory);
+		
+		view.onClipsUpdated();
+		
 	}
 	
 	/**
@@ -67,6 +102,19 @@ public class MusicOrganizerController {
 	 */
 	public void removeSoundClips(){ //TODO Update parameters if needed
 		// TODO: Add your code here
+		
+		
+		selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
+		
+		System.out.println("gays");
+		
+//		List<SoundClip> l = view.getSelectedSoundClips();
+//		for(int i=0;i<l.size();i++)
+//			
+//			l.remove(i);
+		
+		
+		
 	}
 	
 	/**
@@ -180,6 +228,23 @@ public class MusicOrganizerController {
 		
 		
 	}	
+	
+	
+	
+	public void setSelected(Album album) {
+		
+		if (album != null) {
+			selectedAlbum = album;
+		}
+
+	}	
+	public void setSelectedSoundClip(SoundClip soundClip) {
+		
+		if (soundClip != null) {
+			selectedSoundClip = soundClip;
+		}
+
+	}
 	
 
 

@@ -28,6 +28,7 @@ public class MusicOrganizerWindow extends JFrame {
 	private final SoundClipTable clipTable;
 	private MusicOrganizerButtonPanel buttonPanel;
 	private MusicOrganizerController controller;
+	private String DEAULT_ALBUM_NAME = "Album";
 	
 	public MusicOrganizerWindow(MusicOrganizerController contr) {
 
@@ -70,7 +71,7 @@ public class MusicOrganizerWindow extends JFrame {
 		
 
 		DefaultMutableTreeNode tree_root = new DefaultMutableTreeNode();
-		tree_root.setUserObject((Album) controller.getRootAlbum());
+		tree_root.setUserObject(controller.getRootAlbum());
 		
 		final JTree tree = new JTree(tree_root);
 		tree.setMinimumSize(new Dimension(200, 400));
@@ -85,8 +86,12 @@ public class MusicOrganizerWindow extends JFrame {
 		tree.setSelectionModel(selectionModel);
 
 		tree.addMouseListener(new MouseInputAdapter() {
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				controller.setSelected(getSelectedAlbum());
+				
 				// if left-double-click @@@changed =2 to ==1
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2){
 					
@@ -94,7 +99,7 @@ public class MusicOrganizerWindow extends JFrame {
 					// The code here gets invoked whenever the user double clicks in the album tree
 					
 					
-					System.out.println("show the sound clips for album " + ((Album) getSelectedTreeNode().getUserObject()).getName());
+					System.out.println("show the sound clips for album " + (getSelectedTreeNode().getUserObject()));
 					System.out.println(getSelectedTreeNode().getUserObject().getClass());
 				}
 			}
@@ -108,6 +113,8 @@ public class MusicOrganizerWindow extends JFrame {
 	 */
 	private SoundClipTable makeClipTable(){
 		SoundClipTable table = new SoundClipTable();
+		
+		
 		
 		table.addMouseListener(new MouseInputAdapter() {
 			@Override
@@ -132,7 +139,7 @@ public class MusicOrganizerWindow extends JFrame {
 	 * Returns the name, or null if the user pressed Cancel
 	 */
 	public String promptForAlbumName() {
-		return (String) JOptionPane.showInputDialog(
+		String name = (String) JOptionPane.showInputDialog(
 				albumTree,
 				"Album Name: ",
 				"Add Album",
@@ -140,6 +147,13 @@ public class MusicOrganizerWindow extends JFrame {
 				null,
 				null,
 				"");
+		
+		if(name.equals("")) {
+			name = DEAULT_ALBUM_NAME ;
+		}
+		
+		
+		return name;
 	}
 
 	/**Creates a pop up window showing a message
@@ -173,7 +187,9 @@ public class MusicOrganizerWindow extends JFrame {
 	public Album getSelectedAlbum() {
 		DefaultMutableTreeNode node = getSelectedTreeNode();
 		if(node != null) {
-			return (Album) node.getUserObject();
+			Album album = (Album) node.getUserObject();
+			onClipsUpdated();
+			return album;
 		} else {
 			return null;
 		}
@@ -198,28 +214,38 @@ public class MusicOrganizerWindow extends JFrame {
 		
 		assert newAlbum != null;
 		
+		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
-		//We search for the parent of the newly added Album so we can create the new node in the correct place
-		for(Enumeration e = ((DefaultMutableTreeNode) model.getRoot()).breadthFirstEnumeration(); e.hasMoreElements();){
-			DefaultMutableTreeNode parent = (DefaultMutableTreeNode) e.nextElement();
-			
-			
-			
-			Album parentAlbum = newAlbum.getParent(); 
-			
-			
-			
-			if(parentAlbum.equals(parent.getUserObject())){
+		
+		try {
+
+			//We search for the parent of the newly added Album so we can create the new node in the correct place
+			for(Enumeration e = ((DefaultMutableTreeNode) model.getRoot()).breadthFirstEnumeration(); e.hasMoreElements();){
+				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) e.nextElement();
 				
-				DefaultMutableTreeNode trnode = new DefaultMutableTreeNode();
-				trnode.setUserObject(newAlbum);
 				
-				model.insertNodeInto(trnode, parent,
-						parent.getChildCount());
-				albumTree.scrollPathToVisible(new TreePath(trnode.getPath()));
 				
+				Album parentAlbum = newAlbum.getParent(); 
+				
+				
+				
+				if(parentAlbum.equals(parent.getUserObject())){
+					
+					DefaultMutableTreeNode trnode = new DefaultMutableTreeNode();
+					trnode.setUserObject(newAlbum);
+					
+					model.insertNodeInto(trnode, parent,
+							parent.getChildCount());
+					albumTree.scrollPathToVisible(new TreePath(trnode.getPath()));
+					
+				}
 			}
+			
+		}catch(NullPointerException e) {
+			
+			showMessage(e+"\n\nChoose a location for your album!");
+			
 		}
 	}
 	
