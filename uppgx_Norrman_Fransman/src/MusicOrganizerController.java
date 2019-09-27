@@ -106,6 +106,12 @@ public class MusicOrganizerController {
 		
 		selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
 		
+		//selectedSoundClips.removeSoundClip(selectedSoundClip);
+		//view.getSelectedSoundClips().clear();
+		
+		
+		view.onClipsUpdated();
+		
 		System.out.println("gays");
 		
 //		List<SoundClip> l = view.getSelectedSoundClips();

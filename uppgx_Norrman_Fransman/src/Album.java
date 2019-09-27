@@ -10,6 +10,7 @@ public class Album {
 	private String name;
 	private ArrayList<Album> subAlbums = new ArrayList<Album>();
 	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
+	private int idToSoundClip = 0;
 	
 	
 	public Album(String name) {  //skapar rot album
@@ -127,7 +128,7 @@ public class Album {
 	
 	public void addSoundClip(File inFile) { //Lägger till en fil i albummet och skapar en SoundClip för filen
 		
-		soundClips.add(new SoundClip(inFile));
+		soundClips.add(new SoundClip(inFile, this));
 		
 	}
 	
@@ -147,7 +148,7 @@ public class Album {
 				
 		for(int i = 0; i < soundClips.size(); i++) { 
 					
-			if(soundClips.get(i).toString().equals(soundClipToBeRemoved.toString())) {
+			if(soundClips.get(i).getId() == soundClipToBeRemoved.getId()) {
 						
 				//Postcondition
 				assert(soundClips.remove(i) != null): "No soundclip was removed";
@@ -165,21 +166,26 @@ public class Album {
 	
 	public boolean removeSoundClips(List<SoundClip> soundClipsToBeRemoved) {
 			
+
+		//Precondition
+		assert (soundClips.size() > 0): "No soundclips to be removed";
+		
 		
 		for (SoundClip soundClipToBeRemoved:soundClipsToBeRemoved) {
 
 			
 			
-			//Precondition
-			assert (soundClips.size() > 0): "No soundclips to be removed";
 					
 			for(int i = 0; i < soundClips.size(); i++) { 
 						
-				if(soundClips.get(i).equals(soundClipToBeRemoved)) {
+				System.out.println("hetero");
+				
+				if(soundClips.get(i).getId() == (soundClipToBeRemoved.getId())) {
 							
 					System.out.println("gay");
 					soundClips.remove(i);			
 							
+					break;
 				}
 						
 			}
@@ -211,6 +217,12 @@ public class Album {
 		}
 		
 		return null;
+		
+	}
+
+	public int getNextId() {
+		
+		return idToSoundClip++;
 		
 	}
 	

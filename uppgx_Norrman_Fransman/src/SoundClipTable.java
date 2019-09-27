@@ -52,6 +52,12 @@ public class SoundClipTable extends JList {
 		this.setListData(new String[0]);
 	}
 	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Returns a List of all the SoundClips at the specified indices
 	 * @param indices of selected clips

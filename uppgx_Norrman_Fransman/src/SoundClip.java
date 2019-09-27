@@ -10,15 +10,17 @@ import java.io.File;
 public class SoundClip {
 
 	private final File file;
+	private final int id;
 	
 	/**
 	 * Make a SoundClip from a file.
 	 * Requires file != null.
 	 */
 	
-	public SoundClip(File file) {
+	public SoundClip(File file, Album parent) {
 		assert file != null;
 		this.file = file;
+		id = parent.getNextId();
 	}
 
 	/**
@@ -43,5 +45,10 @@ public class SoundClip {
 	@Override
 	public int hashCode() {
 		return file.hashCode();
+	}
+	
+	
+	public int getId() {
+		return id;
 	}
 }
