@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
+import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,9 +18,9 @@ public class SoundClipLoader {
 	 * If path does not correspond to an actual folder in the filesystem,
 	 * returns an empty set.
 	 */
-	public static Set<SoundClip> loadSoundClips(String path) {
+	public static Set<File> loadSoundClips(String path) {
 		assert path!=null && path!="";
-		Set<SoundClip> set = new HashSet<SoundClip>();
+		Set<File> set = new HashSet<File>();
 
 		if (path == null) return set;
 
@@ -37,10 +38,10 @@ public class SoundClipLoader {
 	 * @param folder - the folder in which to look for WAV files
 	 * @param set - the collection where all the found WAV files are put
 	 */
-	private static void addSoundClipsToSet(File folder, Set<SoundClip> set) {
+	private static void addSoundClipsToSet(File folder, Set<File> set) {
 		for (File f : findWAVFiles(folder)) {
 			System.out.println("Loading... " + f.getAbsolutePath());
-			set.add(new SoundClip(f));
+			set.add(f);
 		}
 		for (File g: findSubFolders(folder)) {
 			addSoundClipsToSet(g, set);

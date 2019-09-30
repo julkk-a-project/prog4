@@ -3,6 +3,7 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Album {
 
@@ -125,10 +126,27 @@ public class Album {
 	}
 
 
-	
+
 	public void addSoundClip(File inFile) { //Lägger till en fil i albummet och skapar en SoundClip för filen
-		
+
 		soundClips.add(new SoundClip(inFile, this));
+
+	}
+	
+
+	//this can't happen because we have the ID System, which requiers the parent album to be known at creation. :(
+	
+//	public void addSoundClip(SoundClip soundClip) { //Lägger till en färdig soundclip objekt i listan där de sparas i albumet!
+//
+//		soundClips.add(soundClip);
+//
+//	}
+
+	public void addSoundClips(Set<File> files) {
+		
+		for (File i : files) {
+			addSoundClip(i);
+		}
 		
 	}
 	

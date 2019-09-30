@@ -32,8 +32,8 @@ public class MusicOrganizerController {
 	 * Load the sound clips found in all subfolders of a path on disk. If path is not
 	 * an actual folder on disk, has no effect.
 	 */
-	public Set<SoundClip> loadSoundClips(String path) {
-		Set<SoundClip> clips = SoundClipLoader.loadSoundClips(path);
+	public Set<File> loadSoundClips(String path) {
+		Set<File> clips = SoundClipLoader.loadSoundClips(path);
 		// TODO: Add the loaded sound clips to the root album
 
 		return clips;
@@ -83,12 +83,21 @@ public class MusicOrganizerController {
 	 */
 	public void addSoundClips(){
 		
-		String directory = JOptionPane.showInputDialog("where is ur file??? please define the path :)", "C:\\Users\\julkk\\git\\prog4\\uppgx_Norrman_Fransman\\sample-sound\\punk.wav");
+		String directory = JOptionPane.showInputDialog("where is ur file??? please define the path :)",
+				"C:\\Users\\julkk\\git\\prog4\\uppgx_Norrman_Fransman\\sample-sound\\punk.wav"); //<-- default path for testing pourposes!
 		
 		
 		System.out.println(directory);
 		
-		selectedAlbum.addSoundClip(new File(directory));
+		
+		//to prevent adding soundclip when nothing is selected.
+		if (selectedAlbum != null) {
+
+			//selectedAlbum.addSoundClips(new File(directory));
+
+			selectedAlbum.addSoundClips(loadSoundClips(directory));
+		}
+		
 		
 
 		System.out.println(directory);
