@@ -42,13 +42,18 @@ public class SoundClipLoader {
 	 * @param set - the collection where all the found WAV files are put
 	 */
 	private static void addSoundClipsToSet(File folder, Set<SoundClip> set) {
-		for (File f : findWAVFiles(folder)) {
-			System.out.println("Loading... " + f.getAbsolutePath());
-			set.add(new SoundClip(f));
+		try {
+			for (File f : findWAVFiles(folder)) {
+				System.out.println("Loading... " + f.getAbsolutePath());
+				set.add(new SoundClip(f));
+			}
+			for (File g: findSubFolders(folder)) {
+				addSoundClipsToSet(g, set);
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Invalid path");
 		}
-		for (File g: findSubFolders(folder)) {
-			addSoundClipsToSet(g, set);
-		}
+		
 	}
 	
 	/**

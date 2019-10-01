@@ -37,30 +37,23 @@ public class Album {
 		return name;
 	}
 	
-	//TODO: maybe add specific subAlbum getter?
+	
 	public ArrayList<Album> getSubAlbums() {
 		return subAlbums;
 	}
 
 	
 	
+	/**
+	 * returns all soundclips, and recursevly also all subalbum's soundclips.
+	 * 
+	 */
 	public ArrayList<SoundClip> getSoundClips() {
 		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
 		soundClipsToBeShown.addAll(soundClips);
-		int i = 0;
-		
-		System.out.println(this.toString());
-
-		System.out.println(subAlbums.toString()+" "+i);
-		
-		for(int j = 0; j < subAlbums.size(); j++) {
-			System.out.println(j+"gaygaygay");
-		}
 		
 		for (Album a : subAlbums) {
-			System.out.println(a.toString()+" "+i++);
-			ArrayList<SoundClip> newStuff = a.getSoundClips();
-			soundClipsToBeShown.addAll(newStuff);
+			soundClipsToBeShown.addAll(a.getSoundClips());
 		}
 		return soundClipsToBeShown;
 	}
@@ -86,24 +79,20 @@ public class Album {
 	//Setters
 	
 	
-	//maybe don't use this...
-	//private void setParent(Album newParent);
 	
-	
-	//should be legit. idk, consult partner.
+	//to change name, might be usefull in future.
 	public void setName(String newName) {
 		name = newName;
 	}
 	
 	
-	//setSubALbums and setSoundClips prob should not be used...
-	//this is why they should be private, appart from being good practice! ;)
 	
 	
 	
 	
-	
-	
+	/**
+	 * to make name show in tree instead of object reference.
+	 */
 	@Override
 	public String toString() {
 		return name;
@@ -120,11 +109,10 @@ public class Album {
 	}
 	
 	
-	/*
+	/**
 	 * Kollar om det finns subalbum att radera.
 	 * går igenom alla subalbum tills den hittar rätt och tar bort det samt dess subalbum.
 	 */
-	
 	public boolean removeSubAlbum(Album albumToBeRemoved) {
 		
 		//Precondition
@@ -156,8 +144,6 @@ public class Album {
 	}
 	
 
-	//this can't happen because we have the ID System, which requiers the parent album to be known at creation. :(
-	//nvm, just understood that i could do it this way.
 	
 	public void addSoundClip(SoundClip soundClip) { //Lägger till en färdig soundclip objekt i listan där de sparas i albumet!
 
@@ -165,6 +151,7 @@ public class Album {
 
 	}
 
+	//lägger till en mängd soundclips till albumet.
 	public void addSoundClips(Set<SoundClip> soundClips) {
 
 		for (SoundClip i : soundClips) {
@@ -172,23 +159,14 @@ public class Album {
 		}
 
 	}
-
-	/*
-	public void addSoundClips(Set<File> files) {
-		
-		for (File i : files) {
-			addSoundClip(i);
-		}
-		
-	}*/
 	
 	
-	/*
+	
+	
+	/**
 	 * Kollar om det finns soundclips att radera.
 	 * går igenom alla soundclips tills den hittar rätt och tar bort det.
 	 */
-	
-	
 	public boolean removeSoundClip(SoundClip soundClipToBeRemoved) {
 			
 		
@@ -213,7 +191,11 @@ public class Album {
 			
 		}
 	
-	
+
+	/**
+	 * Kollar om det finns soundclips att radera.
+	 * går igenom alla soundclips tills den hittar rätt och tar bort de.
+	 */
 	public boolean removeSoundClips(List<SoundClip> soundClipsToBeRemoved) {
 			
 
@@ -244,9 +226,10 @@ public class Album {
 			
 		}
 	
-	/*
+	/**
+	 * (Legacycode)
 	 * Söker igenom ett albums ljudklipp och gemför namnet med det ljudklippet
-	 * vi vill hitta.
+	 * vi vill hitta. 
 	 */
 	
 	public SoundClip findSoundClip(String name) {
@@ -268,7 +251,19 @@ public class Album {
 		
 	}
 
-	public int getNextId() {
+
+	/**
+	 * used to get the next ID from the album object.
+	 * the ID should be given unicley to each soundclip.
+	 * 
+	 * please don't overuse me unless you are my(this object) child :(
+	 * 
+	 * this ID system is used to differenciate SoundClip objects in a specific album.
+	 * 
+	 * 
+	 * @return
+	 */
+	 synchronized int getNextId() {
 		
 		return idToSoundClip++;
 		

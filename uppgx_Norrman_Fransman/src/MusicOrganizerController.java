@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -12,11 +11,12 @@ public class MusicOrganizerController {
 	private Album root;
 	private Album selectedAlbum;
 	private Album doubleSelectedAlbum;
-	private SoundClip selectedSoundClip;
+	
+	
 	
 	public MusicOrganizerController() {
 		
-		// TODO: Create the root album for all sound clips
+		
 		root = new Album("All Sound Clips");
 		
 		// Create the View in Model-View-Controller
@@ -50,8 +50,7 @@ public class MusicOrganizerController {
 	/**
 	 * Adds an album to the Music Organizer
 	 */
-	public void addNewAlbum(){ //TODO Update parameters if needed - e.g. you might want to give the currently selected album as parameter
-		// TODO: Add your code here
+	public void addNewAlbum(){ 
 		
 		assert (!(selectedAlbum.equals(null)));
 		
@@ -68,10 +67,8 @@ public class MusicOrganizerController {
 	/**
 	 * Removes an album from the Music Organizer
 	 */
-	public void removeAlbum(){ //TODO Update parameters if needed
-		// TODO: Add your code here
+	public void removeAlbum(){ 
 
-		
 		if(selectedAlbum.getParent() != null) {
 			view.onAlbumRemoved(selectedAlbum);			
 		}
@@ -83,24 +80,14 @@ public class MusicOrganizerController {
 	 */
 	public void addSoundClips(){
 		
-		String directory = JOptionPane.showInputDialog("where is ur file??? please define the path :)",
-				"C:\\Users\\julkk\\git\\prog4\\uppgx_Norrman_Fransman\\sample-sound\\punk.wav"); //<-- default path for testing pourposes!
-		
-		
-		System.out.println(directory);
+		String directory = JOptionPane.showInputDialog("where is ur file??? please define the path :)");
+//				"C:\\Users\\julkk\\git\\prog4\\uppgx_Norrman_Fransman\\sample-sound\\punk.wav"); //<-- default path for testing pourposes!
 		
 		
 		//to prevent adding soundclip when nothing is selected.
 		if (selectedAlbum != null) {
-
-			//selectedAlbum.addSoundClips(new File(directory));
-
 			selectedAlbum.addSoundClips(loadSoundClips(directory));
 		}
-		
-		
-
-		System.out.println(directory);
 		
 		view.onClipsUpdated();
 		
@@ -109,25 +96,11 @@ public class MusicOrganizerController {
 	/**
 	 * Removes sound clips from an album
 	 */
-	public void removeSoundClips(){ //TODO Update parameters if needed
-		// TODO: Add your code here
-		
+	public void removeSoundClips(){
 		
 		selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
 		
-		//selectedSoundClips.removeSoundClip(selectedSoundClip);
-		//view.getSelectedSoundClips().clear();
-		
-		
 		view.onClipsUpdated();
-		
-		
-//		List<SoundClip> l = view.getSelectedSoundClips();
-//		for(int i=0;i<l.size();i++)
-//			
-//			l.remove(i);
-		
-		
 		
 	}
 	
@@ -142,6 +115,8 @@ public class MusicOrganizerController {
 		for(int i=0;i<l.size();i++)
 			queue.enqueue(l.get(i));
 	}
+	
+	
 	
 	
 	//TODO: FIX
@@ -190,7 +165,7 @@ public class MusicOrganizerController {
 		
 	}
 	
-	/*
+	/**
 	 *söker albummet du vill lägga till ett subalbum på och 
 	 *callar metoden addSubAlbum() på det albummet.
 	 */
@@ -213,7 +188,7 @@ public class MusicOrganizerController {
 	}
 	
 	
-	/*
+	/**
 	 *Söker föräldern till det albummet du vill ta bort och 
 	 *callar metoden removeSubAlbum på det albummet.
 	 */
@@ -245,6 +220,12 @@ public class MusicOrganizerController {
 	
 	
 	
+	
+	
+	//some setters and getters for fields in class.
+	
+	
+	
 	public void setSelected(Album album) {
 		
 		if (album != null) {
@@ -258,14 +239,6 @@ public class MusicOrganizerController {
 
 	}
 	
-	public void setSelectedSoundClip(SoundClip soundClip) {
-		
-		if (soundClip != null) {
-			selectedSoundClip = soundClip;
-		}
-
-	}
-
 	public Album getDoubleSelectedAlbum() {
 		return doubleSelectedAlbum;
 	}

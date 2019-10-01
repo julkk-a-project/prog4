@@ -199,7 +199,6 @@ public class MusicOrganizerWindow extends JFrame {
 		DefaultMutableTreeNode node = getSelectedTreeNode();
 		if(node != null) {
 			Album album = (Album) node.getUserObject();
-			onClipsUpdated();
 			return album;
 		} else {
 			return null;
@@ -229,10 +228,10 @@ public class MusicOrganizerWindow extends JFrame {
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
 		
-
-		controller.getSelected().addSubAlbum(newAlbum);
 		
 		try {
+			
+			controller.getSelected().addSubAlbum(newAlbum);
 
 			//We search for the parent of the newly added Album so we can create the new node in the correct place
 			for(Enumeration e = ((DefaultMutableTreeNode) model.getRoot()).breadthFirstEnumeration(); e.hasMoreElements();){

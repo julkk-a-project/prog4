@@ -43,9 +43,13 @@ public class SoundClip {
 		return file;
 	}
 	
+	/**
+	 * returns name of file instead of this. 
+	 */
 	public String toString(){
 		return file.getName();
 	}
+	
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -59,7 +63,10 @@ public class SoundClip {
 		return file.hashCode();
 	}
 	
-	
+	/**
+	 * gives ID to compare with
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
