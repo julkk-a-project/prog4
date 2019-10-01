@@ -91,13 +91,22 @@ public class MusicOrganizerWindow extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 
-				controller.setSelected(getSelectedAlbum());					
+				controller.setSelected(getSelectedAlbum());
+				
+				
 				// if left-double-click @@@changed =2 to ==1
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2){
 					
 					// TODO YOUR CODE HERE
 					// The code here gets invoked whenever the user double clicks in the album tree
-
+					try {
+						controller.setDoubleSelectedAlbum((Album) getSelectedTreeNode().getUserObject());	
+						
+						
+					}
+					catch(NullPointerException f) {
+						//when typecast causes null
+					}
 					
 					System.out.println("show the sound clips for album " + (getSelectedTreeNode().getUserObject()));
 					System.out.println(getSelectedTreeNode().getUserObject().getClass());
@@ -124,6 +133,8 @@ public class MusicOrganizerWindow extends JFrame {
 					
 					// TODO YOUR CODE HERE
 					// The code here gets invoked whenever the uses double clicks on the list of sound clips
+					
+					controller.playSoundClips();
 					
 					System.out.println("clicked on clipTable");
 					
@@ -218,6 +229,9 @@ public class MusicOrganizerWindow extends JFrame {
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
 		
+
+		controller.getSelected().addSubAlbum(newAlbum);
+		
 		try {
 
 			//We search for the parent of the newly added Album so we can create the new node in the correct place
@@ -231,6 +245,9 @@ public class MusicOrganizerWindow extends JFrame {
 				
 				
 				if(parentAlbum.equals(parent.getUserObject())){
+
+					System.out.println("GREJOR: "+parentAlbum.toString());
+					System.out.println("GREJORny: "+newAlbum.toString());
 					
 					DefaultMutableTreeNode trnode = new DefaultMutableTreeNode();
 					trnode.setUserObject(newAlbum);
@@ -273,7 +290,13 @@ public class MusicOrganizerWindow extends JFrame {
 	 * 
 	 */
 	public void onClipsUpdated(){
-		Album a = (Album) getSelectedTreeNode().getUserObject();
-		clipTable.display(a);
+		try {
+			//Album a = (Album) getSelectedTreeNode().getUserObject();
+			Album a = controller.getDoubleSelectedAlbum();
+			clipTable.display(a);	
+		}
+		catch (NullPointerException e) {
+			//when no soundclips seen
+		}
 	}
 }

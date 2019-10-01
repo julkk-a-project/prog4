@@ -10,17 +10,29 @@ import java.io.File;
 public class SoundClip {
 
 	private final File file;
-	private final int id;
+	private int id;
 	
 	/**
 	 * Make a SoundClip from a file.
 	 * Requires file != null.
 	 */
-	
+
 	public SoundClip(File file, Album parent) {
 		assert file != null;
 		this.file = file;
 		id = parent.getNextId();
+	}
+	
+	/**
+	 * used to create SoundClips with an unknown parent
+	 * for temporary SoundClip objects.
+	 * @param file
+	 * @param parent
+	 */
+	public SoundClip(File file) {
+		assert file != null;
+		this.file = file;
+		//id = parent.getNextId();
 	}
 
 	/**

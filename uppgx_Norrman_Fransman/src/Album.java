@@ -42,10 +42,32 @@ public class Album {
 		return subAlbums;
 	}
 
+	
+	
 	public ArrayList<SoundClip> getSoundClips() {
-		return soundClips;
+		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
+		soundClipsToBeShown.addAll(soundClips);
+		int i = 0;
+		
+		System.out.println(this.toString());
+
+		System.out.println(subAlbums.toString()+" "+i);
+		
+		for(int j = 0; j < subAlbums.size(); j++) {
+			System.out.println(j+"gaygaygay");
+		}
+		
+		for (Album a : subAlbums) {
+			System.out.println(a.toString()+" "+i++);
+			ArrayList<SoundClip> newStuff = a.getSoundClips();
+			soundClipsToBeShown.addAll(newStuff);
+		}
+		return soundClipsToBeShown;
 	}
 
+	
+	
+	
 	//to get specific index of soundclip
 	public SoundClip getSoundClip(int index) {
 		return soundClips.get(index);
@@ -135,20 +157,30 @@ public class Album {
 	
 
 	//this can't happen because we have the ID System, which requiers the parent album to be known at creation. :(
+	//nvm, just understood that i could do it this way.
 	
-//	public void addSoundClip(SoundClip soundClip) { //Lägger till en färdig soundclip objekt i listan där de sparas i albumet!
-//
-//		soundClips.add(soundClip);
-//
-//	}
+	public void addSoundClip(SoundClip soundClip) { //Lägger till en färdig soundclip objekt i listan där de sparas i albumet!
 
+	 soundClips.add(new SoundClip(soundClip.getFile(), this));
+
+	}
+
+	public void addSoundClips(Set<SoundClip> soundClips) {
+
+		for (SoundClip i : soundClips) {
+			addSoundClip(i);
+		}
+
+	}
+
+	/*
 	public void addSoundClips(Set<File> files) {
 		
 		for (File i : files) {
 			addSoundClip(i);
 		}
 		
-	}
+	}*/
 	
 	
 	/*
@@ -196,11 +228,9 @@ public class Album {
 					
 			for(int i = 0; i < soundClips.size(); i++) { 
 						
-				System.out.println("hetero");
 				
 				if(soundClips.get(i).getId() == (soundClipToBeRemoved.getId())) {
 							
-					System.out.println("gay");
 					soundClips.remove(i);			
 							
 					break;
