@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +10,7 @@ public class MusicOrganizerController {
 	private Album root;
 	private Album selectedAlbum;
 	private Album doubleSelectedAlbum;
+	private UndoRedoHandler undoRedoHandler;
 	
 	
 	
@@ -18,6 +18,9 @@ public class MusicOrganizerController {
 		
 		
 		root = new Album("All Sound Clips");
+		
+		undoRedoHandler = new UndoRedoHandler(root);
+		
 		
 		// Create the View in Model-View-Controller
 		view = new MusicOrganizerWindow(this);
@@ -61,6 +64,7 @@ public class MusicOrganizerController {
 		
 		view.onAlbumAdded(new Album(selectedAlbum, name));
 		 
+		undoRedoHandler.change(root);
 		
 	}
 	
@@ -70,7 +74,9 @@ public class MusicOrganizerController {
 	public void removeAlbum(){ 
 
 		if(selectedAlbum.getParent() != null) {
-			view.onAlbumRemoved(selectedAlbum);			
+			view.onAlbumRemoved(selectedAlbum);
+
+			undoRedoHandler.change(root);
 		}
 		
 	}
@@ -87,9 +93,11 @@ public class MusicOrganizerController {
 		//to prevent adding soundclip when nothing is selected.
 		if (selectedAlbum != null) {
 			selectedAlbum.addSoundClips(loadSoundClips(directory));
+
+			view.onClipsUpdated();
+			undoRedoHandler.change(root);
 		}
 		
-		view.onClipsUpdated();
 		
 	}
 	
@@ -98,9 +106,16 @@ public class MusicOrganizerController {
 	 */
 	public void removeSoundClips(){
 		
-		selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
 		
-		view.onClipsUpdated();
+		if(view.getSelectedSoundClips().equals(null)) {
+
+			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
+			
+			undoRedoHandler.change(root);
+			
+			view.onClipsUpdated();
+			
+		}
 		
 	}
 	
@@ -131,92 +146,96 @@ public class MusicOrganizerController {
 	
 	
 	
-	
-	
-	public Album findAlbum(ArrayList<Album> albums, String name){ //startar från roten och går neråt rekursivt tills rätt album hittas
-			
-		//Precondition
-		assert (root != null): "No albums available";
-		
-		try {
-		
-			for(int i = 0; i < albums.size(); i++) {
-			
-			if(albums.get(i).getName().equals(name))
-				return albums.get(i);
-			
-		}
-		
-		for(int i = 0; i < albums.size(); i++) {
-			
-			if(albums.get(i).getSubAlbums().size() != 0)
-				return findAlbum(albums.get(i).getSubAlbums(), name);
-			
-		}
-		
-		} catch(Exception e) {
-			
-			System.out.println(e);
-		
-		}
-		
-		return root;
-		
-		
-	}
+	/**
+	 * LEGACY CODE
+	 */
+//	public Album findAlbum(ArrayList<Album> albums, String name){ //startar från roten och går neråt rekursivt tills rätt album hittas
+//			
+//		//Precondition
+//		assert (root != null): "No albums available";
+//		
+//		try {
+//		
+//			for(int i = 0; i < albums.size(); i++) {
+//			
+//			if(albums.get(i).getName().equals(name))
+//				return albums.get(i);
+//			
+//		}
+//		
+//		for(int i = 0; i < albums.size(); i++) {
+//			
+//			if(albums.get(i).getSubAlbums().size() != 0)
+//				return findAlbum(albums.get(i).getSubAlbums(), name);
+//			
+//		}
+//		
+//		} catch(Exception e) {
+//			
+//			System.out.println(e);
+//		
+//		}
+//		
+//		return root;
+//		
+//		
+//	}
 	
 	/**
 	 *söker albummet du vill lägga till ett subalbum på och 
 	 *callar metoden addSubAlbum() på det albummet.
+	 *
+	 *LEGACY CODE
 	 */
 	
-	public void addAlbum(String parentAlbumName, String newAlbumName) { 
-		
-		//Precondition
-		assert(root != null): "No parent available";
-		
-		Album parent;
-		
-		if (parentAlbumName.equals(root.getName()))
-			parent = root;
-		else
-			parent = findAlbum(root.getSubAlbums(), parentAlbumName);
-		
-		//Postcondition
-		assert(parent.addSubAlbum(new Album(parent, newAlbumName))):"No album added";
-		
-	}
+//	public void addAlbum(String parentAlbumName, String newAlbumName) { 
+//		
+//		//Precondition
+//		assert(root != null): "No parent available";
+//		
+//		Album parent;
+//		
+//		if (parentAlbumName.equals(root.getName()))
+//			parent = root;
+//		else
+//			parent = findAlbum(root.getSubAlbums(), parentAlbumName);
+//		
+//		//Postcondition
+//		assert(parent.addSubAlbum(new Album(parent, newAlbumName))):"No album added";
+//		
+//	}
 	
 	
 	/**
 	 *Söker föräldern till det albummet du vill ta bort och 
 	 *callar metoden removeSubAlbum på det albummet.
+	 *LEGACY CODE
 	 */
 	
-	public void removeAlbum(String albumName) {
-		
-		//Preconditions
-		assert (root != null): "No albums available";
-		assert (!albumName.equals(root.getName())): "Root cannot be removed";
-		
-		Album albumToBeRemoved = findAlbum(root.getSubAlbums(), albumName);
-		
-		albumToBeRemoved.getParent().removeSubAlbum(albumToBeRemoved);
-		
-		while (albumToBeRemoved.getSubAlbums() == null) {
-			
-			for(int i = 0; i < albumToBeRemoved.getSubAlbums().size(); i++) {
-				
-				//Postcondition
-				assert(albumToBeRemoved.getSubAlbums().get(i).getParent().removeSubAlbum(albumToBeRemoved.getSubAlbums().get(i))): "No album removed";
-				
-			}
-			
-		}
-		
-		
-		
-	}	
+//	public void removeAlbum(String albumName) {
+//		
+//		//Preconditions
+//		assert (root != null): "No albums available";
+//		assert (!albumName.equals(root.getName())): "Root cannot be removed";
+//		
+//		Album albumToBeRemoved = findAlbum(root.getSubAlbums(), albumName);
+//		
+//		albumToBeRemoved.getParent().removeSubAlbum(albumToBeRemoved);
+//		
+//		while (albumToBeRemoved.getSubAlbums() == null) {
+//			
+//			for(int i = 0; i < albumToBeRemoved.getSubAlbums().size(); i++) {
+//				
+//				//Postcondition
+//				assert(albumToBeRemoved.getSubAlbums().get(i).getParent().removeSubAlbum(albumToBeRemoved.getSubAlbums().get(i))): "No album removed";
+//				
+//			}
+//			
+//		}
+//		
+//		
+//		
+//	}	
 	
 	
 	
@@ -226,6 +245,11 @@ public class MusicOrganizerController {
 	
 	
 	
+	//comment below helps unwanted comments to show in setter from legacy code
+	/**
+	 * setter
+	 * @param album
+	 */
 	public void setSelected(Album album) {
 		
 		if (album != null) {
