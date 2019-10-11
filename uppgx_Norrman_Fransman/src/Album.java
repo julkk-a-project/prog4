@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class Album {
+public class Album implements Undoable {
 
 	private Album parent;
 	private String name;

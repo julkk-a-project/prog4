@@ -1,7 +1,9 @@
+
 import java.util.List;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
 
 public class MusicOrganizerController {
 
@@ -10,23 +12,28 @@ public class MusicOrganizerController {
 	private Album root;
 	private Album selectedAlbum;
 	private Album doubleSelectedAlbum;
-	private UndoRedoHandler undoRedoHandler;
+	private JTree albumTree;
+	private Album newestAlbum;
+	private Album removedAlbum;
+	private Album removedAlbumParent;
+	private boolean redo = false;
 	
+	
+	//private Album previousAlbum; 
 	
 	
 	public MusicOrganizerController() {
-		
-		
+			
 		root = new Album("All Sound Clips");
-		
-		undoRedoHandler = new UndoRedoHandler(root);
-		
 		
 		// Create the View in Model-View-Controller
 		view = new MusicOrganizerWindow(this);
 		
+		albumTree = view.getAlbumTree();
+		
 		// Create the blocking queue
 		queue = new SoundClipBlockingQueue();
+		
 		
 		// Create a separate thread for the sound clip player and start it
 		(new Thread(new SoundClipPlayer(queue))).start();
@@ -42,6 +49,9 @@ public class MusicOrganizerController {
 
 		return clips;
 	}
+	
+	
+	 
 	
 	/**
 	 * Returns the root album
@@ -60,11 +70,12 @@ public class MusicOrganizerController {
 		
 		
 		String name = view.promptForAlbumName();
+		view.getManager().clearRedoStack();
 		
-		
-		view.onAlbumAdded(new Album(selectedAlbum, name));
+		newestAlbum = new Album(selectedAlbum, name);
+		view.onAlbumAdded(newestAlbum);
 		 
-		undoRedoHandler.change(root);
+		//undoRedoHandler.change(root);
 		
 	}
 	
@@ -74,12 +85,15 @@ public class MusicOrganizerController {
 	public void removeAlbum(){ 
 
 		if(selectedAlbum.getParent() != null) {
+			
 			view.onAlbumRemoved(selectedAlbum);
-
-			undoRedoHandler.change(root);
+			removedAlbum = selectedAlbum;
+			removedAlbumParent = removedAlbum.getParent();
+		}
+			//undoRedoHandler.change(root);
 		}
 		
-	}
+		
 	
 	/**
 	 * Adds sound clips to an album
@@ -95,7 +109,7 @@ public class MusicOrganizerController {
 			selectedAlbum.addSoundClips(loadSoundClips(directory));
 
 			view.onClipsUpdated();
-			undoRedoHandler.change(root);
+			//undoRedoHandler.change(root);
 		}
 		
 		
@@ -111,7 +125,7 @@ public class MusicOrganizerController {
 
 			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
 			
-			undoRedoHandler.change(root);
+			//undoRedoHandler.change(root);
 			
 			view.onClipsUpdated();
 			
@@ -131,21 +145,11 @@ public class MusicOrganizerController {
 			queue.enqueue(l.get(i));
 	}
 	
-	
-	
-	
-	//TODO: FIX
-	
-	
+	public Album getNewestAlbum() {
+		return newestAlbum;
+	}
 	
 
-
-
-	
-	
-	
-	
-	
 	/**
 	 * LEGACY CODE
 	 */
@@ -181,30 +185,7 @@ public class MusicOrganizerController {
 //		
 //	}
 	
-	/**
-	 *söker albummet du vill lägga till ett subalbum på och 
-	 *callar metoden addSubAlbum() på det albummet.
-	 *
-	 *LEGACY CODE
-	 */
-	
-//	public void addAlbum(String parentAlbumName, String newAlbumName) { 
-//		
-//		//Precondition
-//		assert(root != null): "No parent available";
-//		
-//		Album parent;
-//		
-//		if (parentAlbumName.equals(root.getName()))
-//			parent = root;
-//		else
-//			parent = findAlbum(root.getSubAlbums(), parentAlbumName);
-//		
-//		//Postcondition
-//		assert(parent.addSubAlbum(new Album(parent, newAlbumName))):"No album added";
-//		
-//	}
-	
+
 	
 	/**
 	 *Söker föräldern till det albummet du vill ta bort och 
@@ -275,13 +256,55 @@ public class MusicOrganizerController {
 		this.doubleSelectedAlbum = doubleSelectedAlbum;
 		view.onClipsUpdated();
 	}
-	
 
+	public void redo() {
+		
+		//try {
+			if(!view.getManager().getRedoStack().isEmpty())
+				redoAlbum((Album)view.getManager().undo());
+			
+			redo = false;
+		//} catch(Exception e) {
+			//System.out.println(e);
+		//}
+	}
 
+	private void redoAlbum(Album x) {
+		
+		//assert (!(x.equals(null)));
+		redo = true;
+		view.onAlbumAdded(x);
+		
+		
+	}
 
+	public void undo() {
+		
+		if(!view.getManager().getUndoStack().isEmpty()) {
+			
+			Album x = (Album)view.findNode(view.getManager().undo().getName()).getUserObject();
+			view.getManager().addToRedo(x);
+			undoAlbum(x);
+				
+	}
+	}
+	public void undoAlbum(Album x){ 
+		
+		if(x.getParent() != null) {
+			removedAlbum = x;
+			removedAlbumParent = removedAlbum.getParent();
+			view.onAlbumRemoved(x);
+
+		}
+		
+}
 	
+	public boolean isRedo() {
+		return redo;
+	}
 	
-	
-	
+	public Album getRemovedAlbumParent() {
+		return removedAlbumParent;
+	}
 	
 }

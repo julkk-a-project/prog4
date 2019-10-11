@@ -1,7 +1,11 @@
 
+import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -23,18 +27,19 @@ public class MusicOrganizerWindow extends JFrame {
 	private static int DEFAULT_WINDOW_HEIGHT = 600;
 
 	
-
+	private JSplitPane horizontalSplit;
+	private JSplitPane splitPane;
 	private final JTree albumTree;
 	private final SoundClipTable clipTable;
 	private MusicOrganizerButtonPanel buttonPanel;
 	private MusicOrganizerController controller;
 	private String DEAULT_ALBUM_NAME = "Album";
+	private UndoManager manager = new UndoManager();
 	
 	public MusicOrganizerWindow(MusicOrganizerController contr) {
 
 		// Store a reference to the controller
 		controller = contr;
-		
 		// make the row of buttons
 		buttonPanel = new MusicOrganizerButtonPanel(controller, this);
 		
@@ -44,16 +49,17 @@ public class MusicOrganizerWindow extends JFrame {
 		// make the clip table
 		clipTable = makeClipTable();
 		
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 				new JScrollPane(albumTree), new JScrollPane(clipTable));
 		splitPane.setDividerLocation(DEFAULT_WINDOW_WIDTH/2);
 		
 		// Place the buttonpanel above the two Jscrollpanes
-		JSplitPane horizontalSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPanel, splitPane);
-
-		this.add(horizontalSplit);
-				
+		horizontalSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, buttonPanel, splitPane);
+		
+		
+		
 		// give the whole window a good default size
+		this.add(horizontalSplit);
 		this.setTitle("Music Organizer");
 		this.setSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
 
@@ -63,13 +69,13 @@ public class MusicOrganizerWindow extends JFrame {
 		this.setVisible(true);
 		
 	}
+	
 
 	/**
 	 * Make the tree showing album names. 
 	 */
 	private JTree makeCatalogTree() {
 		
-
 		DefaultMutableTreeNode tree_root = new DefaultMutableTreeNode();
 		tree_root.setUserObject(controller.getRootAlbum());
 		
@@ -110,6 +116,7 @@ public class MusicOrganizerWindow extends JFrame {
 					
 					System.out.println("show the sound clips for album " + (getSelectedTreeNode().getUserObject()));
 					System.out.println(getSelectedTreeNode().getUserObject().getClass());
+					//System.out.println(memory.size());
 				}
 			}
 		});
@@ -224,29 +231,28 @@ public class MusicOrganizerWindow extends JFrame {
 		
 		assert newAlbum != null;
 		
+		manager.addToUndo(newAlbum);
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
 		
 		
-		try {
+		//try {
 			
-			controller.getSelected().addSubAlbum(newAlbum);
-
+			if(!controller.isRedo()) {
+				controller.getSelected().addSubAlbum(newAlbum);
+			} else {
+				controller.getRemovedAlbumParent().addSubAlbum(newAlbum);
+			}
 			//We search for the parent of the newly added Album so we can create the new node in the correct place
 			for(Enumeration e = ((DefaultMutableTreeNode) model.getRoot()).breadthFirstEnumeration(); e.hasMoreElements();){
 				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) e.nextElement();
 				
 				
-				
 				Album parentAlbum = newAlbum.getParent(); 
 				
 				
-				
 				if(parentAlbum.equals(parent.getUserObject())){
-
-					System.out.println("GREJOR: "+parentAlbum.toString());
-					System.out.println("GREJORny: "+newAlbum.toString());
 					
 					DefaultMutableTreeNode trnode = new DefaultMutableTreeNode();
 					trnode.setUserObject(newAlbum);
@@ -258,18 +264,21 @@ public class MusicOrganizerWindow extends JFrame {
 				}
 			}
 			
-		}catch(NullPointerException e) {
+		//}catch(NullPointerException e) {
 			
-			showMessage(e+"\n\nChoose a location for your album!");
+			//showMessage(e+"\n\nChoose a location for your album!");
 			
-		}
+		//}
 	}
+	
 	
 	/**
 	 * Updates the album hierarchy by removing an album from it
 	 */
 	public void onAlbumRemoved(Album album){
 		assert album != null;
+		
+		manager.addToRedo(album);
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
@@ -298,4 +307,71 @@ public class MusicOrganizerWindow extends JFrame {
 			//when no soundclips seen
 		}
 	}
+
+
+	public void redo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void undo() {
+		
+		manager.undo();
+		
+	}
+	
+	public UndoManager getManager() {
+		return manager;
+	}
+	
+	public JTree getAlbumTree() {
+		return albumTree;
+	}
+	
+	public final DefaultMutableTreeNode findNode(String string) {
+
+        List<DefaultMutableTreeNode> searchNodes = getSearchNodes((DefaultMutableTreeNode)albumTree.getModel().getRoot());
+        DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)albumTree.getLastSelectedPathComponent();
+
+        DefaultMutableTreeNode foundNode = null;
+        int bookmark = -1;
+
+        if(currentNode != null) {
+            for(int index = 0; index < searchNodes.size(); index++) {
+                if( searchNodes.get(index) == currentNode ) {
+                    bookmark = index;
+                    break;
+                }
+            }
+        }
+
+        for(int index = bookmark + 1; index < searchNodes.size(); index++) {    
+            if(searchNodes.get(index).toString().toLowerCase().contains(string.toLowerCase())) {
+                foundNode = searchNodes.get(index);
+                break;
+            }
+        }
+
+        if(foundNode == null) {
+            for(int index = 0; index <= bookmark; index++) {    
+                if(searchNodes.get(index).toString().equals(string)) {
+                    foundNode = searchNodes.get(index);
+                    break;
+                }
+            }
+        }
+        return foundNode;
+    }   
+
+    private final List<DefaultMutableTreeNode> getSearchNodes(DefaultMutableTreeNode root) {
+        List<DefaultMutableTreeNode> searchNodes = new ArrayList<DefaultMutableTreeNode>();
+
+        Enumeration<?> e = root.preorderEnumeration();
+        while(e.hasMoreElements()) {
+            searchNodes.add((DefaultMutableTreeNode)e.nextElement());
+        }
+        return searchNodes;
+    }
+
 }

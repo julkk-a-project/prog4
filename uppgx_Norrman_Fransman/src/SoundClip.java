@@ -7,10 +7,11 @@ import java.io.File;
  * sound clip file on disk.
  */
 
-public class SoundClip {
+public class SoundClip implements Undoable {
 
 	private final File file;
 	private int id;
+	private Album album; 
 	
 	/**
 	 * Make a SoundClip from a file.
@@ -19,6 +20,7 @@ public class SoundClip {
 
 	public SoundClip(File file, Album parent) {
 		assert file != null;
+		album = parent;
 		this.file = file;
 		id = parent.getNextId();
 	}
@@ -39,6 +41,10 @@ public class SoundClip {
 	 * @return the file containing this sound clip.
 	 */
 	
+	public Album getParent() {
+		return album;
+	}
+	
 	public File getFile() {
 		return file;
 	}
@@ -46,7 +52,8 @@ public class SoundClip {
 	/**
 	 * returns name of file instead of this. 
 	 */
-	public String toString(){
+	@Override
+	public String getName(){
 		return file.getName();
 	}
 	
@@ -70,4 +77,6 @@ public class SoundClip {
 	public int getId() {
 		return id;
 	}
+
+	
 }
