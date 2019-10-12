@@ -29,7 +29,7 @@ public class MusicOrganizerWindow extends JFrame {
 	
 	private JSplitPane horizontalSplit;
 	private JSplitPane splitPane;
-	private final JTree albumTree;
+	private JTree albumTree;
 	private final SoundClipTable clipTable;
 	private MusicOrganizerButtonPanel buttonPanel;
 	private MusicOrganizerController controller;
@@ -37,14 +37,14 @@ public class MusicOrganizerWindow extends JFrame {
 	private UndoManager manager = new UndoManager();
 	
 	public MusicOrganizerWindow(MusicOrganizerController contr) {
-
+		
 		// Store a reference to the controller
 		controller = contr;
 		// make the row of buttons
 		buttonPanel = new MusicOrganizerButtonPanel(controller, this);
 		
 		// make the album tree
-		albumTree = makeCatalogTree();
+		albumTree = makeCatalogTree(controller.getRootAlbum());
 		
 		// make the clip table
 		clipTable = makeClipTable();
@@ -70,14 +70,25 @@ public class MusicOrganizerWindow extends JFrame {
 		
 	}
 	
+	
+	public void changeRootParameters(Album newRoot) {
+		
+		Album currRoot = (Album)albumTree.getModel().getRoot();
+		
+		currRoot.setSubAlbumList(newRoot.getSubAlbums());
+		currRoot.setSoundClipList(newRoot.getSoundClips());
+		
+		
+	}
+	
 
 	/**
 	 * Make the tree showing album names. 
 	 */
-	private JTree makeCatalogTree() {
+	private JTree makeCatalogTree(Album album) {
 		
 		DefaultMutableTreeNode tree_root = new DefaultMutableTreeNode();
-		tree_root.setUserObject(controller.getRootAlbum());
+		tree_root.setUserObject(album);
 		
 		final JTree tree = new JTree(tree_root);
 		tree.setMinimumSize(new Dimension(200, 400));
@@ -235,15 +246,8 @@ public class MusicOrganizerWindow extends JFrame {
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
-		
-		
-		//try {
+			controller.getSelected().addSubAlbum(newAlbum);
 			
-			if(!controller.isRedo()) {
-				controller.getSelected().addSubAlbum(newAlbum);
-			} else {
-				controller.getRemovedAlbumParent().addSubAlbum(newAlbum);
-			}
 			//We search for the parent of the newly added Album so we can create the new node in the correct place
 			for(Enumeration e = ((DefaultMutableTreeNode) model.getRoot()).breadthFirstEnumeration(); e.hasMoreElements();){
 				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) e.nextElement();
@@ -263,12 +267,6 @@ public class MusicOrganizerWindow extends JFrame {
 					
 				}
 			}
-			
-		//}catch(NullPointerException e) {
-			
-			//showMessage(e+"\n\nChoose a location for your album!");
-			
-		//}
 	}
 	
 	

@@ -86,8 +86,13 @@ public class Album implements Undoable {
 	}
 	
 	
+	public void setSubAlbumList(ArrayList<Album> x) {
+		this.subAlbums = x;
+	}
 	
-	
+	public void setSoundClipList(ArrayList<SoundClip> x) {
+		this.soundClips = x;
+	}
 	
 	
 	/**

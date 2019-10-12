@@ -131,7 +131,8 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	}
 	
 	private JButton createRedoButton() {
-		JButton redoButton = new JButton("Redo");
+		ImageIcon redoIcon = new ImageIcon("icons/redo.png");
+		JButton redoButton = new JButton(redoIcon);
 		redoButton.setToolTipText("Redo");
 		redoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,7 +143,8 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	}
 		
 		private JButton createUndoButton() {
-			JButton undoButton = new JButton("Undo");
+			ImageIcon undoIcon = new ImageIcon("icons/undo.png");
+			JButton undoButton = new JButton(undoIcon);
 			undoButton.setToolTipText("Undo");
 			undoButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
