@@ -24,7 +24,7 @@ public class MusicOrganizerWindow extends JFrame {
 
 	
 
-	private final JTree albumTree;
+	private JTree albumTree;
 	private final SoundClipTable clipTable;
 	private MusicOrganizerButtonPanel buttonPanel;
 	private MusicOrganizerController controller;
@@ -39,7 +39,7 @@ public class MusicOrganizerWindow extends JFrame {
 		buttonPanel = new MusicOrganizerButtonPanel(controller, this);
 		
 		// make the album tree
-		albumTree = makeCatalogTree();
+		albumTree = makeCatalogTree(controller.getRootAlbum());
 		
 		// make the clip table
 		clipTable = makeClipTable();
@@ -66,12 +66,13 @@ public class MusicOrganizerWindow extends JFrame {
 
 	/**
 	 * Make the tree showing album names. 
+	 * @param album 
 	 */
-	private JTree makeCatalogTree() {
+	private JTree makeCatalogTree(Album album) {
 		
 
 		DefaultMutableTreeNode tree_root = new DefaultMutableTreeNode();
-		tree_root.setUserObject(controller.getRootAlbum());
+		tree_root.setUserObject(album);
 		
 		final JTree tree = new JTree(tree_root);
 		tree.setMinimumSize(new Dimension(200, 400));
@@ -283,6 +284,14 @@ public class MusicOrganizerWindow extends JFrame {
 			}
 		}
 	}
+	
+	public void setRootAlbum(Album newRoot){
+		//albumTree.setRoot();
+		
+		albumTree = makeCatalogTree(newRoot);
+		
+	}
+	
 	
 	/**
 	 * When called, the contents of the selected album are displayed in the clipTable

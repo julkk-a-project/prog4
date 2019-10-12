@@ -7,19 +7,21 @@ public class UndoRedoHandler {
 	
 	private LinkedList<Album> undoRedo;
 	private static final int undoDepth = 20;
+	private int cur = 0; //"pointer"
 	
 	
 	public UndoRedoHandler(Album root) {
 		undoRedo = new LinkedList<Album>();
-		undoRedo.add(root);
+		undoRedo.add(recursiveChange(root,null));
 	}
 	
 	
 	public void change(Album root) {
 		
 		Album newRoot = recursiveChange(root, null);
-		undoRedo.add(newRoot);
-		if( undoRedo.size() > 20) {
+		undoRedo.add(cur, newRoot);
+		cur++;
+		if( undoRedo.size() > undoDepth) {
 			undoRedo.remove(0); //should work according to my hobby testing i did this weekend.
 		}
 		
@@ -55,6 +57,21 @@ public class UndoRedoHandler {
 		
 		return newAlbum;
 		
+	}
+
+
+	public Album undo() {
+		
+		Album newRoot;
+		
+		if(cur>0) {
+			cur--;
+			return undoRedo.get(cur);
+			
+		}
+		else {
+			return null;	
+		}
 	}
 	
 	

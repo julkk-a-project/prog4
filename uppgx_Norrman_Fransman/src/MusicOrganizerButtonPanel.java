@@ -16,7 +16,9 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton deleteAlbumButton;
 	private JButton addSoundClipsButton;
 	private JButton removeSoundClipsButton;	
-	private JButton playButton;
+	private JButton playButton;	
+	private JButton undoButton;	
+	private JButton redoButton;
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
@@ -42,6 +44,12 @@ public class MusicOrganizerButtonPanel extends JPanel {
 
 		playButton = createPlayButton();
 		toolbar.add(playButton);
+		
+		undoButton = createUndoButton();
+		toolbar.add(undoButton);
+		
+		redoButton = createRedoButton();
+		toolbar.add(redoButton);
 		
 		this.add(toolbar);
 
@@ -117,6 +125,30 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.playSoundClips();
+			}
+		});
+		return playButton;
+	}
+	
+	private JButton createUndoButton() {
+		ImageIcon playIcon = new ImageIcon("icons/play_32.png");
+		JButton playButton = new JButton(playIcon);
+		playButton.setToolTipText("Play Selected Sound Clip");
+		playButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.undo();
+			}
+		});
+		return playButton;
+	}
+	
+	private JButton createRedoButton() {
+		ImageIcon playIcon = new ImageIcon("icons/play_32.png");
+		JButton playButton = new JButton(playIcon);
+		playButton.setToolTipText("Play Selected Sound Clip");
+		playButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.redo();
 			}
 		});
 		return playButton;

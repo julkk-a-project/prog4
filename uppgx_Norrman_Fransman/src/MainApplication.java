@@ -14,7 +14,8 @@ public class MainApplication {
 
 				MusicOrganizerController controller = new MusicOrganizerController();
 				if (args.length == 0) {
-					controller.loadSoundClips("sample-sound");
+					//see comment in MusicOrganizerController.java in loadSoundClips(String).
+						controller.getRootAlbum().addSoundClips(controller.loadSoundClips("sample-sound"));
 				} else if (args.length == 1) {
 					controller.loadSoundClips(args[0]);
 				} else {
