@@ -1,9 +1,17 @@
+package musicPlayer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
+
+import undoRedo.AddAlbum;
+import undoRedo.AddSoundClip;
+import undoRedo.RemoveAlbum;
+import undoRedo.RemoveSoundClip;
+import undoRedo.UndoRedoHandler;
 
 public class MusicOrganizerController {
 
@@ -32,7 +40,7 @@ public class MusicOrganizerController {
 		
 		albumTree = view.getAlbumTree();
 		
-		undoRedoHandler = new UndoRedoHandler(root, this);
+		undoRedoHandler = new UndoRedoHandler(this);
 		
 		// Create the blocking queue
 		queue = new SoundClipBlockingQueue();
@@ -73,12 +81,12 @@ public class MusicOrganizerController {
 		
 		
 		String name = view.promptForAlbumName();
-		view.getManager().clearRedoStack();
+		//view.getManager().clearRedoStack();
 		
 		newestAlbum = new Album(selectedAlbum, name);
 		view.onAlbumAdded(newestAlbum);
 		 
-		undoRedoHandler.change(root);
+		undoRedoHandler.change(new AddAlbum(this, newestAlbum));
 		
 	}
 	
@@ -88,12 +96,12 @@ public class MusicOrganizerController {
 	public void removeAlbum(){ 
 
 		if(selectedAlbum.getParent() != null) {
-
+			
+			undoRedoHandler.change(new RemoveAlbum(this, selectedAlbum));
 			view.onAlbumRemoved(selectedAlbum);
 			//removedAlbum = selectedAlbum;
 			//removedAlbumParent = removedAlbum.getParent();
 		}
-		undoRedoHandler.change(root);
 	}
 		
 		
@@ -109,9 +117,16 @@ public class MusicOrganizerController {
 		
 		//to prevent adding soundclip when nothing is selected.
 		if (selectedAlbum != null) {
-			selectedAlbum.addSoundClips(loadSoundClips(directory));
+			
+			List<AbstractSoundObject> clipsList = new ArrayList<>();
+			Set<SoundClip> clips = loadSoundClips(directory);
+			
+			
+			selectedAlbum.addSoundClips(clips);
+			clipsList.addAll(clips);
+			
 
-			undoRedoHandler.change(root);
+			undoRedoHandler.change(new AddSoundClip(this, clipsList));
 			
 			view.onClipsUpdated();
 		}
@@ -124,11 +139,18 @@ public class MusicOrganizerController {
 	public void removeSoundClips(){
 		
 		
-		if(view.getSelectedSoundClips().equals(null)) {
+		if(!view.getSelectedSoundClips().equals(null)) {
 
-			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
+
+			List<SoundClip> clips = view.getSelectedSoundClips();
+			List<AbstractSoundObject> clipsList = new ArrayList<>();
+			clipsList.addAll(clips);
 			
-			undoRedoHandler.change(root);
+
+			undoRedoHandler.change(new RemoveSoundClip(this, clipsList));
+			
+			doubleSelectedAlbum.removeSoundClips(clips);
+			
 			
 			view.onClipsUpdated();
 					
@@ -262,17 +284,20 @@ public class MusicOrganizerController {
 	
 	public void undo() {
 
-		Album newRoot = undoRedoHandler.undo();
-
-		root = newRoot;
-		System.out.println("hello");
-
-
+		undoRedoHandler.undo();
 	}
 
 	public void redo() {
-		// TODO Auto-generated method stub
+		undoRedoHandler.redo();
+	}
+	
+	public MusicOrganizerWindow getView() {
+		return view;
+	}
 
+	public UndoRedoHandler getUndoRedoHandler() {
+		// TODO Auto-generated method stub
+		return undoRedoHandler;
 	}
 	
 

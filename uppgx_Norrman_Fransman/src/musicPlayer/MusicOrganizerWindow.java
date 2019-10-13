@@ -1,3 +1,4 @@
+package musicPlayer;
 
 import java.awt.CardLayout;
 import java.awt.Container;
@@ -34,7 +35,7 @@ public class MusicOrganizerWindow extends JFrame {
 	private MusicOrganizerButtonPanel buttonPanel;
 	private MusicOrganizerController controller;
 	private String DEAULT_ALBUM_NAME = "Album";
-	private UndoManager manager = new UndoManager();
+	//private UndoManager manager = new UndoManager();
 	
 	public MusicOrganizerWindow(MusicOrganizerController contr) {
 		
@@ -242,7 +243,7 @@ public class MusicOrganizerWindow extends JFrame {
 		
 		assert newAlbum != null;
 		
-		manager.addToUndo(newAlbum);
+		//manager.addToUndo(newAlbum);
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
@@ -267,7 +268,43 @@ public class MusicOrganizerWindow extends JFrame {
 					
 				}
 			}
+	}	
+	/**
+	 * code duplication solution ;)
+	 * @param newAlbum
+	 */
+	public void onAlbumAdded(Album newAlbum, Album newAlbumParent){
+		
+		assert newAlbum != null;
+		
+		//manager.addToUndo(newAlbum);
+		
+		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
+		
+			newAlbumParent.addSubAlbum(newAlbum);
+			
+			//We search for the parent of the newly added Album so we can create the new node in the correct place
+			for(Enumeration e = ((DefaultMutableTreeNode) model.getRoot()).breadthFirstEnumeration(); e.hasMoreElements();){
+				DefaultMutableTreeNode parent = (DefaultMutableTreeNode) e.nextElement();
+				
+				
+				Album parentAlbum = newAlbum.getParent(); 
+				
+				
+				if(newAlbumParent.equals(parent.getUserObject())){
+					
+					DefaultMutableTreeNode trnode = new DefaultMutableTreeNode();
+					trnode.setUserObject(newAlbum);
+					
+					model.insertNodeInto(trnode, parent,
+							parent.getChildCount());
+					albumTree.scrollPathToVisible(new TreePath(trnode.getPath()));
+					
+				}
+			}
 	}
+	
+	
 	
 	
 	/**
@@ -276,7 +313,7 @@ public class MusicOrganizerWindow extends JFrame {
 	public void onAlbumRemoved(Album album){
 		assert album != null;
 		
-		manager.addToRedo(album);
+		//manager.addToRedo(album);
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
@@ -315,13 +352,13 @@ public class MusicOrganizerWindow extends JFrame {
 
 	public void undo() {
 		
-		manager.undo();
+		//manager.undo();
 		
 	}
 	
-	public UndoManager getManager() {
-		return manager;
-	}
+//	public UndoManager getManager() {
+//		return manager;
+//	}
 	
 	public JTree getAlbumTree() {
 		return albumTree;

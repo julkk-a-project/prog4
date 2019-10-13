@@ -1,3 +1,4 @@
+package musicPlayer;
 
 
 import java.io.File;
@@ -5,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class Album implements Undoable {
+public class Album extends AbstractSoundObject {
 
 	private Album parent;
 	private String name;
@@ -178,6 +179,8 @@ public class Album implements Undoable {
 		
 		//Precondition
 		assert (soundClips.size() > 0): "No soundclips to be removed";
+		
+		System.out.println("hello");
 				
 		for(int i = 0; i < soundClips.size(); i++) { 
 					
@@ -203,7 +206,8 @@ public class Album implements Undoable {
 	 */
 	public boolean removeSoundClips(List<SoundClip> soundClipsToBeRemoved) {
 			
-
+		System.out.println("gays");
+		
 		//Precondition
 		assert (soundClips.size() > 0): "No soundclips to be removed";
 		
@@ -219,7 +223,9 @@ public class Album implements Undoable {
 				if(soundClips.get(i).getId() == (soundClipToBeRemoved.getId())) {
 							
 					soundClips.remove(i);			
-							
+					
+					System.out.println("removed "+i);
+					
 					break;
 				}
 						

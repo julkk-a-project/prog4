@@ -1,3 +1,4 @@
+package musicPlayer;
 import javax.swing.SwingUtilities;
 
 public class MainApplication {

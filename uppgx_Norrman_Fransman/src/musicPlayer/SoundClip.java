@@ -1,3 +1,4 @@
+package musicPlayer;
 
 
 import java.io.File;
@@ -7,7 +8,7 @@ import java.io.File;
  * sound clip file on disk.
  */
 
-public class SoundClip implements Undoable {
+public class SoundClip extends AbstractSoundObject {
 
 	private final File file;
 	private int id;
@@ -52,7 +53,6 @@ public class SoundClip implements Undoable {
 	/**
 	 * returns name of file instead of this. 
 	 */
-	@Override
 	public String getName(){
 		return file.getName();
 	}
