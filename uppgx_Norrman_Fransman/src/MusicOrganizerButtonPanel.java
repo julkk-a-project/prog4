@@ -75,7 +75,10 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		newAlbumButton.setToolTipText("New Album");
 		newAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.addNewAlbum();
+				//controller.addNewAlbum();
+				AddAlbum addAlbumCommand = new AddAlbum(controller, controller.getView().getButtons());
+				DeviceButton onPressed = new DeviceButton(addAlbumCommand);
+				onPressed.press();
 			}
 		});
 		return newAlbumButton;
@@ -87,7 +90,10 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		deleteAlbumButton.setToolTipText("Delete Selected Album");
 		deleteAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.removeAlbum();
+				//controller.removeAlbum();
+				RemoveAlbum removeAlbumCommand = new RemoveAlbum(controller, controller.getView().getButtons());
+				DeviceButton onPressed = new DeviceButton(removeAlbumCommand);
+				onPressed.press();
 			}
 		});
 		return deleteAlbumButton;
@@ -96,10 +102,12 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createAddSoundClipsButton() {
 		ImageIcon addSoundClipsIcon = new ImageIcon("icons/document_add_32.png");
 		JButton addSoundClipButton = new JButton(addSoundClipsIcon);
-		addSoundClipButton.setToolTipText("Add Selected Sound Clips To Selected Album");
+		addSoundClipButton.setToolTipText ("Add Selected Sound Clips To Selected Album");
 		addSoundClipButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
-				controller.addSoundClips();
+				AddSoundClips addSoundClipsCommand = new AddSoundClips(controller, controller.getView().getButtons());
+				DeviceButton onPressed = new DeviceButton(addSoundClipsCommand);
+				onPressed.press();
 
 			}
 		});
@@ -112,7 +120,10 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		removeSoundClipsButton.setToolTipText("Remove Selected Sound Clips From Selected Album");
 		removeSoundClipsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.removeSoundClips();
+				//controller.removeSoundClips();
+				RemoveSoundClips removeSoundClipsCommand = new RemoveSoundClips(controller, controller.getView().getButtons());
+				DeviceButton onPressed = new DeviceButton(removeSoundClipsCommand);
+				onPressed.press();
 			}
 		});
 		return removeSoundClipsButton;
@@ -133,10 +144,18 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createRedoButton() {
 		ImageIcon redoIcon = new ImageIcon("icons/redo.png");
 		JButton redoButton = new JButton(redoIcon);
+		redoButton.setVisible(false);
 		redoButton.setToolTipText("Redo");
 		redoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.redo();
+				System.out.println("\nRedo Button Pressed\n");
+				System.out.println("There is " + controller.getRedoStack().size() + " commands in your redo stack.");
+				controller.getRedoStack().peek().redo();
+				System.out.println("\nRedo Excecuted\n");
+				System.out.println("There is now " + controller.getRedoStack().size() + " commands left in your redo stack.");
+				System.out.println("\nAnd " + controller.getUndoStack().size() + " commands left in your undo stack.\n");
+				System.out.println("\n\n\n");
+				
 			}
 		});
 		return redoButton;
@@ -145,13 +164,33 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		private JButton createUndoButton() {
 			ImageIcon undoIcon = new ImageIcon("icons/undo.png");
 			JButton undoButton = new JButton(undoIcon);
+			undoButton.setVisible(false);
 			undoButton.setToolTipText("Undo");
 			undoButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					controller.undo();
+					System.out.println("\nUndo Button Pressed\n");
+					System.out.println("There is " + controller.getUndoStack().size() + " commands in your undo stack.");
+					controller.getUndoStack().pop().undo();
+					System.out.println("\nUndo Excecuted\n");
+					System.out.println("There is now " + controller.getUndoStack().size() + " commands left in your undo stack.");
+					System.out.println("\nAnd " + controller.getRedoStack().size() + " commands left in your redo stack.\n");
+					System.out.println("\n\n\n");
+					if(controller.getUndoStack().empty())
+						undoButton.setVisible(false);
+					else
+						undoButton.setVisible(true);
 				}
 			});
 			return undoButton;
 		}
+		
+		public JButton getRedoButton() {
+			return redoButton;
+		}
+		
+		public JButton getUndoButton() {
+			return undoButton;
+		}
+		}
 
-}
+

@@ -34,7 +34,7 @@ public class MusicOrganizerWindow extends JFrame {
 	private MusicOrganizerButtonPanel buttonPanel;
 	private MusicOrganizerController controller;
 	private String DEAULT_ALBUM_NAME = "Album";
-	private UndoManager manager = new UndoManager();
+	//private UndoManager manager = new UndoManager();
 	
 	public MusicOrganizerWindow(MusicOrganizerController contr) {
 		
@@ -242,7 +242,7 @@ public class MusicOrganizerWindow extends JFrame {
 		
 		assert newAlbum != null;
 		
-		manager.addToUndo(newAlbum);
+		//manager.addToUndo(newAlbum);
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
@@ -276,7 +276,7 @@ public class MusicOrganizerWindow extends JFrame {
 	public void onAlbumRemoved(Album album){
 		assert album != null;
 		
-		manager.addToRedo(album);
+		//manager.addToRedo(album);
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
@@ -307,6 +307,7 @@ public class MusicOrganizerWindow extends JFrame {
 	}
 
 
+
 	public void redo() {
 		// TODO Auto-generated method stub
 		
@@ -315,14 +316,13 @@ public class MusicOrganizerWindow extends JFrame {
 
 	public void undo() {
 		
-		manager.undo();
 		
 	}
 	
-	public UndoManager getManager() {
-		return manager;
-	}
-	
+//	public UndoManager getManager() {
+//		return manager;
+//	}
+//	
 	public JTree getAlbumTree() {
 		return albumTree;
 	}
@@ -371,5 +371,11 @@ public class MusicOrganizerWindow extends JFrame {
         }
         return searchNodes;
     }
+
+
+	public MusicOrganizerButtonPanel getButtons() {
+		// TODO Auto-generated method stub
+		return buttonPanel;
+	}
 
 }

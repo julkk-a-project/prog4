@@ -1,11 +1,12 @@
 
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 
-public class MusicOrganizerController {
+public class MusicOrganizerController implements Actions {
 
 	private MusicOrganizerWindow view;
 	private SoundClipBlockingQueue queue;
@@ -16,7 +17,10 @@ public class MusicOrganizerController {
 	private Album newestAlbum;
 	private Album removedAlbum;
 	private Album removedAlbumParent;
-	private UndoRedoHandler undoRedoHandler;
+	
+	private Stack<Command> undoStack = new Stack<>();
+	private Stack<Command> redoStack = new Stack<>();
+	//private UndoRedoHandler undoRedoHandler;
 	private boolean redo = false;
 	
 	
@@ -32,7 +36,7 @@ public class MusicOrganizerController {
 		
 		albumTree = view.getAlbumTree();
 		
-		undoRedoHandler = new UndoRedoHandler(root, this);
+		//undoRedoHandler = new UndoRedoHandler(root, this);
 		
 		// Create the blocking queue
 		queue = new SoundClipBlockingQueue();
@@ -66,35 +70,52 @@ public class MusicOrganizerController {
 	/**
 	 * Adds an album to the Music Organizer
 	 */
-	public void addNewAlbum(){ 
+	public void addNewAlbum(AddAlbum x){ 
 		
 		assert (!(selectedAlbum.equals(null)));
 		
 		
 		
 		String name = view.promptForAlbumName();
-		view.getManager().clearRedoStack();
+		//view.getManager().clearRedoStack();
 		
 		newestAlbum = new Album(selectedAlbum, name);
+		x.setAlbum(newestAlbum);
 		view.onAlbumAdded(newestAlbum);
+		
+		redoStack.clear();
 		 
-		undoRedoHandler.change(root);
+		//undoRedoHandler.change(root);
+		
+	}
+	
+	public void addNewAlbum(Album x){
+		
+		view.onAlbumAdded(newestAlbum);
 		
 	}
 	
 	/**
 	 * Removes an album from the Music Organizer
 	 */
-	public void removeAlbum(){ 
+	public void removeAlbum(RemoveAlbum x){ 
 
 		if(selectedAlbum.getParent() != null) {
 
+			x.setAlbum(selectedAlbum);
 			view.onAlbumRemoved(selectedAlbum);
 			//removedAlbum = selectedAlbum;
 			//removedAlbumParent = removedAlbum.getParent();
 		}
-		undoRedoHandler.change(root);
+		//undoRedoHandler.change(root);
 	}
+	
+	public void removeAlbum(Album x){ 
+			
+		view.onAlbumRemoved(x);
+		
+	}
+	
 		
 		
 	
@@ -111,7 +132,7 @@ public class MusicOrganizerController {
 		if (selectedAlbum != null) {
 			selectedAlbum.addSoundClips(loadSoundClips(directory));
 
-			undoRedoHandler.change(root);
+			//undoRedoHandler.change(root);
 			
 			view.onClipsUpdated();
 		}
@@ -128,7 +149,7 @@ public class MusicOrganizerController {
 
 			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
 			
-			undoRedoHandler.change(root);
+		//	undoRedoHandler.change(root);
 			
 			view.onClipsUpdated();
 					
@@ -260,20 +281,51 @@ public class MusicOrganizerController {
 		view.onClipsUpdated();
 	}
 	
-	public void undo() {
+	//public void undo() {
 
-		Album newRoot = undoRedoHandler.undo();
+		//Album newRoot = undoRedoHandler.undo();
 
-		root = newRoot;
-		System.out.println("hello");
+		//root = newRoot;
+		//System.out.println("hello");
 
 
-	}
+	//}
 
 	public void redo() {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public Stack<Command> getUndoStack(){
+		return undoStack;
+	}
+	
+	public Stack<Command> getRedoStack(){
+		return redoStack;
+	}
+	
+	public MusicOrganizerWindow getView() {
+		return view;
+	}
+	
+	public void setButtons() {
+		
+		if(redoStack.empty())
+			view.getButtons().getRedoButton().setVisible(false);
+		else
+			view.getButtons().getRedoButton().setVisible(true);
+		
+		if(undoStack.empty())
+			view.getButtons().getUndoButton().setVisible(false);
+		else
+			view.getButtons().getUndoButton().setVisible(true);
+		
+	}
+	}
+
+	
+
+	
 	
 
 //	public void redo() {
@@ -326,4 +378,4 @@ public class MusicOrganizerController {
 //		return removedAlbumParent;
 //	}
 	
-}
+
