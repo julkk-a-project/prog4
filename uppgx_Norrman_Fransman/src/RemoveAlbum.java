@@ -25,6 +25,7 @@ public class RemoveAlbum implements Command {
 	@Override
 	public void undo() {
 		device.addNewAlbum(removedAlbum);
+		device.getUndoStack().pop();
 		device.getRedoStack().push(this);
 		device.setButtons();
 		
@@ -49,6 +50,11 @@ public class RemoveAlbum implements Command {
 
 		removedAlbumParent = x;
 
+	}
+
+	@Override
+	public Album getAlbum() {
+		return removedAlbum;
 	}
 
 }

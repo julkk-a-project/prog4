@@ -4,7 +4,7 @@ public class AddAlbum implements Command {
 	MusicOrganizerController device;
 	MusicOrganizerButtonPanel buttons;
 	Album addedAlbum;
-	Album addedAlbumParent;
+	//Album addedAlbumParent;
 	
 	public AddAlbum(MusicOrganizerController newDevice, MusicOrganizerButtonPanel buttons) {
 		
@@ -28,6 +28,7 @@ public class AddAlbum implements Command {
 	public void undo() {
 		
 		device.removeAlbum(addedAlbum);
+		device.getUndoStack().pop();
 		device.getRedoStack().push(this);
 		device.setButtons();
 		
@@ -54,10 +55,15 @@ public class AddAlbum implements Command {
 	
 	public void setAlbumParent(Album x) {
 
-		addedAlbumParent = x;
+		
+		//TODO: implement?
+		//addedAlbumParent = x;
 
 	}
-
+	
+	public Album getAlbum() {
+		return addedAlbum;
+	}
 	
 
 	

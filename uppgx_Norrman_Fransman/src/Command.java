@@ -7,4 +7,6 @@ public interface Command {
 	
 	public void redo();
 	
+	public Album getAlbum();
+	
 }

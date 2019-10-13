@@ -72,15 +72,13 @@ public class MusicOrganizerController implements Actions {
 		
 		assert (!(selectedAlbum.equals(null)));
 		
-		
-		
 		String name = view.promptForAlbumName();
 		
 		newestAlbum = new Album(selectedAlbum, name);
 		x.setAlbum(newestAlbum);
 		x.setAlbumParent(newestAlbum.getParent());
 		view.onAlbumAdded(newestAlbum);
-		
+		//undoStack.peek().getAlbum().setParent(newestAlbum.getParent());
 		redoStack.clear();
 		 
 	}
@@ -118,7 +116,7 @@ public class MusicOrganizerController implements Actions {
 	/**
 	 * Adds sound clips to an album
 	 */
-	public void addSoundClips(){
+	public void addSoundClips(AddSoundClips x){
 		
 		String directory = JOptionPane.showInputDialog("where is ur file??? please define the path :)");
 //				"C:\\Users\\julkk\\git\\prog4\\uppgx_Norrman_Fransman\\sample-sound\\punk.wav"); //<-- default path for testing pourposes!
@@ -135,6 +133,11 @@ public class MusicOrganizerController implements Actions {
 		
 	}
 	
+	public void addSoundClips() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	/**
 	 * Removes sound clips from an album
 	 */
@@ -144,8 +147,6 @@ public class MusicOrganizerController implements Actions {
 		if(view.getSelectedSoundClips().equals(null)) {
 
 			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
-			
-		//	undoRedoHandler.change(root);
 			
 			view.onClipsUpdated();
 					
@@ -225,6 +226,13 @@ public class MusicOrganizerController implements Actions {
 			view.getButtons().getUndoButton().setVisible(false);
 		else
 			view.getButtons().getUndoButton().setVisible(true);
+		
+	}
+
+	
+
+	public void removeSoundClips(RemoveSoundClips removeSoundClips) {
+		// TODO Auto-generated method stub
 		
 	}
 	}

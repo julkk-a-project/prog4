@@ -14,7 +14,7 @@ public class RemoveSoundClips implements Command {
 	
 	public void excecute() {
 		
-		device.removeSoundClips();
+		device.removeSoundClips(this);
 		device.getUndoStack().push(this);
 		
 		device.setButtons();
@@ -25,7 +25,8 @@ public class RemoveSoundClips implements Command {
 	@Override
 	public void undo() {
 		device.addSoundClips();
-		device.getUndoStack().push(this);
+		device.getUndoStack().pop();
+		device.getRedoStack().push(this);
 		device.setButtons();
 		
 	}
@@ -34,8 +35,16 @@ public class RemoveSoundClips implements Command {
 	@Override
 	public void redo() {
 		// TODO Auto-generated method stub
+		excecute();
 		device.setButtons();
 		
+	}
+
+
+	@Override
+	public Album getAlbum() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

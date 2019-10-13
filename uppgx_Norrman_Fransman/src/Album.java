@@ -33,6 +33,10 @@ public class Album {
 		return parent;
 	}
 	
+	public void setParent(Album x) {
+		parent = x;
+	}
+	
 	public String getName() {
 		return name;
 	}

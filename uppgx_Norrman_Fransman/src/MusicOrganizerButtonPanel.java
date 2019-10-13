@@ -155,36 +155,36 @@ public class MusicOrganizerButtonPanel extends JPanel {
 				System.out.println("There is now " + controller.getRedoStack().size() + " commands left in your redo stack.");
 				System.out.println("\nAnd " + controller.getUndoStack().size() + " commands left in your undo stack.\n");
 				System.out.println("\n\n\n");
-				
+
 			}
 		});
 		return redoButton;
 	}
-		
-		private JButton createUndoButton() {
-			ImageIcon undoIcon = new ImageIcon("icons/undo.png");
-			JButton undoButton = new JButton(undoIcon);
-			undoButton.setVisible(false);
-			undoButton.setToolTipText("Undo");
-			undoButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("\nUndo Button Pressed\n");
-					System.out.println("There is " + controller.getUndoStack().size() + " commands in your undo stack.");
-					controller.getUndoStack().pop().undo();
-					System.out.println("\nUndo Excecuted\n");
-					System.out.println("There is now " + controller.getUndoStack().size() + " commands left in your undo stack.");
-					System.out.println("\nAnd " + controller.getRedoStack().size() + " commands left in your redo stack.\n");
-					System.out.println("\n\n\n");
-					if(controller.getUndoStack().empty())
-						undoButton.setVisible(false);
-					else
-						undoButton.setVisible(true);
-				}
-			});
-			return undoButton;
-		}
-		
-		public JButton getRedoButton() {
+
+	private JButton createUndoButton() {
+		ImageIcon undoIcon = new ImageIcon("icons/undo.png");
+		JButton undoButton = new JButton(undoIcon);
+		undoButton.setVisible(false);
+		undoButton.setToolTipText("Undo");
+		undoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("\nUndo Button Pressed\n");
+				System.out.println("There is " + controller.getUndoStack().size() + " commands in your undo stack.");
+				controller.getUndoStack().peek().undo();
+				System.out.println("\nUndo Excecuted\n");
+				System.out.println("There is now " + controller.getUndoStack().size() + " commands left in your undo stack.");
+				System.out.println("\nAnd " + controller.getRedoStack().size() + " commands left in your redo stack.\n");
+				System.out.println("\n\n\n");
+				if(controller.getUndoStack().empty())
+					undoButton.setVisible(false);
+				else
+					undoButton.setVisible(true);
+			}
+		});
+		return undoButton;
+	}
+
+	public JButton getRedoButton() {
 			return redoButton;
 		}
 		
