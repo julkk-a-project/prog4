@@ -247,6 +247,7 @@ public class MusicOrganizerWindow extends JFrame {
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
 			controller.getSelected().addSubAlbum(newAlbum);
+			System.out.println(controller.getSelected());
 			
 			//We search for the parent of the newly added Album so we can create the new node in the correct place
 			for(Enumeration e = ((DefaultMutableTreeNode) model.getRoot()).breadthFirstEnumeration(); e.hasMoreElements();){

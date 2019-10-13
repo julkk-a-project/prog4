@@ -4,6 +4,7 @@ public class AddAlbum implements Command {
 	MusicOrganizerController device;
 	MusicOrganizerButtonPanel buttons;
 	Album addedAlbum;
+	Album addedAlbumParent;
 	
 	public AddAlbum(MusicOrganizerController newDevice, MusicOrganizerButtonPanel buttons) {
 		
@@ -50,6 +51,13 @@ public class AddAlbum implements Command {
 		addedAlbum = x;
 		
 	}
+	
+	public void setAlbumParent(Album x) {
+
+		addedAlbumParent = x;
+
+	}
+
 	
 
 	

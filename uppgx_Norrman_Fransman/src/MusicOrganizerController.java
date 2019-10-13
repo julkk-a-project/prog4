@@ -15,8 +15,6 @@ public class MusicOrganizerController implements Actions {
 	private Album doubleSelectedAlbum;
 	private JTree albumTree;
 	private Album newestAlbum;
-	private Album removedAlbum;
-	private Album removedAlbumParent;
 	
 	private Stack<Command> undoStack = new Stack<>();
 	private Stack<Command> redoStack = new Stack<>();
@@ -77,16 +75,14 @@ public class MusicOrganizerController implements Actions {
 		
 		
 		String name = view.promptForAlbumName();
-		//view.getManager().clearRedoStack();
 		
 		newestAlbum = new Album(selectedAlbum, name);
 		x.setAlbum(newestAlbum);
+		x.setAlbumParent(newestAlbum.getParent());
 		view.onAlbumAdded(newestAlbum);
 		
 		redoStack.clear();
 		 
-		//undoRedoHandler.change(root);
-		
 	}
 	
 	public void addNewAlbum(Album x){
@@ -103,11 +99,11 @@ public class MusicOrganizerController implements Actions {
 		if(selectedAlbum.getParent() != null) {
 
 			x.setAlbum(selectedAlbum);
+			x.setAlbumParent(selectedAlbum.getParent());
 			view.onAlbumRemoved(selectedAlbum);
-			//removedAlbum = selectedAlbum;
-			//removedAlbumParent = removedAlbum.getParent();
+			
 		}
-		//undoRedoHandler.change(root);
+		
 	}
 	
 	public void removeAlbum(Album x){ 

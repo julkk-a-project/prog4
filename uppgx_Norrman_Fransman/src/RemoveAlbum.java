@@ -4,6 +4,7 @@ public class RemoveAlbum implements Command {
 	MusicOrganizerController device;
 	MusicOrganizerButtonPanel buttons;
 	Album removedAlbum;
+	Album removedAlbumParent;
 	
 	public RemoveAlbum(MusicOrganizerController newDevice, MusicOrganizerButtonPanel buttons) {
 		
@@ -38,10 +39,16 @@ public class RemoveAlbum implements Command {
 		
 	}
 	
-public void setAlbum(Album x) {
-		
+	public void setAlbum(Album x) {
+
 		removedAlbum = x;
-		
+
+	}
+	
+	public void setAlbumParent(Album x) {
+
+		removedAlbumParent = x;
+
 	}
 
 }
