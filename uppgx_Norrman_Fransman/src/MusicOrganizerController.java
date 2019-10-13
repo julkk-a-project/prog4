@@ -174,82 +174,6 @@ public class MusicOrganizerController implements Actions {
 	}
 	
 
-	/**
-	 * LEGACY CODE
-	 */
-//	public Album findAlbum(ArrayList<Album> albums, String name){ //startar från roten och går neråt rekursivt tills rätt album hittas
-//			
-//		//Precondition
-//		assert (root != null): "No albums available";
-//		
-//		try {
-//		
-//			for(int i = 0; i < albums.size(); i++) {
-//			
-//			if(albums.get(i).getName().equals(name))
-//				return albums.get(i);
-//			
-//		}
-//		
-//		for(int i = 0; i < albums.size(); i++) {
-//			
-//			if(albums.get(i).getSubAlbums().size() != 0)
-//				return findAlbum(albums.get(i).getSubAlbums(), name);
-//			
-//		}
-//		
-//		} catch(Exception e) {
-//			
-//			System.out.println(e);
-//		
-//		}
-//		
-//		return root;
-//		
-//		
-//	}
-	
-
-	
-	/**
-	 *Söker föräldern till det albummet du vill ta bort och 
-	 *callar metoden removeSubAlbum på det albummet.
-	 *LEGACY CODE
-	 */
-	
-//	public void removeAlbum(String albumName) {
-//		
-//		//Preconditions
-//		assert (root != null): "No albums available";
-//		assert (!albumName.equals(root.getName())): "Root cannot be removed";
-//		
-//		Album albumToBeRemoved = findAlbum(root.getSubAlbums(), albumName);
-//		
-//		albumToBeRemoved.getParent().removeSubAlbum(albumToBeRemoved);
-//		
-//		while (albumToBeRemoved.getSubAlbums() == null) {
-//			
-//			for(int i = 0; i < albumToBeRemoved.getSubAlbums().size(); i++) {
-//				
-//				//Postcondition
-//				assert(albumToBeRemoved.getSubAlbums().get(i).getParent().removeSubAlbum(albumToBeRemoved.getSubAlbums().get(i))): "No album removed";
-//				
-//			}
-//			
-//		}
-//		
-//		
-//		
-//	}	
-	
-	
-	
-	
-	
-	//some setters and getters for fields in class.
-	
-	
-	
 	//comment below helps unwanted comments to show in setter from legacy code
 	/**
 	 * setter
@@ -281,20 +205,6 @@ public class MusicOrganizerController implements Actions {
 		view.onClipsUpdated();
 	}
 	
-	//public void undo() {
-
-		//Album newRoot = undoRedoHandler.undo();
-
-		//root = newRoot;
-		//System.out.println("hello");
-
-
-	//}
-
-	public void redo() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	public Stack<Command> getUndoStack(){
 		return undoStack;
@@ -327,55 +237,3 @@ public class MusicOrganizerController implements Actions {
 
 	
 	
-
-//	public void redo() {
-//		
-//		//try {
-//			if(!view.getManager().getRedoStack().isEmpty())
-//				redoAlbum((Album)view.getManager().undo());
-//			
-//			redo = false;
-//		//} catch(Exception e) {
-//			//System.out.println(e);
-//		//}
-//	}
-
-//	private void redoAlbum(Album x) {
-//		
-//		//assert (!(x.equals(null)));
-//		redo = true;
-//		view.onAlbumAdded(x);
-//		
-//		
-//	}
-
-//	public void undo() {
-//		
-//		if(!view.getManager().getUndoStack().isEmpty()) {
-//			
-//			Album x = (Album)view.findNode(view.getManager().undo().getName()).getUserObject();
-//			view.getManager().addToRedo(x);
-//			undoAlbum(x);
-//				
-//	}
-//	}
-//	public void undoAlbum(Album x){ 
-//		
-//		if(x.getParent() != null) {
-//			removedAlbum = x;
-//			removedAlbumParent = removedAlbum.getParent();
-//			view.onAlbumRemoved(x);
-//
-//		}
-//		
-//}
-//	
-//	public boolean isRedo() {
-//		return redo;
-//	}
-//	
-//	public Album getRemovedAlbumParent() {
-//		return removedAlbumParent;
-//	}
-	
-
