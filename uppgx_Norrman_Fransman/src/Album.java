@@ -320,10 +320,13 @@ public class Album {
 		return temp;
 	}
 
-	public void addSoundClips(ArrayList<SoundClip> addedSoundClips) {
+	public ArrayList<SoundClip> addSoundClips(ArrayList<SoundClip> addedSoundClips) {
 		Set<SoundClip> set = new HashSet<SoundClip>();
 		set.addAll(addedSoundClips);
 		addSoundClips(set);
+		
+		//to make ID system work with undoredo
+		return getLastAddedSoundClips();
 	}
 	
 }

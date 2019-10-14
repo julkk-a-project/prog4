@@ -90,11 +90,8 @@ public class MusicOrganizerController implements Actions {
 
 		ArrayList<Album> list = UndoRedoHandler.getAllChildren(x);
 
-		System.out.println("sysout list size: "+list.size());
-		
 		for(int i = 0; i < list.size(); i++) {
 			Album current = list.get(i);
-			System.out.println("remove album x: "+current.getName());
 			view.onAlbumAdded(current);
 		}	
 		
@@ -151,7 +148,6 @@ public class MusicOrganizerController implements Actions {
 			
 			selectedAlbum.addSoundClips(clips);
 			
-			System.out.println("soundclips: "+clipsList.toString());
 			
 			x.setSoundClips(selectedAlbum.getLastAddedSoundClips());
 			x.setParent(selectedAlbum);
@@ -173,11 +169,14 @@ public class MusicOrganizerController implements Actions {
 	/**
 	 * Removes sound clips from an album
 	 */
-	public void removeSoundClips(){
+	public void removeSoundClips(RemoveSoundClips x){
 		
 		
 		if(!view.getSelectedSoundClips().equals(null)) {
 
+			x.setParent(selectedAlbum);
+			x.setSoundClips((ArrayList<SoundClip>) view.getSelectedSoundClips());
+			
 			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
 			
 			view.onClipsUpdated();
@@ -273,19 +272,27 @@ public class MusicOrganizerController implements Actions {
 
 	
 
-	public void removeSoundClips(RemoveSoundClips removeSoundClips) {
-		// TODO IMPLEMENT PRONTO
+//	public void removeSoundClips(RemoveSoundClips x) {
+//		
+//		
+//		
+//		
+//		redoStack.clear();
+//		
+//	}
+
+	public ArrayList<SoundClip> addSoundClips(ArrayList<SoundClip> addedSoundClips, Album parent) {
+
+		ArrayList<SoundClip> newClipId =  parent.addSoundClips(addedSoundClips);
+
+		view.onClipsUpdated();
 		
-		
-		redoStack.clear();
-		
+		return newClipId;
 	}
 
-	public void addSoundClips(ArrayList<SoundClip> addedSoundClips, Album parent) {
-
-		parent.addSoundClips(addedSoundClips);
-
-		
+	@Override
+	public void removeSoundClips() {
+		// TODO Auto-generated method stub
 		
 	}
 }

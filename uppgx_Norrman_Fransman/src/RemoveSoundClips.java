@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 
 public class RemoveSoundClips implements Command {
 	
-	MusicOrganizerController device;
-	MusicOrganizerButtonPanel buttons;
+	private MusicOrganizerController device;
+	private MusicOrganizerButtonPanel buttons;
+	private ArrayList<SoundClip> removedSoundClips;
+	private Album parent;
 	
 	public RemoveSoundClips(MusicOrganizerController newDevice, MusicOrganizerButtonPanel buttons) {
 		
@@ -24,7 +27,9 @@ public class RemoveSoundClips implements Command {
 
 	@Override
 	public void undo() {
-		device.addSoundClips();
+		
+		//to work arround ID system
+		removedSoundClips = device.addSoundClips(removedSoundClips, parent);
 		device.getUndoStack().pop();
 		device.getRedoStack().push(this);
 		device.setButtons();
@@ -34,8 +39,9 @@ public class RemoveSoundClips implements Command {
 
 	@Override
 	public void redo() {
-		// TODO Auto-generated method stub
-		excecute();
+		
+		device.removeSoundClips(removedSoundClips, parent);
+		device.getUndoStack().push(device.getRedoStack().pop());
 		device.setButtons();
 		
 	}
@@ -47,5 +53,17 @@ public class RemoveSoundClips implements Command {
 		return null;
 	}
 
+	public void setSoundClips(ArrayList<SoundClip> x) {
+		removedSoundClips = x;
+	}
+	
+	public void setParent(Album x) {
+		parent = x;
+	}
+
+
+	public ArrayList<SoundClip> getSoundClips() {
+		return removedSoundClips;
+	}
 	
 }

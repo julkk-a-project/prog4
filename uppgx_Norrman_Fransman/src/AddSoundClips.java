@@ -38,8 +38,10 @@ public class AddSoundClips implements Command {
 	@Override
 	public void redo() {
 		
-		System.out.println("SOUNDCLIPS");
-		device.addSoundClips(addedSoundClips, parent);
+		
+		//to work arround ID system
+		addedSoundClips = device.addSoundClips(addedSoundClips, parent);
+		
 		device.getUndoStack().push(device.getRedoStack().pop());
 		device.setButtons();
 	}
