@@ -4,7 +4,7 @@ public class AddAlbum implements Command {
 	MusicOrganizerController device;
 	MusicOrganizerButtonPanel buttons;
 	Album addedAlbum;
-	//Album addedAlbumParent;
+	Album addedAlbumParent;
 	
 	public AddAlbum(MusicOrganizerController newDevice, MusicOrganizerButtonPanel buttons) {
 		
@@ -37,10 +37,6 @@ public class AddAlbum implements Command {
 
 	@Override
 	public void redo() {
-		System.out.println("-------------------------------");
-		System.out.println(device.getRedoStack().size());
-		System.out.println("-------------------------------");
-		
 		device.addNewAlbum(addedAlbum);
 		device.getUndoStack().push(device.getRedoStack().pop());
 		device.setButtons();
@@ -56,8 +52,7 @@ public class AddAlbum implements Command {
 	public void setAlbumParent(Album x) {
 
 		
-		//TODO: implement?
-		//addedAlbumParent = x;
+		addedAlbumParent = x;
 
 	}
 	

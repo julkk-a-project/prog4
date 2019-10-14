@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class RemoveAlbum implements Command {
 	
@@ -24,6 +25,7 @@ public class RemoveAlbum implements Command {
 
 	@Override
 	public void undo() {
+		
 		device.addNewAlbum(removedAlbum);
 		device.getUndoStack().pop();
 		device.getRedoStack().push(this);
@@ -56,6 +58,14 @@ public class RemoveAlbum implements Command {
 	public Album getAlbum() {
 		return removedAlbum;
 	}
+	
+	
+	public void setSubAlbums(ArrayList<Album> x) {
+		removedAlbum.setSubAlbumList(x);
+	}
+	
+	
+	
 
 }
 

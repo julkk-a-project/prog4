@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -85,7 +86,18 @@ public class MusicOrganizerController implements Actions {
 	
 	public void addNewAlbum(Album x){
 		
-		view.onAlbumAdded(newestAlbum);
+
+		ArrayList<Album> list = UndoRedoHandler.getAllChildren(x);
+
+		System.out.println("sysout list size: "+list.size());
+		
+		for(int i = 0; i < list.size(); i++) {
+			Album current = list.get(i);
+			System.out.println("remove album x: "+current.getName());
+			view.onAlbumAdded(current);
+		}	
+		
+		//view.onAlbumAdded(x);
 		
 	}
 	
@@ -98,7 +110,9 @@ public class MusicOrganizerController implements Actions {
 
 			x.setAlbum(selectedAlbum);
 			x.setAlbumParent(selectedAlbum.getParent());
+			x.setSubAlbums(selectedAlbum.getSubAlbums());
 			view.onAlbumRemoved(selectedAlbum);
+			redoStack.clear();
 			
 		}
 		
@@ -106,6 +120,10 @@ public class MusicOrganizerController implements Actions {
 	
 	public void removeAlbum(Album x){ 
 			
+		
+		
+
+		
 		view.onAlbumRemoved(x);
 		
 	}
@@ -129,6 +147,7 @@ public class MusicOrganizerController implements Actions {
 			//undoRedoHandler.change(root);
 			
 			view.onClipsUpdated();
+			redoStack.clear();
 		}
 		
 	}
@@ -232,7 +251,10 @@ public class MusicOrganizerController implements Actions {
 	
 
 	public void removeSoundClips(RemoveSoundClips removeSoundClips) {
-		// TODO Auto-generated method stub
+		// TODO IMPLEMENT PRONTO
+		
+		
+		redoStack.clear();
 		
 	}
 	}
