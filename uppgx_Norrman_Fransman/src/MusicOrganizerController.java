@@ -186,7 +186,7 @@ public class MusicOrganizerController implements Actions {
 	public void removeSoundClips(ArrayList<SoundClip> x, Album parent){
 
 
-		parent.removeSoundClips(view.getSelectedSoundClips());
+		parent.removeSoundClips(x);
 
 		view.onClipsUpdated();
 
