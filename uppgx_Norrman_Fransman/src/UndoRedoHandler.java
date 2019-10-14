@@ -48,8 +48,9 @@ public class UndoRedoHandler {
 		
 		levelList.add(0,album1);
 
-		levelList = getAllChildrenRec(levelList, album.getSubAlbums(), 0);
-
+		if(album.getSubAlbums().size() > 0) {
+			levelList = getAllChildrenRec(levelList, album.getSubAlbums(), 0);
+		}
 		return parseSubLists(levelList);
 	}
 
@@ -82,7 +83,10 @@ public class UndoRedoHandler {
 		for(int i = 0; i < subAlbums.size(); i++) {
 			Album curAlbum = subAlbums.get(i);
 			levelList.get(level).add(curAlbum);
-			levelList = getAllChildrenRec(levelList, curAlbum.getSubAlbums(), level++);
+			if(curAlbum.getSubAlbums().size() > 0) {
+				levelList = getAllChildrenRec(levelList, curAlbum.getSubAlbums(), level++);	
+			}
+			
 		}
 		return levelList;
 	}

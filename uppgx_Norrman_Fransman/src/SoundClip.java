@@ -78,5 +78,10 @@ public class SoundClip{
 		return id;
 	}
 
+	public void setId(int i) {
+		id = i;
+		
+	}
+
 	
 }

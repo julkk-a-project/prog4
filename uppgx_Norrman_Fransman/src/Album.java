@@ -2,6 +2,7 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ public class Album {
 	private ArrayList<Album> subAlbums = new ArrayList<Album>();
 	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
 	private int idToSoundClip = 0;
+	private ArrayList<SoundClip> lastAddedSoundClips = new ArrayList<SoundClip>();
 	
 	
 	public Album(String name) {  //skapar rot album
@@ -171,19 +173,35 @@ public class Album {
 	
 
 	
-	public void addSoundClip(SoundClip soundClip) { //Lägger till en färdig soundclip objekt i listan där de sparas i albumet!
+	public int addSoundClip(SoundClip soundClip) { //Lägger till en färdig soundclip objekt i listan där de sparas i albumet!
 
-	 soundClips.add(new SoundClip(soundClip.getFile(), this));
-
+		SoundClip newSoundClip = new SoundClip(soundClip.getFile(), this);
+		soundClips.add(newSoundClip);
+		return newSoundClip.getId();
+	 
 	}
 
 	//lägger till en mängd soundclips till albumet.
 	public void addSoundClips(Set<SoundClip> soundClips) {
 
-		for (SoundClip i : soundClips) {
-			addSoundClip(i);
+		int[] id = new int[soundClips.size()];
+		int i = 0;
+		for (SoundClip j : soundClips) {
+			
+			id[i] = addSoundClip(j);
+			i++;
 		}
 
+		//to set them to recently added list
+		i = 0;
+		for (SoundClip j : soundClips) {
+
+			j.setId(id[i]);
+			
+			lastAddedSoundClips.add(j);
+			i++;
+		}
+		
 	}
 	
 	
@@ -293,6 +311,19 @@ public class Album {
 		
 		return idToSoundClip++;
 		
+	}
+
+	public ArrayList<SoundClip> getLastAddedSoundClips() {
+		ArrayList<SoundClip> temp = new ArrayList<>();
+		temp.addAll(lastAddedSoundClips);
+		lastAddedSoundClips.clear();
+		return temp;
+	}
+
+	public void addSoundClips(ArrayList<SoundClip> addedSoundClips) {
+		Set<SoundClip> set = new HashSet<SoundClip>();
+		set.addAll(addedSoundClips);
+		addSoundClips(set);
 	}
 	
 }

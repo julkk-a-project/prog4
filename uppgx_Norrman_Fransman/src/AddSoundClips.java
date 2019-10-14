@@ -26,7 +26,7 @@ public class AddSoundClips implements Command {
 
 	@Override
 	public void undo() {
-		System.out.println("SOUNDCLIPS");
+		
 		device.removeSoundClips(addedSoundClips, parent);
 		device.getUndoStack().pop();
 		device.getRedoStack().push(this);
@@ -37,10 +37,11 @@ public class AddSoundClips implements Command {
 
 	@Override
 	public void redo() {
-		// TODO Auto-generated method stub
-		excecute();
-		device.setButtons();
 		
+		System.out.println("SOUNDCLIPS");
+		device.addSoundClips(addedSoundClips, parent);
+		device.getUndoStack().push(device.getRedoStack().pop());
+		device.setButtons();
 	}
 
 

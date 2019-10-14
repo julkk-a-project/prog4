@@ -151,7 +151,9 @@ public class MusicOrganizerController implements Actions {
 			
 			selectedAlbum.addSoundClips(clips);
 			
-			x.setSoundClips(clipsList);
+			System.out.println("soundclips: "+clipsList.toString());
+			
+			x.setSoundClips(selectedAlbum.getLastAddedSoundClips());
 			x.setParent(selectedAlbum);
 			
 			
@@ -278,7 +280,15 @@ public class MusicOrganizerController implements Actions {
 		redoStack.clear();
 		
 	}
+
+	public void addSoundClips(ArrayList<SoundClip> addedSoundClips, Album parent) {
+
+		parent.addSoundClips(addedSoundClips);
+
+		
+		
 	}
+}
 
 	
 
