@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class AddAlbum implements Command {
 	
@@ -5,6 +6,7 @@ public class AddAlbum implements Command {
 	MusicOrganizerButtonPanel buttons;
 	Album addedAlbum;
 	Album addedAlbumParent;
+	
 	
 	public AddAlbum(MusicOrganizerController newDevice, MusicOrganizerButtonPanel buttons) {
 		
@@ -59,7 +61,10 @@ public class AddAlbum implements Command {
 	public Album getAlbum() {
 		return addedAlbum;
 	}
-	
+
+	public void setSoundClips(ArrayList<SoundClip> soundClips) {
+		addedAlbum.setSoundClipList(soundClips);
+	}
 
 	
 }

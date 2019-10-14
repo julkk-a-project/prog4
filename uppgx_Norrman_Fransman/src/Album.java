@@ -49,19 +49,36 @@ public class Album {
 	
 	
 	/**
-	 * returns all soundclips, and recursevly also all subalbum's soundclips.
+	 * returns all soundclips(, and recursevly also all subalbum's soundclips.)
 	 * 
 	 */
 	public ArrayList<SoundClip> getSoundClips() {
 		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
 		soundClipsToBeShown.addAll(soundClips);
+	
 		
-		for (Album a : subAlbums) {
-			soundClipsToBeShown.addAll(a.getSoundClips());
-		}
+		//bug, please ignore.
+		
+//		if(subAlbums.size() > 0) {
+//			for (Album a : subAlbums) {
+//				soundClipsToBeShown.addAll(a.getSoundClips());
+//			}	
+//		}
+		
 		return soundClipsToBeShown;
 	}
 
+	
+	/**
+	 * returns all soundclips
+	 * 
+	 */
+	public ArrayList<SoundClip> getSoundClipsList() {
+		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
+		soundClipsToBeShown.addAll(soundClips);
+		
+		return soundClipsToBeShown;
+	}
 	
 	
 	

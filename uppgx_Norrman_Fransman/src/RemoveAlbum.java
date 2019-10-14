@@ -64,6 +64,10 @@ public class RemoveAlbum implements Command {
 		removedAlbum.setSubAlbumList(x);
 	}
 	
+	public void setSoundClips(ArrayList<SoundClip> soundClips) {
+		removedAlbum.setSoundClipList(soundClips);
+	}
+	
 	
 	
 

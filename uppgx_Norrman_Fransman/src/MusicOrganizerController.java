@@ -78,6 +78,7 @@ public class MusicOrganizerController implements Actions {
 		newestAlbum = new Album(selectedAlbum, name);
 		x.setAlbum(newestAlbum);
 		x.setAlbumParent(newestAlbum.getParent());
+		x.setSoundClips(newestAlbum.getSoundClipsList());
 		view.onAlbumAdded(newestAlbum);
 		//undoStack.peek().getAlbum().setParent(newestAlbum.getParent());
 		redoStack.clear();
@@ -111,6 +112,7 @@ public class MusicOrganizerController implements Actions {
 			x.setAlbum(selectedAlbum);
 			x.setAlbumParent(selectedAlbum.getParent());
 			x.setSubAlbums(selectedAlbum.getSubAlbums());
+			x.setSoundClips(selectedAlbum.getSoundClipsList());
 			view.onAlbumRemoved(selectedAlbum);
 			redoStack.clear();
 			
@@ -142,8 +144,17 @@ public class MusicOrganizerController implements Actions {
 		
 		//to prevent adding soundclip when nothing is selected.
 		if (selectedAlbum != null) {
-			selectedAlbum.addSoundClips(loadSoundClips(directory));
-
+			Set<SoundClip> clips = loadSoundClips(directory);
+			
+			ArrayList<SoundClip> clipsList = new ArrayList<>();
+			clipsList.addAll(clips);
+			
+			selectedAlbum.addSoundClips(clips);
+			
+			x.setSoundClips(clipsList);
+			x.setParent(selectedAlbum);
+			
+			
 			//undoRedoHandler.change(root);
 			
 			view.onClipsUpdated();
@@ -163,7 +174,7 @@ public class MusicOrganizerController implements Actions {
 	public void removeSoundClips(){
 		
 		
-		if(view.getSelectedSoundClips().equals(null)) {
+		if(!view.getSelectedSoundClips().equals(null)) {
 
 			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
 			
@@ -171,6 +182,16 @@ public class MusicOrganizerController implements Actions {
 					
 		}
 		
+	}
+	public void removeSoundClips(ArrayList<SoundClip> x, Album parent){
+
+
+		parent.removeSoundClips(view.getSelectedSoundClips());
+
+		view.onClipsUpdated();
+
+
+
 	}
 	
 	/**

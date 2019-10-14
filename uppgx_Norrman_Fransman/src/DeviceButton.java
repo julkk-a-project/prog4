@@ -3,8 +3,6 @@ import java.util.Stack;
 public class DeviceButton {
 	
 	Command theCommand;
-	Stack<Command> undoStack;
-	Stack<Command> redoStack;
 	
 	public DeviceButton(Command newCommand) {
 		
