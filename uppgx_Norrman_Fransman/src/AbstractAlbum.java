@@ -120,22 +120,8 @@ public abstract class AbstractAlbum {
 	//lägger till en mängd soundclips till albumet.
 	public void addSoundClips(Set<SoundClip> soundClips) {
 
-		int[] id = new int[soundClips.size()];
-		int i = 0;
 		for (SoundClip j : soundClips) {
-			
-			id[i] = addSoundClip(j);
-			i++;
-		}
-
-		//to set them to recently added list
-		i = 0;
-		for (SoundClip j : soundClips) {
-
-			j.setId(id[i]);
-			
-			lastAddedSoundClips.add(j);
-			i++;
+			addSoundClip(j);
 		}
 		
 	}
@@ -253,20 +239,20 @@ public abstract class AbstractAlbum {
 
 	}
 
-	public ArrayList<SoundClip> getLastAddedSoundClips() {
-		ArrayList<SoundClip> temp = new ArrayList<>();
-		temp.addAll(lastAddedSoundClips);
-		lastAddedSoundClips.clear();
-		return temp;
-	}
+//	public ArrayList<SoundClip> getLastAddedSoundClips() {
+//		ArrayList<SoundClip> temp = new ArrayList<>();
+//		temp.addAll(lastAddedSoundClips);
+//		lastAddedSoundClips.clear();
+//		return temp;
+//	}
 
-	public ArrayList<SoundClip> addSoundClips(ArrayList<SoundClip> addedSoundClips) {
+	public void addSoundClips(ArrayList<SoundClip> addedSoundClips) {
 		Set<SoundClip> set = new HashSet<SoundClip>();
 		set.addAll(addedSoundClips);
 		addSoundClips(set);
 		
 		//to make ID system work with undoredo
-		return getLastAddedSoundClips();
+		//return getLastAddedSoundClips();
 	}
 	
 
