@@ -8,10 +8,22 @@ public class FlagAlbum extends AbstractSearchAlbum {
 	}
 	
 	
-	@Override
 	public ArrayList<SoundClip> getSoundClipsRec() {
+
+		clearClips();
+		
 		return getSoundClips();
 	}
 
+
+	protected void clearClips() {
+		for (int i = 0; i < getSoundClips().size(); i++) {
+			if(!getSoundClip(i).flagged) {
+				getSoundClips().remove(i);
+				clearClips();
+				break;
+			}
+		}
+	}
 	
 }

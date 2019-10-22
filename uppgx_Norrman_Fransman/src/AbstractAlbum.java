@@ -113,6 +113,8 @@ public abstract class AbstractAlbum {
 	}
 	
 	
+
+	
 	
 	
 	
@@ -129,6 +131,8 @@ public abstract class AbstractAlbum {
 				
 		for(int i = 0; i < getSoundClips().size(); i++) { 
 					
+			System.out.println("gay");
+			
 			if(getSoundClips().get(i).getName().equals(soundClipToBeRemoved.getName())) {
 						
 				//Postcondition

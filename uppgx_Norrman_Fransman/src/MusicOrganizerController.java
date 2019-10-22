@@ -257,6 +257,23 @@ public class MusicOrganizerController implements Actions {
 	}
 	
 	public AbstractAlbum getDoubleSelectedAlbum() {
+		
+		
+		//Typecast pattern in use!
+		try {
+			FlagAlbum a = (FlagAlbum) doubleSelectedAlbum;
+			a.clearClips();
+		}catch (ClassCastException e) {
+			try {
+				StarAlbum a = (StarAlbum) doubleSelectedAlbum;
+				a.clearClips();
+			}catch (ClassCastException f) {
+				
+			}			
+		}
+		//end of typecast pattern!
+		
+		
 		return doubleSelectedAlbum;
 	}
 	
