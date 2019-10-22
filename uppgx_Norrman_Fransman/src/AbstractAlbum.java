@@ -80,6 +80,13 @@ public abstract class AbstractAlbum {
 	
 	
 
+	
+	public void addOldSoundClips(Set<SoundClip> soundClips) {
+		
+	}
+	
+	
+	
 	public void addSoundClip(File inFile) { //Lägger till en fil i albummet och skapar en SoundClip för filen
 
 		getSoundClips().add(new SoundClip(inFile, this));
@@ -90,8 +97,8 @@ public abstract class AbstractAlbum {
 	
 	public void addSoundClip(SoundClip soundClip) { //Lägger till en färdig soundclip objekt i listan där de sparas i albumet!
 
-		SoundClip newSoundClip = new SoundClip(soundClip.getFile(), this);
-		getSoundClips().add(newSoundClip);
+		//SoundClip newSoundClip = new SoundClip(soundClip.getFile(), this);
+		getSoundClips().add(soundClip);
 		//return newSoundClip.getId();
 	 
 	}
@@ -104,6 +111,7 @@ public abstract class AbstractAlbum {
 		}
 		
 	}
+	
 	
 	
 	
