@@ -13,6 +13,7 @@ public class SoundClip{
 	private AbstractAlbum album; 
 	private int rating;
 	boolean flagged;
+	boolean toBeRemoved;
 	
 	/**
 	 * Make a SoundClip from a file.
@@ -95,6 +96,12 @@ public class SoundClip{
 	public void setRating(int rating) {this.rating = rating;}
 	
 	public int getRating() {return rating;}
+	
+	public boolean toBeremoved() {return toBeRemoved;}
+
+	public void setToBeRemoved(boolean toBeRemoved) {
+		this.toBeRemoved = toBeRemoved;
+	}
 	
 	
 	

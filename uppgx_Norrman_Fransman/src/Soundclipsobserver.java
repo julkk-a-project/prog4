@@ -41,7 +41,20 @@ public class Soundclipsobserver implements Observer {
 		if(!flaggedSoundclips.isEmpty()){
 
 			for(SoundClip clip: flaggedSoundclips) {
-				this.flaggedSoundclips.add(clip);
+				if(!clip.toBeremoved()) {
+					this.flaggedSoundclips.add(clip);
+				} else {
+					
+					for(int i = 0; i < flaggedSoundclips.size(); i++) {
+						
+						if(clip.getName().equals(flaggedSoundclips.get(i).getName())){
+							System.out.println(this.flaggedSoundclips.get(i).getName() + "-----------");
+							this.flaggedSoundclips.remove(i);
+						}
+						
+					}
+					
+				}
 			}
 
 		}

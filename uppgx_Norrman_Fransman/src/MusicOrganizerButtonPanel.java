@@ -28,6 +28,8 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private Soundclipsobserver observer = new Soundclipsobserver(soundclipGrabber);
 	private ArrayList<SoundClip> starSoundclips = new ArrayList<SoundClip>();
 	private ArrayList<SoundClip> flaggedSoundclips = new ArrayList<SoundClip>();
+	
+	boolean beRemoved;
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
@@ -212,9 +214,12 @@ public class MusicOrganizerButtonPanel extends JPanel {
 				
 				for(int i = 0; i < view.getSelectedSoundClips().size(); i++) {
 					if(view.getSelectedSoundClips().get(i).getFlagged()) {
+						view.getSelectedSoundClips().get(i).setToBeRemoved(true);
 						view.getSelectedSoundClips().get(i).setFlagged(false);
+						System.out.println(view.getSelectedSoundClips().get(i).getName() + "xddddddddddddddddddddddddddddddddddddddddd");
 					}
 					else {
+						view.getSelectedSoundClips().get(i).setToBeRemoved(false);
 						view.getSelectedSoundClips().get(i).setFlagged(true);
 						
 					}	
@@ -247,6 +252,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 						
 						for(SoundClip clip : view.getSelectedSoundClips()) {
 							starSoundclips.add(clip);
+							clip.setToBeRemoved(false);
 						}
 						
 						soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips);
