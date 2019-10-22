@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +23,11 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton rateButton;	
 	private JButton undoButton;
 	private JButton redoButton;	
+	
+	private SoundclipGrabber soundclipGrabber = new SoundclipGrabber();
+	private Soundclipsobserver observer = new Soundclipsobserver(soundclipGrabber);
+	private ArrayList<SoundClip> starSoundclips = new ArrayList<SoundClip>();
+	private ArrayList<SoundClip> flaggedSoundclips = new ArrayList<SoundClip>();
 
 	
 	public MusicOrganizerButtonPanel(MusicOrganizerController contr, MusicOrganizerWindow view){
@@ -210,9 +216,16 @@ public class MusicOrganizerButtonPanel extends JPanel {
 					}
 					else {
 						view.getSelectedSoundClips().get(i).setFlagged(true);
+						
 					}	
 				}
 
+				for(SoundClip clip : view.getSelectedSoundClips()) {
+					flaggedSoundclips.add(clip);
+				}
+				
+				soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips);
+				flaggedSoundclips.clear();
 				view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 			}	
 		});
@@ -230,6 +243,15 @@ public class MusicOrganizerButtonPanel extends JPanel {
 					view.showMessage("Soundclip needs to be selected");
 				} else {
 					int score = Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating 1-5. "));
+					if(score > 3 && score <= 5) {
+						
+						for(SoundClip clip : view.getSelectedSoundClips()) {
+							starSoundclips.add(clip);
+						}
+						
+						soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips);
+						starSoundclips.clear();
+					}
 					if(score > 0 && score <= 5) {
 						for(int i = 0; i < view.getSelectedSoundClips().size(); i++) {
 							view.getSelectedSoundClips().get(i).setRating(score);							
@@ -238,6 +260,9 @@ public class MusicOrganizerButtonPanel extends JPanel {
 					} else {
 						view.showMessage("Ratings from 1-5.");
 					}
+					
+					
+					
 				}
 			}	
 		});

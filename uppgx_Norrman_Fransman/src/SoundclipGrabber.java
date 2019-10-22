@@ -11,7 +11,8 @@ public class SoundclipGrabber implements Subject {
 	public SoundclipGrabber() {
 		
 		observers = new ArrayList<Soundclipsobserver>();
-		
+		starSoundclips = new ArrayList<SoundClip>();
+		flaggedSoundclips = new ArrayList<SoundClip>();
 	}
 	
 	public void register(Soundclipsobserver newObserver) {
@@ -43,9 +44,23 @@ public class SoundclipGrabber implements Subject {
 	
 	public void setSoundClips(ArrayList<SoundClip> newStarSoundclips, ArrayList<SoundClip> newFlaggedSoundclips) {
 		
-		this.starSoundclips = newStarSoundclips;
-		this.flaggedSoundclips = newFlaggedSoundclips;
+		if(!newStarSoundclips.isEmpty()) {
+			
+			for(SoundClip clip: newStarSoundclips) {
+				this.starSoundclips.add(clip);
+			}
+			
+		} else {
+			
+			for(SoundClip clip: newFlaggedSoundclips) {
+				this.flaggedSoundclips.add(clip);
+			}
+			
+		}
+
 		notifyObserver();
+		starSoundclips.clear();
+		flaggedSoundclips.clear();
 		
 	}
 	
