@@ -92,6 +92,10 @@ public class SoundClip{
 	
 	public boolean getFlagged() {return flagged;}
 	
+	public void setRating(int rating) {this.rating = rating;}
+	
+	public int getRating() {return rating;}
+	
 	
 	
 	

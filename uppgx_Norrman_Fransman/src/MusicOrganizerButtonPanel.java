@@ -202,7 +202,6 @@ public class MusicOrganizerButtonPanel extends JPanel {
 				if(view.getSelectedSoundClips().toString().equals("[]") || view.getSelectedSoundClips() == null) {
 					view.showMessage("Soundclip needs to be selected");
 				} else if(view.getSelectedSoundClips().get(0).getFlagged()) {
-					System.out.println("iii");
 					view.getSelectedSoundClips().get(0).setFlagged(false);
 					view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 				} else {
@@ -220,13 +219,13 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(view.getSelectedSoundClips() == null) {
+				if(view.getSelectedSoundClips().toString().equals("[]") || view.getSelectedSoundClips() == null) {
 					view.showMessage("Soundclip needs to be selected");
 				} else {
-
+					view.getSelectedSoundClips().get(0).setRating(Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating.")));
+					view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 				}
-
-			}
+			}	
 		});
 		return undoButton;
 	}
