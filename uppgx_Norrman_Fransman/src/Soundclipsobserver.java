@@ -82,5 +82,6 @@ public class Soundclipsobserver implements Observer {
 	
 	public ArrayList<SoundClip> getStarSoundclips(){return starSoundclips;}
 	public ArrayList<SoundClip> getFlaggedSoundclips(){return flaggedSoundclips;}
+
 	
 }
