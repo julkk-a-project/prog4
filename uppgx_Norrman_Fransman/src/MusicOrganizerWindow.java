@@ -77,7 +77,7 @@ public class MusicOrganizerWindow extends JFrame {
 		Album currRoot = (Album)albumTree.getModel().getRoot();
 		
 		currRoot.setSubAlbumList(newRoot.getSubAlbums());
-		currRoot.setSoundClipList(newRoot.getSoundClips());
+		currRoot.setSoundClips(newRoot.getSoundClips());
 		
 		
 	}
