@@ -222,8 +222,13 @@ public class MusicOrganizerButtonPanel extends JPanel {
 				if(view.getSelectedSoundClips().toString().equals("[]") || view.getSelectedSoundClips() == null) {
 					view.showMessage("Soundclip needs to be selected");
 				} else {
-					view.getSelectedSoundClips().get(0).setRating(Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating.")));
-					view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
+					int score = Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating 1-5. "));
+					if(score > 0 && score <= 5) {
+						view.getSelectedSoundClips().get(0).setRating(score);
+						view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
+					} else {
+						view.showMessage("Ratings from 1-5.");
+					}
 				}
 			}	
 		});
