@@ -235,7 +235,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 				
 				soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips, controller.getStarAlbum(), controller.getFlagAlbum());
 				flaggedSoundclips.clear();
-				view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
+				view.getClipTable().display(controller.getDoubleSelectedAlbum());
 			}	
 		});
 		return flagButton;
