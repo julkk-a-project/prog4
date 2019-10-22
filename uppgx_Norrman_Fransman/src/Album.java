@@ -10,33 +10,33 @@ public class Album extends AbstractAlbum {
 
 //	private Album parent;
 //	private String name;
-	private ArrayList<Album> subAlbums = new ArrayList<Album>();
+	private ArrayList<AbstractAlbum> subAlbums = new ArrayList<AbstractAlbum>();
 //	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
 //	private int idToSoundClip = 0;
 //	private ArrayList<SoundClip> lastAddedSoundClips = new ArrayList<SoundClip>();
 	
-	
+
 	public Album(String name) {  //skapar rot album
-		
+
 		this.setName(name);
 
 	}
-	
+
 	public Album(Album parent, String name) { //skapar sub album
-		
+
 		this.setParent(parent);
 		this.setName(name);
-		
+
 	} 
 	
 	
-	public ArrayList<Album> getSubAlbums() {
+	public ArrayList<AbstractAlbum> getSubAlbums() {
 		return subAlbums;
 	}
 
 	
 	
-	public void setSubAlbumList(ArrayList<Album> x) {
+	public void setSubAlbumList(ArrayList<AbstractAlbum> x) {
 		subAlbums = x;
 	}
 	
@@ -53,7 +53,7 @@ public class Album extends AbstractAlbum {
 		
 		//this ifstatement makes undo/redo not work.
 		if(subAlbums.size() > 0) {
-			for (Album a : subAlbums) {
+			for (AbstractAlbum a : subAlbums) {
 				soundClipsToBeShown.addAll(a.getSoundClipsRec());
 			}	
 		}
@@ -69,7 +69,7 @@ public class Album extends AbstractAlbum {
 	
 	
 	
-	public boolean addSubAlbum(Album newAlbum) { //Lägger till ett sub album
+	public boolean addSubAlbum(AbstractAlbum newAlbum) { //Lägger till ett sub album
 		
 		getSubAlbums().add(newAlbum);
 		return true;

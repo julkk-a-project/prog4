@@ -118,7 +118,7 @@ public class MusicOrganizerWindow extends JFrame {
 					// TODO YOUR CODE HERE
 					// The code here gets invoked whenever the user double clicks in the album tree
 					try {
-						controller.setDoubleSelectedAlbum((Album) getSelectedTreeNode().getUserObject());	
+						controller.setDoubleSelectedAlbum((AbstractAlbum)getSelectedTreeNode().getUserObject());	
 						
 						
 					}
@@ -215,10 +215,19 @@ public class MusicOrganizerWindow extends JFrame {
 	 * @return the selected album
 	 */
 	public Album getSelectedAlbum() {
+
 		DefaultMutableTreeNode node = getSelectedTreeNode();
 		if(node != null) {
-			Album album = (Album) node.getUserObject();
-			return album;
+			try {
+				Album album = (Album) node.getUserObject();
+				return album;	
+			}
+			catch (ClassCastException e){
+
+				return null;
+
+
+			}
 		} else {
 			return null;
 		}
@@ -239,7 +248,7 @@ public class MusicOrganizerWindow extends JFrame {
 	 * Updates the album hierarchy with a new album
 	 * @param newAlbum
 	 */
-	public void onAlbumAdded(Album newAlbum){
+	public void onAlbumAdded(AbstractAlbum newAlbum){
 		
 		assert newAlbum != null;
 		
@@ -247,7 +256,7 @@ public class MusicOrganizerWindow extends JFrame {
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
-			((Album) controller.getSelected()).addSubAlbum(newAlbum);
+			( controller.getSelected()).addSubAlbum(newAlbum);
 			System.out.println(controller.getSelected());
 			
 			//We search for the parent of the newly added Album so we can create the new node in the correct place

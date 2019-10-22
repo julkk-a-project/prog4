@@ -60,7 +60,7 @@ public class RemoveAlbum implements Command {
 	}
 	
 	
-	public void setSubAlbums(ArrayList<Album> x) {
+	public void setSubAlbums(ArrayList<AbstractAlbum> x) {
 		removedAlbum.setSubAlbumList(x);
 	}
 	
