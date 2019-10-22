@@ -34,6 +34,7 @@ public class MusicOrganizerWindow extends JFrame {
 	private MusicOrganizerButtonPanel buttonPanel;
 	private MusicOrganizerController controller;
 	private String DEAULT_ALBUM_NAME = "Album";
+	
 	//private UndoManager manager = new UndoManager();
 	
 	public MusicOrganizerWindow(MusicOrganizerController contr) {
