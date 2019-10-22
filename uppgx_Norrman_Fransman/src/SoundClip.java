@@ -10,7 +10,7 @@ import java.io.File;
 public class SoundClip{
 
 	private final File file;
-	private AbstractAlbum album; 
+	private Album album; 
 	private int rating;
 	boolean flagged;
 	boolean toBeRemoved;
@@ -20,7 +20,7 @@ public class SoundClip{
 	 * Requires file != null.
 	 */
 
-	public SoundClip(File file, AbstractAlbum album) {
+	public SoundClip(File file, Album album) {
 		assert file != null;
 		this.album = album;
 		this.file = file;
@@ -43,7 +43,7 @@ public class SoundClip{
 	 * @return the file containing this sound clip.
 	 */
 	
-	public AbstractAlbum getParent() {
+	public Album getParent() {
 		return album;
 	}
 	
