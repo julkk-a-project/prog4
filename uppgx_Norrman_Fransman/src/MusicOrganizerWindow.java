@@ -379,5 +379,9 @@ public class MusicOrganizerWindow extends JFrame {
 		// TODO Auto-generated method stub
 		return buttonPanel;
 	}
+	
+	public SoundClipTable getClipTable() {
+		return clipTable;
+	}
 
 }

@@ -199,10 +199,15 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(view.getSelectedAlbum() == null) {
+				if(view.getSelectedSoundClips().toString().equals("[]") || view.getSelectedSoundClips() == null) {
 					view.showMessage("Soundclip needs to be selected");
+				} else if(view.getSelectedSoundClips().get(0).getFlagged()) {
+					System.out.println("iii");
+					view.getSelectedSoundClips().get(0).setFlagged(false);
+					view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 				} else {
-					
+					view.getSelectedSoundClips().get(0).setFlagged(true);
+					view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 				}
 			}	
 		});
@@ -215,7 +220,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(view.getSelectedAlbum() == null) {
+				if(view.getSelectedSoundClips() == null) {
 					view.showMessage("Soundclip needs to be selected");
 				} else {
 

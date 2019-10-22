@@ -19,9 +19,9 @@ public class SoundClipTable extends JList {
 	
 	/**
 	 * Displays the contents of the specified album
-	 * @param a - the album which contents are to be displayed
+	 * @param abstractAlbum - the album which contents are to be displayed
 	 */
-	public void display(Album a){
+	public void display(AbstractAlbum abstractAlbum){
 		this.clearTable();
 		
 		// TODO: Add all sound clips found in 'a'
@@ -29,7 +29,7 @@ public class SoundClipTable extends JList {
 		//
 		// Something like this:
 		//
-		 clips.addAll(a.getSoundClips());
+		 clips.addAll(abstractAlbum.getSoundClips());
 		
 		Object[] data = new Object[clips.size()];
 		Iterator<SoundClip> it = clips.iterator();

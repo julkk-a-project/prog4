@@ -88,6 +88,10 @@ public class SoundClip{
 		
 		return getName() + ratingMessage + flagMessage;
 	}
+
+	public void setFlagged(boolean x) {flagged = x;}
+	
+	public boolean getFlagged() {return flagged;}
 	
 	
 	
