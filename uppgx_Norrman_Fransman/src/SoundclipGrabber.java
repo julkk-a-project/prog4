@@ -15,17 +15,15 @@ public class SoundclipGrabber implements Subject {
 		flaggedSoundclips = new ArrayList<SoundClip>();
 	}
 	
-	public void register(Soundclipsobserver newObserver) {
+	public void register(Soundclipsobserver newObserver) { //Lägg till flear observers
 		
 		observers.add(newObserver);
 		
 	}
 
-	public void unregister(Soundclipsobserver deleteObserver) {
+	public void unregister(Soundclipsobserver deleteObserver) { //Ta bort observers
 		
 		int index = observers.indexOf(deleteObserver);
-		
-		System.out.println("Observer " + (index + 1) + " deleted.");
 		
 		observers.remove(index);
 		
@@ -46,20 +44,20 @@ public class SoundclipGrabber implements Subject {
 		
 		if(!newStarSoundclips.isEmpty()) {
 			
-			for(SoundClip clip: newStarSoundclips) {
+			for(SoundClip clip: newStarSoundclips) { //highly rated clips läggs in hit
 				this.starSoundclips.add(clip);
 			}
 			
 		} else {
 			
-			for(SoundClip clip: newFlaggedSoundclips) {
+			for(SoundClip clip: newFlaggedSoundclips) { //flagged clips läggs in hit
 				this.flaggedSoundclips.add(clip);
 			}
 			
 		}
 
-		notifyObserver(addStarSoundsHere, addFlagSoundsHere);
-		starSoundclips.clear();
+		notifyObserver(addStarSoundsHere, addFlagSoundsHere); //updaterar
+		starSoundclips.clear(); //tömmer listorna
 		flaggedSoundclips.clear();
 		
 	}

@@ -404,7 +404,7 @@ public class MusicOrganizerWindow extends JFrame {
 		return clipTable;
 	}
 
-	private void checkButtons(int check) {
+	private void checkButtons(int check) { //Anropas när knapparna behövs updateras
 		
 		if(controller.getSelected().isSearchAlbum()) { //search album
 			buttonPanel.setAddAlbumButton(false);

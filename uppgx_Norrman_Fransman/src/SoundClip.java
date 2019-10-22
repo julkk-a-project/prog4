@@ -12,8 +12,8 @@ public class SoundClip{
 	private final File file;
 	private AbstractAlbum album; 
 	private int rating;
-	boolean flagged;
-	boolean toBeRemoved;
+	boolean flagged; //håller reda på om flaggad
+	boolean toBeRemoved; //håller reda på om den ska tas bort eller läggas till
 	
 	/**
 	 * Make a SoundClip from a file.

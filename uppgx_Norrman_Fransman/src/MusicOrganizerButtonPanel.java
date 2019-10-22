@@ -253,9 +253,9 @@ public class MusicOrganizerButtonPanel extends JPanel {
 					view.showMessage("Soundclip needs to be selected");
 				} else {
 
-					int score = Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating 0-5. "));
+					int score = Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating 0-5. ")); //gets user input
 
-					if(score >= 0 && score <= 5) {
+					if(score >= 0 && score <= 5) { //
 
 						for(SoundClip clip : view.getSelectedSoundClips()) {
 							clip.setRating(score);

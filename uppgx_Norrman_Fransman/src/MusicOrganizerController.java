@@ -221,6 +221,7 @@ public class MusicOrganizerController implements Actions {
 
 	}
 	
+	
 	/**
 	 * Puts the selected sound clips on the queue and lets
 	 * the sound clip player thread play them. Essentially, when

@@ -2,12 +2,8 @@ import java.util.ArrayList;
 
 public class Soundclipsobserver implements Observer {
 
-	ArrayList<SoundClip> starSoundclips;
-	ArrayList<SoundClip> flaggedSoundclips;
-	
-	//private int observerIDTracker = 0;
-	
-	//private int observerID;
+	private ArrayList<SoundClip> starSoundclips;
+	private ArrayList<SoundClip> flaggedSoundclips;
 	
 	private Subject soundclipGrabber;
 	
@@ -19,8 +15,6 @@ public class Soundclipsobserver implements Observer {
 		starSoundclips = new ArrayList<SoundClip>();
 		flaggedSoundclips = new ArrayList<SoundClip>();
 		
-		//this.observerID = ++observerIDTracker;
-		
 		System.out.println("New Observer Created");
 		
 		soundclipGrabber.register(this);
@@ -30,38 +24,38 @@ public class Soundclipsobserver implements Observer {
 	
 	public void update(ArrayList<SoundClip> starSoundclips, ArrayList<SoundClip> flaggedSoundclips, StarAlbum addStarSoundsHere, FlagAlbum addFlagSoundsHere) {
 		
-		if(!starSoundclips.isEmpty()) {
+		if(!starSoundclips.isEmpty()) { //kollar om tom
 
 			for(SoundClip clip: starSoundclips) {
-				if(!clip.toBeremoved()) {
+				if(!clip.toBeremoved()) { //om den inte ska tas bort ska den addas
 					this.starSoundclips.add(clip);
 				} else {	
-					this.starSoundclips.remove(clip);	
+					this.starSoundclips.remove(clip); //tas bort	
 				}
 				
 			}
 		} 
-		if(!flaggedSoundclips.isEmpty()){
+		if(!flaggedSoundclips.isEmpty()){ //kollar om tom
 
 			for(SoundClip clip: flaggedSoundclips) {
-				if(!clip.toBeremoved()) {
+				if(!clip.toBeremoved()) { //om den inte ska tas bort ska den addas
 					this.flaggedSoundclips.add(clip);
 				} else {	
-					this.flaggedSoundclips.remove(clip);	
+					this.flaggedSoundclips.remove(clip); //tas bort	
 				}
 			}
 		}
 		System.out.println("Soundclips updated");
 		System.out.println("------------------------------------");
 		
-		addStarSoundsHere.addSoundClips(starSoundclips);
+		addStarSoundsHere.addSoundClips(starSoundclips); //Läggs till i våra sök album
 		addFlagSoundsHere.addSoundClips(flaggedSoundclips);
 		
 		printSoundClips();
 	}
 
 
-	private void printSoundClips() {
+	private void printSoundClips() {  //print funktion
 		
 		System.out.println("StarSoundClips:");
 		for(SoundClip clip : starSoundclips) {

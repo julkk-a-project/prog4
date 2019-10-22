@@ -8,7 +8,6 @@ public abstract class AbstractAlbum {
 	
 	private Album parent;
 	private String name;
-//	private ArrayList<Album> subAlbums = new ArrayList<Album>();
 	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
 	protected boolean isSearchAlbum = true; //the lazy way
 
@@ -77,14 +76,7 @@ public abstract class AbstractAlbum {
 		return getName();
 	}
 	
-	
-	
 
-	
-	public void addOldSoundClips(Set<SoundClip> soundClips) {
-		
-	}
-	
 	
 	
 	public void addSoundClip(File inFile) { //Lägger till en fil i albummet och skapar en SoundClip för filen
@@ -130,8 +122,6 @@ public abstract class AbstractAlbum {
 		assert (getSoundClips().size() > 0): "No soundclips to be removed";
 				
 		for(int i = 0; i < getSoundClips().size(); i++) { 
-					
-			System.out.println("gay");
 			
 			if(getSoundClips().get(i).getName().equals(soundClipToBeRemoved.getName())) {
 						
