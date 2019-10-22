@@ -15,7 +15,7 @@ public class MusicOrganizerController implements Actions {
 	private AbstractAlbum selectedAlbum;
 	private AbstractAlbum doubleSelectedAlbum;
 	private JTree albumTree;
-	private Album newestAlbum;
+	private AbstractAlbum newestAlbum;
 	
 	private Stack<Command> undoStack = new Stack<>();
 	private Stack<Command> redoStack = new Stack<>();
