@@ -194,29 +194,36 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	}
 	
 	private JButton createFlagButton() {
-		JButton undoButton = new JButton("Flag");
-		undoButton.setVisible(true);
-		undoButton.addActionListener(new ActionListener() {
+		ImageIcon flagIcon = new ImageIcon("icons//Actions-flag-icon.png");
+		JButton flagButton = new JButton(flagIcon);
+		flagButton.setVisible(true);
+		flagButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(view.getSelectedSoundClips().toString().equals("[]") || view.getSelectedSoundClips() == null) {
 					view.showMessage("Soundclip needs to be selected");
-				} else if(view.getSelectedSoundClips().get(0).getFlagged()) {
-					view.getSelectedSoundClips().get(0).setFlagged(false);
-					view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
-				} else {
-					view.getSelectedSoundClips().get(0).setFlagged(true);
-					view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 				}
+				
+				for(int i = 0; i < view.getSelectedSoundClips().size(); i++) {
+					if(view.getSelectedSoundClips().get(i).getFlagged()) {
+						view.getSelectedSoundClips().get(i).setFlagged(false);
+					}
+					else {
+						view.getSelectedSoundClips().get(i).setFlagged(true);
+					}	
+				}
+
+				view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 			}	
 		});
-		return undoButton;
+		return flagButton;
 	}
 	
 	private JButton createRateButton() {
-		JButton undoButton = new JButton("Rate");
-		undoButton.setVisible(true);
-		undoButton.addActionListener(new ActionListener() {
+		ImageIcon rateIcon = new ImageIcon("icons//favourites_32.png");
+		JButton rateButton = new JButton(rateIcon);
+		rateButton.setVisible(true);
+		rateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if(view.getSelectedSoundClips().toString().equals("[]") || view.getSelectedSoundClips() == null) {
@@ -224,7 +231,9 @@ public class MusicOrganizerButtonPanel extends JPanel {
 				} else {
 					int score = Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating 1-5. "));
 					if(score > 0 && score <= 5) {
-						view.getSelectedSoundClips().get(0).setRating(score);
+						for(int i = 0; i < view.getSelectedSoundClips().size(); i++) {
+							view.getSelectedSoundClips().get(i).setRating(score);							
+						}
 						view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 					} else {
 						view.showMessage("Ratings from 1-5.");
@@ -232,7 +241,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 				}
 			}	
 		});
-		return undoButton;
+		return rateButton;
 	}
 
 	public JButton getRedoButton() {
