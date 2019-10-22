@@ -45,16 +45,16 @@ public class Album extends AbstractAlbum {
 	 * returns all soundclips(, and recursevly also all subalbum's soundclips.)
 	 * 
 	 */
-	public ArrayList<SoundClip> getSoundClips() {
+	public ArrayList<SoundClip> getSoundClipsRec() {
 		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
-		soundClipsToBeShown.addAll(getSoundClipsList());
+		soundClipsToBeShown.addAll(getSoundClips());
 	
 		
 		
 		//this ifstatement makes undo/redo not work.
 		if(subAlbums.size() > 0) {
 			for (Album a : subAlbums) {
-				soundClipsToBeShown.addAll(a.getSoundClips());
+				soundClipsToBeShown.addAll(a.getSoundClipsRec());
 			}	
 		}
 		

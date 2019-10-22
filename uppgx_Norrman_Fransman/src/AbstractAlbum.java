@@ -58,12 +58,12 @@ public abstract class AbstractAlbum {
 	 * returns all soundclips from current album
 	 * 
 	 */
-	public ArrayList<SoundClip> getSoundClipsList() {
-		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
-		soundClipsToBeShown.addAll(soundClips);
-		
-		return soundClipsToBeShown;
-	}
+//	public ArrayList<SoundClip> getSoundClips() {
+//		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
+//		soundClipsToBeShown.addAll(soundClips);
+//		
+//		return soundClipsToBeShown;
+//	}
 	
 	
 	

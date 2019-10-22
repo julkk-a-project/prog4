@@ -70,18 +70,33 @@ public class SoundClip{
 		return file.hashCode();
 	}
 	
-	/**
-	 * gives ID to compare with
-	 * @return
-	 */
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int i) {
-		id = i;
+	@Override
+	public String toString() {
 		
+		String flag = "";
+		String rating = "";
+		
+		return getName() + rating + flag;
 	}
+	
+	
+	
+	
+//	/**
+//	 * gives ID to compare with
+//	 * @return
+//	 */
+//	public int getId() {
+//		return id;
+//	}
+//
+//	public void setId(int i) {
+//		id = i;
+//		
+//	}
+	
+	
+	
 
 	
 }
