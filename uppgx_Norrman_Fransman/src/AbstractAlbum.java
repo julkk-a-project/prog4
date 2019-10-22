@@ -142,7 +142,7 @@ public abstract class AbstractAlbum {
 				
 		for(int i = 0; i < getSoundClips().size(); i++) { 
 					
-			if(getSoundClips().get(i).getId() == soundClipToBeRemoved.getId()) {
+			if(getSoundClips().get(i).getName().equals(soundClipToBeRemoved.getName())) {
 						
 				//Postcondition
 				assert(getSoundClips().remove(i) != null): "No soundclip was removed";
@@ -177,7 +177,7 @@ public abstract class AbstractAlbum {
 			for(int i = 0; i < getSoundClips().size(); i++) { 
 						
 				
-				if(getSoundClips().get(i).getId() == (soundClipToBeRemoved.getId())) {
+				if(getSoundClips().get(i).getName().equals(soundClipToBeRemoved.getName())) {
 							
 					getSoundClips().remove(i);			
 							
