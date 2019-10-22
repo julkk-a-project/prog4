@@ -35,6 +35,7 @@ public class MusicOrganizerController implements Actions {
 		// Create the View in Model-View-Controller
 		view = new MusicOrganizerWindow(this);
 		
+		//adds search albums to root.
 		addSearchAlbums();
 		
 		albumTree = view.getAlbumTree();
@@ -121,7 +122,6 @@ public class MusicOrganizerController implements Actions {
 			view.onAlbumAdded(current);
 		}	
 		
-		//view.onAlbumAdded(x);
 		
 	}
 	
@@ -145,10 +145,6 @@ public class MusicOrganizerController implements Actions {
 	
 	public void removeAlbum(Album x){ 
 			
-		
-		
-
-		
 		view.onAlbumRemoved(x);
 		
 	}
@@ -162,7 +158,7 @@ public class MusicOrganizerController implements Actions {
 	public void addSoundClips(AddSoundClips x){
 		
 		String directory = JOptionPane.showInputDialog("where is ur file??? please define the path :)",
-				"sample-sound\\punk.wav"); //<-- default path for testing pourposes!
+				"sample-sound\\"); //<-- default path for testing pourposes!
 		
 		
 		//to prevent adding soundclip when nothing is selected.
@@ -174,12 +170,6 @@ public class MusicOrganizerController implements Actions {
 			
 			selectedAlbum.addSoundClips(clips);
 			
-			
-//			x.setSoundClips(selectedAlbum.getLastAddedSoundClips());
-//			x.setParent(selectedAlbum);
-			
-			
-			//undoRedoHandler.change(root);
 			
 			view.onClipsUpdated();
 			redoStack.clear();
@@ -197,17 +187,21 @@ public class MusicOrganizerController implements Actions {
 	 */
 	public void removeSoundClips(RemoveSoundClips x){
 		
-		
-		if(!view.getSelectedSoundClips().equals(null)) {
+		try {
+			if(!view.getSelectedSoundClips().equals(null)) {
 
-			x.setParent((Album) doubleSelectedAlbum);
-			x.setSoundClips((ArrayList<SoundClip>) view.getSelectedSoundClips());
-			
-			doubleSelectedAlbum.removeSoundClips(view.getSelectedSoundClips());
-			
-			view.onClipsUpdated();
-					
+				x.setParent((Album) doubleSelectedAlbum);
+				x.setSoundClips((ArrayList<SoundClip>) view.getSelectedSoundClips());
+				
+				doubleSelectedAlbum.removeSoundClips(view.getSelectedSoundClips());
+				
+				view.onClipsUpdated();
+						
+			}			
+		}catch (ClassCastException e) {
+			//typecast pattern
 		}
+
 		
 	}
 	public void removeSoundClips(ArrayList<SoundClip> x, Album parent){

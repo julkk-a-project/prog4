@@ -280,6 +280,7 @@ public class MusicOrganizerWindow extends JFrame {
 					model.insertNodeInto(trnode, parent,
 							parent.getChildCount());
 					albumTree.scrollPathToVisible(new TreePath(trnode.getPath()));
+				
 					
 				}
 			}
@@ -404,6 +405,12 @@ public class MusicOrganizerWindow extends JFrame {
 		return clipTable;
 	}
 
+	
+	/**
+	 * check 0 -> single clicked
+	 * check 1 -> double clicked
+	 * @param check
+	 */
 	private void checkButtons(int check) { //Anropas när knapparna behövs updateras
 		
 		if(controller.getSelected().isSearchAlbum()) { //search album

@@ -7,7 +7,8 @@ public class FlagAlbum extends AbstractSearchAlbum {
 		this.setName(name);
 	}
 	
-	
+
+	//doesn't have subAlbums so only gets own clips
 	public ArrayList<SoundClip> getSoundClipsRec() {
 
 		clearClips();
@@ -15,7 +16,9 @@ public class FlagAlbum extends AbstractSearchAlbum {
 		return getSoundClips();
 	}
 
-
+	/**
+	 * finds all clips that are not supposed to be here.
+	 */
 	protected void clearClips() {
 		for (int i = 0; i < getSoundClips().size(); i++) {
 			if(!getSoundClip(i).flagged) {

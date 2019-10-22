@@ -7,6 +7,8 @@ public class StarAlbum extends AbstractSearchAlbum {
 		this.setName(name);
 	}
 
+	
+	//doesn't have subAlbums so only gets own clips
 	public ArrayList<SoundClip> getSoundClipsRec() {
 		
 		clearClips();
@@ -15,7 +17,9 @@ public class StarAlbum extends AbstractSearchAlbum {
 	}
 
 	
-
+	/**
+	 * finds all clips that are not supposed to be here.
+	 */
 	protected void clearClips() {
 		for (int i = 0; i < getSoundClips().size(); i++) {
 			if(getSoundClip(i).getRating() < 4) {

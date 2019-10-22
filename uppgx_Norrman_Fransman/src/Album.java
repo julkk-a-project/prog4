@@ -4,12 +4,8 @@ import java.util.ArrayList;
 
 public class Album extends AbstractAlbum {
 
-//	private Album parent;
-//	private String name;
 	private ArrayList<AbstractAlbum> subAlbums = new ArrayList<AbstractAlbum>();
-//	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
-//	private int idToSoundClip = 0;
-//	private ArrayList<SoundClip> lastAddedSoundClips = new ArrayList<SoundClip>();
+
 	
 
 	public Album(String name) {  //skapar rot album
@@ -40,7 +36,7 @@ public class Album extends AbstractAlbum {
 	
 
 	/**
-	 * returns all soundclips(, and recursevly also all subalbum's soundclips.)
+	 * returns all soundclips, and recursevly also all subalbum's soundclips.
 	 * 
 	 */
 	public ArrayList<SoundClip> getSoundClipsRec() {
@@ -49,7 +45,6 @@ public class Album extends AbstractAlbum {
 	
 		
 		
-		//this ifstatement makes undo/redo not work.
 		if(subAlbums.size() > 0) {
 			for (AbstractAlbum a : subAlbums) {
 				try {

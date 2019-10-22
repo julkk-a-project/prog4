@@ -72,19 +72,6 @@ public class MusicOrganizerButtonPanel extends JPanel {
 
 	}
 	
-	/**
-	 * Note: You can replace the text strings in the instantiations of the JButtons
-	 * below with ImageIcons if you prefer to have buttons with icons instead of
-	 * buttons with text strings
-	 * 
-	 *  Example:
-	 *  ImageIcon newAlbumIcon = new ImageIcon("icons/folder_add_32.png");
-	 *  JButton newAlbumButton = new JButton(newAlbumIcon);
-	 *  
-	 *  will put the imageIcon on the button, instead of the text "New Album", as 
-	 *  done below
-	 * 
-	 */
 	
 	private JButton createNewAlbumButton() {
 		ImageIcon newAlbumIcon = new ImageIcon("icons/folder_add_32.png");
@@ -229,7 +216,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 					}	
 				}
 
-				for(SoundClip clip : view.getSelectedSoundClips()) {
+				for(SoundClip clip : view.getSelectedSoundClips()) { //adds flagged soundclips
 					flaggedSoundclips.add(clip);
 				}
 				
@@ -255,13 +242,13 @@ public class MusicOrganizerButtonPanel extends JPanel {
 
 					int score = Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating 0-5. ")); //gets user input
 
-					if(score >= 0 && score <= 5) { //
+					if(score >= 0 && score <= 5) { //cheks if correct input
 
 						for(SoundClip clip : view.getSelectedSoundClips()) {
 							clip.setRating(score);
 
 
-							if(score > 3 && score <= 5) {
+							if(score > 3 && score <= 5) { //cheks if is favourite clip
 
 								starSoundclips.add(clip);
 								clip.setToBeRemoved(false);

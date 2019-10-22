@@ -72,6 +72,11 @@ public class SoundClip{
 		return file.hashCode();
 	}
 	
+	
+	
+	/**
+	 * here we draw the rating and "Flag" onto the name, when it is asked by the clipTable.
+	 */
 	@Override
 	public String toString() {
 		
@@ -89,6 +94,8 @@ public class SoundClip{
 		return getName() + ratingMessage + flagMessage;
 	}
 
+	
+	
 	public void setFlagged(boolean x) {flagged = x;}
 	
 	public boolean getFlagged() {return flagged;}

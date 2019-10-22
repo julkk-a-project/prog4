@@ -13,14 +13,6 @@ public class MainApplication {
 			public void run() {
 
 				MusicOrganizerController controller = new MusicOrganizerController();
-				if (args.length == 0) {
-					//controller.loadSoundClips("sample-sound");
-				} else if (args.length == 1) {
-					//controller.loadSoundClips(args[0]);
-				} else {
-					System.err.println("too many command-line arguments");
-					System.exit(0);
-				}
 			
 			}
 		});

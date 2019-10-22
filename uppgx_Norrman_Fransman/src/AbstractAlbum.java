@@ -12,15 +12,7 @@ public abstract class AbstractAlbum {
 	protected boolean isSearchAlbum = true; //the lazy way
 
 
-//	public abstract AbstractAlbum(Album parent, String name) { //skapar sub album
-//
-//		this.setParent(parent);
-//		this.setName(name);
-//
-//	} 
-	
-	
-	
+	//what is called when soundClips are read from an abstract album.
 	public abstract  ArrayList<SoundClip> getSoundClipsRec();
 	
 	
@@ -38,33 +30,21 @@ public abstract class AbstractAlbum {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	//"primitive" getSoundClips. not for getting actual sound clips in recursive child tree
 	public ArrayList<SoundClip> getSoundClips() {
 		return soundClips;
 	}
+	
 	public void setSoundClips(ArrayList<SoundClip> soundClips) {
 		this.soundClips = soundClips;
 	}
+	
 	//to get specific index of soundclip
 	public SoundClip getSoundClip(int index) {
 		return getSoundClips().get(index);
 	}
 
-	//TODO: LEGACY CODE COMBATABILITY
-	//to get size of soundClips. incase we change how we calculate size of soundClips (such as with an int field :informationdeskwoman_emoji:
-	public int getSoundClipsSize() {
-		return getSoundClips().size();
-	}
-	
-	
-	
-	//TODO: LEGACY CODE COMBATABILITY
-	
-	//TODO: LEGACY CODE COMBATABILITY
-//	public void setSoundClipList(ArrayList<SoundClip> x) {
-//		this.setSoundClips(x);
-//	}
-	
 	
 	
 
@@ -195,66 +175,6 @@ public abstract class AbstractAlbum {
 	
 	
 	
-
-//	public ArrayList<Album> getSubAlbums() {
-//		return subAlbums;
-//	}
-//	public void setSubAlbums(ArrayList<Album> subAlbums) {
-//		this.subAlbums = subAlbums;
-//	}
-//	public int getIdToSoundClip() {
-//		return idToSoundClip;
-//	}
-//	public void setIdToSoundClip(int idToSoundClip) {
-//		this.idToSoundClip = idToSoundClip;
-//	}
-	
-
-	
-	
-	
-
-
-	
-	/**
-	 * returns all soundclips from current album
-	 * 
-	 */
-//	public ArrayList<SoundClip> getSoundClips() {
-//		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
-//		soundClipsToBeShown.addAll(soundClips);
-//		
-//		return soundClipsToBeShown;
-//	}
-	
-	
-
-	/**
-	 * (Legacycode)
-	 * Söker igenom ett albums ljudklipp och gemför namnet med det ljudklippet
-	 * vi vill hitta. 
-	 */
-	
-//	public SoundClip findSoundClip(String name) {
-//		
-//		//Precondition
-//		assert (getSoundClips().size() > 0): "This album has no soundclips";
-//		
-//		for (int i = 0; i < getSoundClips().size(); i++) {
-//			
-//			if(getSoundClips().get(i).getFile().toString().equals(name)) {
-//				
-//				return getSoundClips().get(i);
-//				
-//			}
-//					
-//		}
-//		
-//		return null;
-//		
-//	}
-
-
 
 	
 	
