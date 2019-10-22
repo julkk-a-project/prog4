@@ -247,7 +247,7 @@ public class MusicOrganizerWindow extends JFrame {
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
-			controller.getSelected().addSubAlbum(newAlbum);
+			((Album) controller.getSelected()).addSubAlbum(newAlbum);
 			System.out.println(controller.getSelected());
 			
 			//We search for the parent of the newly added Album so we can create the new node in the correct place
@@ -300,7 +300,7 @@ public class MusicOrganizerWindow extends JFrame {
 	public void onClipsUpdated(){
 		try {
 			//Album a = (Album) getSelectedTreeNode().getUserObject();
-			Album a = controller.getDoubleSelectedAlbum();
+			AbstractAlbum a = controller.getDoubleSelectedAlbum();
 			clipTable.display(a);	
 		}
 		catch (NullPointerException e) {

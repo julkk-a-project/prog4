@@ -15,7 +15,7 @@ public class MusicOrganizerController implements Actions {
 	private AbstractAlbum selectedAlbum;
 	private AbstractAlbum doubleSelectedAlbum;
 	private JTree albumTree;
-	private AbstractAlbum newestAlbum;
+	private Album newestAlbum;
 	
 	private Stack<Command> undoStack = new Stack<>();
 	private Stack<Command> redoStack = new Stack<>();
@@ -73,9 +73,10 @@ public class MusicOrganizerController implements Actions {
 		
 		assert (!(selectedAlbum.equals(null)));
 		
+		
 		String name = view.promptForAlbumName();
 		
-		newestAlbum = new Album(selectedAlbum, name);
+		newestAlbum = new Album((Album) selectedAlbum, name);
 		x.setAlbum(newestAlbum);
 		x.setAlbumParent(newestAlbum.getParent());
 		x.setSoundClips(newestAlbum.getSoundClips());
@@ -106,11 +107,11 @@ public class MusicOrganizerController implements Actions {
 
 		if(selectedAlbum.getParent() != null) {
 
-			x.setAlbum(selectedAlbum);
+			x.setAlbum((Album) selectedAlbum);
 			x.setAlbumParent(selectedAlbum.getParent());
-			x.setSubAlbums(selectedAlbum.getSubAlbums());
+			x.setSubAlbums(((Album) selectedAlbum).getSubAlbums());
 			x.setSoundClips(selectedAlbum.getSoundClips());
-			view.onAlbumRemoved(selectedAlbum);
+			view.onAlbumRemoved((Album) selectedAlbum);
 			redoStack.clear();
 			
 		}
@@ -174,7 +175,7 @@ public class MusicOrganizerController implements Actions {
 		
 		if(!view.getSelectedSoundClips().equals(null)) {
 
-			x.setParent(selectedAlbum);
+			x.setParent((Album) selectedAlbum);
 			x.setSoundClips((ArrayList<SoundClip>) view.getSelectedSoundClips());
 			
 			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
@@ -224,13 +225,13 @@ public class MusicOrganizerController implements Actions {
 		}
 
 	}	
-	public Album getSelected() {
+	public AbstractAlbum getSelected() {
 		
 		return selectedAlbum;
 
 	}
 	
-	public Album getDoubleSelectedAlbum() {
+	public AbstractAlbum getDoubleSelectedAlbum() {
 		return doubleSelectedAlbum;
 	}
 	
