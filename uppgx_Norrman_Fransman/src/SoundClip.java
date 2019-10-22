@@ -11,18 +11,18 @@ public class SoundClip{
 
 	private final File file;
 	private int id;
-	private Album album; 
+	private AbstractAlbum album; 
 	
 	/**
 	 * Make a SoundClip from a file.
 	 * Requires file != null.
 	 */
 
-	public SoundClip(File file, Album parent) {
+	public SoundClip(File file, AbstractAlbum album) {
 		assert file != null;
-		album = parent;
+		this.album = album;
 		this.file = file;
-		id = parent.getNextId();
+		id = album.getNextId();
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class SoundClip{
 	 * @return the file containing this sound clip.
 	 */
 	
-	public Album getParent() {
+	public AbstractAlbum getParent() {
 		return album;
 	}
 	

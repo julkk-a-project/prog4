@@ -45,10 +45,10 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		playButton = createPlayButton();
 		toolbar.add(playButton);
 		
-		//undoButton = createUndoButton();
+		undoButton = createUndoButton();
 		//toolbar.add(undoButton);
 		
-		//redoButton = createRedoButton();
+		redoButton = createRedoButton();
 		//toolbar.add(redoButton);
 		
 		this.add(toolbar);
