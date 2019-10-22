@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -198,7 +199,11 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//TODO
+				if(view.getSelectedAlbum() == null) {
+					view.showMessage("Soundclip needs to be selected");
+				} else {
+					
+				}
 			}	
 		});
 		return undoButton;
@@ -209,9 +214,13 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		undoButton.setVisible(true);
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//TODO
-				
+
+				if(view.getSelectedAlbum() == null) {
+					view.showMessage("Soundclip needs to be selected");
+				} else {
+
+				}
+
 			}
 		});
 		return undoButton;
