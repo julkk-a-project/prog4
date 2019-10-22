@@ -33,37 +33,28 @@ public class Soundclipsobserver implements Observer {
 		if(!starSoundclips.isEmpty()) {
 
 			for(SoundClip clip: starSoundclips) {
-				this.starSoundclips.add(clip);
+				if(!clip.toBeremoved()) {
+					this.starSoundclips.add(clip);
+				} else {	
+					this.starSoundclips.remove(clip);	
+				}
+				
 			}
-
 		} 
-
 		if(!flaggedSoundclips.isEmpty()){
 
 			for(SoundClip clip: flaggedSoundclips) {
 				if(!clip.toBeremoved()) {
 					this.flaggedSoundclips.add(clip);
-				} else {
-					
-					for(int i = 0; i < flaggedSoundclips.size(); i++) {
-						
-						if(clip.getName().equals(flaggedSoundclips.get(i).getName())){
-							System.out.println(this.flaggedSoundclips.get(i).getName() + "-----------");
-							this.flaggedSoundclips.remove(i);
-						}
-						
-					}
-					
+				} else {	
+					this.flaggedSoundclips.remove(clip);	
 				}
 			}
-
 		}
-
 		System.out.println("Soundclips updated");
 		System.out.println("------------------------------------");
 		
 		printSoundClips();
-
 	}
 
 

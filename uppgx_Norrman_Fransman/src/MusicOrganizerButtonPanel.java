@@ -216,12 +216,10 @@ public class MusicOrganizerButtonPanel extends JPanel {
 					if(view.getSelectedSoundClips().get(i).getFlagged()) {
 						view.getSelectedSoundClips().get(i).setToBeRemoved(true);
 						view.getSelectedSoundClips().get(i).setFlagged(false);
-						System.out.println(view.getSelectedSoundClips().get(i).getName() + "xddddddddddddddddddddddddddddddddddddddddd");
 					}
 					else {
 						view.getSelectedSoundClips().get(i).setToBeRemoved(false);
 						view.getSelectedSoundClips().get(i).setFlagged(true);
-						
 					}	
 				}
 
@@ -250,9 +248,6 @@ public class MusicOrganizerButtonPanel extends JPanel {
 
 					int score = Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating 0-5. "));
 
-
-
-
 					if(score >= 0 && score <= 5) {
 
 						for(SoundClip clip : view.getSelectedSoundClips()) {
@@ -263,6 +258,9 @@ public class MusicOrganizerButtonPanel extends JPanel {
 
 								starSoundclips.add(clip);
 								clip.setToBeRemoved(false);
+							} else {
+								starSoundclips.add(clip);
+								clip.setToBeRemoved(true);
 							}
 
 							soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips);
@@ -270,8 +268,6 @@ public class MusicOrganizerButtonPanel extends JPanel {
 						}
 						view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 					}
-
-
 					else {
 						view.showMessage("Ratings from 0-5.");
 					}
