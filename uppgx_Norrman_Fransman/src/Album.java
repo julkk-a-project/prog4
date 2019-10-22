@@ -54,7 +54,13 @@ public class Album extends AbstractAlbum {
 		//this ifstatement makes undo/redo not work.
 		if(subAlbums.size() > 0) {
 			for (AbstractAlbum a : subAlbums) {
-				soundClipsToBeShown.addAll(a.getSoundClipsRec());
+				try {
+					Album temp = (Album) a;
+					soundClipsToBeShown.addAll(temp.getSoundClipsRec());	
+				} catch(ClassCastException e) {
+					
+				}
+				
 			}	
 		}
 		
