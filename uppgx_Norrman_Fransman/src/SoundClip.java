@@ -102,25 +102,6 @@ public class SoundClip{
 	public void setToBeRemoved(boolean toBeRemoved) {
 		this.toBeRemoved = toBeRemoved;
 	}
-	
-	
-	
-	
-//	/**
-//	 * gives ID to compare with
-//	 * @return
-//	 */
-//	public int getId() {
-//		return id;
-//	}
-//
-//	public void setId(int i) {
-//		id = i;
-//		
-//	}
-	
-	
-	
 
 	
 }

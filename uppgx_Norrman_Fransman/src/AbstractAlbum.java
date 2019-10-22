@@ -10,7 +10,7 @@ public abstract class AbstractAlbum {
 	private String name;
 //	private ArrayList<Album> subAlbums = new ArrayList<Album>();
 	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
-	
+	protected boolean isSearchAlbum = true; //the lazy way
 
 
 //	public abstract AbstractAlbum(Album parent, String name) { //skapar sub album
@@ -23,6 +23,7 @@ public abstract class AbstractAlbum {
 	
 	
 	public abstract  ArrayList<SoundClip> getSoundClipsRec();
+	
 	
 	
 	
@@ -181,6 +182,14 @@ public abstract class AbstractAlbum {
 		//to make ID system work with undoredo
 		//return getLastAddedSoundClips();
 	}
+
+
+
+
+	public boolean isSearchAlbum() {
+		return isSearchAlbum;
+	}
+
 	
 	
 	

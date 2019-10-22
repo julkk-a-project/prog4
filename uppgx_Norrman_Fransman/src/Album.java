@@ -18,12 +18,14 @@ public class Album extends AbstractAlbum {
 
 	public Album(String name) {  //skapar rot album
 
+		this.isSearchAlbum = false;
 		this.setName(name);
 
 	}
 
 	public Album(Album parent, String name) { //skapar sub album
-
+		
+		this.isSearchAlbum = false;
 		this.setParent(parent);
 		this.setName(name);
 
