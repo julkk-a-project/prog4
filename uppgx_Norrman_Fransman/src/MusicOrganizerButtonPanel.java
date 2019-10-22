@@ -17,6 +17,8 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton addSoundClipsButton;
 	private JButton removeSoundClipsButton;	
 	private JButton playButton;
+	private JButton flagButton;
+	private JButton rateButton;	
 	private JButton undoButton;
 	private JButton redoButton;	
 
@@ -44,6 +46,12 @@ public class MusicOrganizerButtonPanel extends JPanel {
 
 		playButton = createPlayButton();
 		toolbar.add(playButton);
+		
+		flagButton = createFlagButton();
+		toolbar.add(flagButton);
+		
+		rateButton = createRateButton();
+		toolbar.add(rateButton);
 		
 		undoButton = createUndoButton();
 		//toolbar.add(undoButton);
@@ -179,6 +187,31 @@ public class MusicOrganizerButtonPanel extends JPanel {
 					undoButton.setVisible(false);
 				else
 					undoButton.setVisible(true);
+			}
+		});
+		return undoButton;
+	}
+	
+	private JButton createFlagButton() {
+		JButton undoButton = new JButton("Flag");
+		undoButton.setVisible(true);
+		undoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//TODO
+			}	
+		});
+		return undoButton;
+	}
+	
+	private JButton createRateButton() {
+		JButton undoButton = new JButton("Rate");
+		undoButton.setVisible(true);
+		undoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//TODO
+				
 			}
 		});
 		return undoButton;
