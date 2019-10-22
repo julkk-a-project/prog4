@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JList;
+import javax.swing.JTable;
 
 public class SoundClipTable extends JList {
 
 	private List<SoundClip> clips;
+	String[] columnNames = {"Soundclip","Rating", "Flagged"};
 	
 	
 	public SoundClipTable() {

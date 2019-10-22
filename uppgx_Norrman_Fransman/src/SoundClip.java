@@ -12,6 +12,8 @@ public class SoundClip{
 	private final File file;
 	private int id;
 	private AbstractAlbum album; 
+	private int rating;
+	boolean flagged;
 	
 	/**
 	 * Make a SoundClip from a file.
@@ -73,10 +75,18 @@ public class SoundClip{
 	@Override
 	public String toString() {
 		
-		String flag = "";
-		String rating = "";
+		String flagMessage = "";
+		String ratingMessage = "";
 		
-		return getName() + rating + flag;
+		if(flagged) {
+			flagMessage = " - F";
+		} 
+		
+		if(rating > 0) {
+			ratingMessage = " - " + rating;
+		}
+		
+		return getName() + ratingMessage + flagMessage;
 	}
 	
 	
