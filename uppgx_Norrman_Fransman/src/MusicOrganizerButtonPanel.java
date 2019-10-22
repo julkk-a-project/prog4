@@ -227,7 +227,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 					flaggedSoundclips.add(clip);
 				}
 				
-				soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips);
+				soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips, controller.getStarAlbum(), controller.getFlagAlbum());
 				flaggedSoundclips.clear();
 				view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
 			}	
@@ -263,7 +263,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 								clip.setToBeRemoved(true);
 							}
 
-							soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips);
+							soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips, controller.getStarAlbum(), controller.getFlagAlbum());
 							starSoundclips.clear();
 						}
 						view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());

@@ -28,7 +28,7 @@ public class Soundclipsobserver implements Observer {
 	}
 	
 	
-	public void update(ArrayList<SoundClip> starSoundclips, ArrayList<SoundClip> flaggedSoundclips) {
+	public void update(ArrayList<SoundClip> starSoundclips, ArrayList<SoundClip> flaggedSoundclips, StarAlbum addStarSoundsHere, FlagAlbum addFlagSoundsHere) {
 		
 		if(!starSoundclips.isEmpty()) {
 
@@ -53,6 +53,9 @@ public class Soundclipsobserver implements Observer {
 		}
 		System.out.println("Soundclips updated");
 		System.out.println("------------------------------------");
+		
+		addStarSoundsHere.addSoundClips(starSoundclips);
+		addFlagSoundsHere.addSoundClips(flaggedSoundclips);
 		
 		printSoundClips();
 	}
