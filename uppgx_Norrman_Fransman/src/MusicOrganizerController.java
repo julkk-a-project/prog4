@@ -32,7 +32,7 @@ public class MusicOrganizerController implements Actions {
 	
 	public MusicOrganizerController() {
 			
-		root = new Album(null, "All Sound Clips");
+		root = new Album("All Sound Clips");
 
 		
 		// Create the View in Model-View-Controller
