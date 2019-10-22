@@ -11,6 +11,15 @@ public abstract class AbstractAlbum {
 //	private ArrayList<Album> subAlbums = new ArrayList<Album>();
 	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
 	
+
+
+//	public abstract AbstractAlbum(Album parent, String name) { //skapar sub album
+//
+//		this.setParent(parent);
+//		this.setName(name);
+//
+//	} 
+	
 	
 	
 	public abstract  ArrayList<SoundClip> getSoundClipsRec();
