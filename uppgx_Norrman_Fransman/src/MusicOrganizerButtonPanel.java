@@ -236,7 +236,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		});
 		return flagButton;
 	}
-	
+
 	private JButton createRateButton() {
 		ImageIcon rateIcon = new ImageIcon("icons//favourites_32.png");
 		JButton rateButton = new JButton(rateIcon);
@@ -249,35 +249,40 @@ public class MusicOrganizerButtonPanel extends JPanel {
 				} else {
 
 					int score = Integer.parseInt(JOptionPane.showInputDialog(null, "Set rating 0-5. "));
-					if(score > 3 && score <= 5) {
+
+
+
+
+					if(score >= 0 && score <= 5) {
 
 						for(SoundClip clip : view.getSelectedSoundClips()) {
-							starSoundclips.add(clip);
-							clip.setToBeRemoved(false);
-						}
+							clip.setRating(score);
 
-						soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips);
-						starSoundclips.clear();
-					}
-						if(score >= 0 && score <= 5) {
 
-							for(int i = 0; i < view.getSelectedSoundClips().size(); i++) {
-								view.getSelectedSoundClips().get(i).setRating(score);							
+							if(score > 3 && score <= 5) {
+
+								starSoundclips.add(clip);
+								clip.setToBeRemoved(false);
 							}
-							view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
-						} else {
-							view.showMessage("Ratings from 0-5.");
-						}
 
-					
-					
+							soundclipGrabber.setSoundClips(starSoundclips, flaggedSoundclips);
+							starSoundclips.clear();
+						}
+						view.getClipTable().display(view.getSelectedSoundClips().get(0).getParent());
+					}
+
+
+					else {
+						view.showMessage("Ratings from 0-5.");
+					}
+
 				}
-			}	
+			}
 		});
 		return rateButton;
 	}
 
-	public JButton getRedoButton() {
+		public JButton getRedoButton() {
 			return redoButton;
 		}
 		

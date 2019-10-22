@@ -325,6 +325,15 @@ public class MusicOrganizerController implements Actions {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	//Lucas's getters
+	public StarAlbum getStarAlbum(){
+		return starAlbum;
+	}
+	public FlagAlbum getFlagAlbum(){
+		return flagAlbum;
+	}
+	
 }
 
 	
