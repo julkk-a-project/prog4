@@ -111,60 +111,19 @@ public class MusicOrganizerWindow extends JFrame {
 
 				controller.setSelected(getSelectedAlbum());
 				
+				checkButtons(0);
+				
 				
 				// if left-double-click @@@changed =2 to ==1
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2){
 					
+					checkButtons(1);
 					// TODO YOUR CODE HERE ----------------------------------------------------------------------------------------------------------------------
 					// The code here gets invoked whenever the user double clicks in the album tree
 					try {
 						controller.setDoubleSelectedAlbum((AbstractAlbum)getSelectedTreeNode().getUserObject());
 						
-						if(controller.getDoubleSelectedAlbum().isSearchAlbum()) { //search album
-							buttonPanel.setAddAlbumButton(false);
-							buttonPanel.setRemoveAlbumButton(false);
-							buttonPanel.setAddSoundClipsButton(false);
-							buttonPanel.setRemoveSoundClipsButton(false);
-							if(controller.getDoubleSelectedAlbum().getSoundClips().isEmpty()) {
-								buttonPanel.setPlayButton(false);
-								buttonPanel.setRateButton(false);
-								buttonPanel.setFlagButton(false);
-							} else {
-								buttonPanel.setPlayButton(true);
-								buttonPanel.setRateButton(true);
-								buttonPanel.setFlagButton(true);
-							}
-							
-						} else if (controller.getDoubleSelectedAlbum().getParent() == null) { //rot album
-							buttonPanel.setAddAlbumButton(true);
-							buttonPanel.setRemoveAlbumButton(false);
-							buttonPanel.setAddSoundClipsButton(false);
-							buttonPanel.setRemoveSoundClipsButton(false);
-							if(controller.getDoubleSelectedAlbum().getSoundClips().isEmpty()) {
-								buttonPanel.setPlayButton(false);
-								buttonPanel.setRateButton(false);
-								buttonPanel.setFlagButton(false);
-							} else {
-								buttonPanel.setPlayButton(true);
-								buttonPanel.setRateButton(true);
-								buttonPanel.setFlagButton(true);	
-							}
-						}  else if (controller.getDoubleSelectedAlbum().getParent() != null) { //normalt album
-							buttonPanel.setAddAlbumButton(true);
-							buttonPanel.setRemoveAlbumButton(true);
-							buttonPanel.setAddSoundClipsButton(true);
-							buttonPanel.setRemoveSoundClipsButton(false);
-							if(controller.getDoubleSelectedAlbum().getSoundClips().isEmpty()) {
-								buttonPanel.setPlayButton(false);
-								buttonPanel.setRateButton(false);
-								buttonPanel.setFlagButton(false);
-							} else {
-								buttonPanel.setPlayButton(true);
-								buttonPanel.setRateButton(true);
-								buttonPanel.setFlagButton(true);
-								buttonPanel.setRemoveSoundClipsButton(true);
-							}
-						}
+						
 						
 						
 					}
@@ -331,9 +290,9 @@ public class MusicOrganizerWindow extends JFrame {
 	 * Updates the album hierarchy by removing an album from it
 	 */
 	public void onAlbumRemoved(Album album){
-		assert album != null;
+		assert album != null;    
 		
-		//manager.addToRedo(album);
+		disableAllButtons();		//manager.addToRedo(album);
 		
 		DefaultTreeModel model = (DefaultTreeModel) albumTree.getModel();
 		
@@ -361,6 +320,8 @@ public class MusicOrganizerWindow extends JFrame {
 				buttonPanel.setRemoveSoundClipsButton(true);
 			else
 				buttonPanel.setRemoveSoundClipsButton(false);
+			
+			checkButtons(1);
 		}
 		catch (NullPointerException e) {
 			//when no soundclips seen
@@ -443,4 +404,75 @@ public class MusicOrganizerWindow extends JFrame {
 		return clipTable;
 	}
 
+	private void checkButtons(int check) {
+		
+		if(controller.getSelected().isSearchAlbum()) { //search album
+			buttonPanel.setAddAlbumButton(false);
+			buttonPanel.setRemoveAlbumButton(false);
+			buttonPanel.setAddSoundClipsButton(false);
+			buttonPanel.setRemoveSoundClipsButton(false);
+			if(controller.getDoubleSelectedAlbum().getSoundClips().isEmpty()) {
+				buttonPanel.setPlayButton(false);
+				buttonPanel.setRateButton(false);
+				buttonPanel.setFlagButton(false);
+			} else {
+				buttonPanel.setPlayButton(true);
+				buttonPanel.setRateButton(true);
+				buttonPanel.setFlagButton(true);
+			}
+			
+		} else if (controller.getSelected().getParent() == null) { //rot album
+			buttonPanel.setAddAlbumButton(true);
+			buttonPanel.setRemoveAlbumButton(false);
+			buttonPanel.setAddSoundClipsButton(false);
+			buttonPanel.setRemoveSoundClipsButton(false);
+			if(controller.getSelected().getSoundClipsRec().isEmpty()) {
+				buttonPanel.setPlayButton(false);
+				buttonPanel.setRateButton(false);
+				buttonPanel.setFlagButton(false);
+			} else {
+				buttonPanel.setPlayButton(true);
+				buttonPanel.setRateButton(true);
+				buttonPanel.setFlagButton(true);
+				buttonPanel.setRemoveSoundClipsButton(true);
+			}
+		}  else if (controller.getSelected().getParent() != null && check == 1) { //normalt album
+			buttonPanel.setAddAlbumButton(true);
+			buttonPanel.setRemoveAlbumButton(true);
+			buttonPanel.setAddSoundClipsButton(true);
+			buttonPanel.setRemoveSoundClipsButton(false);
+			if(controller.getSelected().getSoundClipsRec().isEmpty()) {
+				buttonPanel.setPlayButton(false);
+				buttonPanel.setRateButton(false);
+				buttonPanel.setFlagButton(false);
+			} else {
+				buttonPanel.setPlayButton(true);
+				buttonPanel.setRateButton(true);
+				buttonPanel.setFlagButton(true);
+				buttonPanel.setRemoveSoundClipsButton(true);
+			}
+		} else if (controller.getSelected().getParent() != null && check == 0) { //normalt album
+			buttonPanel.setAddAlbumButton(true);
+			buttonPanel.setRemoveAlbumButton(true);
+			buttonPanel.setAddSoundClipsButton(true);
+			buttonPanel.setRemoveSoundClipsButton(true);
+			
+			if(controller.getDoubleSelectedAlbum().getSoundClipsRec().isEmpty()) {
+				buttonPanel.setPlayButton(false);
+				buttonPanel.setRateButton(false);
+				buttonPanel.setFlagButton(false);
+				buttonPanel.setRemoveSoundClipsButton(false);
+			} 
+		}
+	}
+	
+	private void disableAllButtons() {
+		buttonPanel.setAddAlbumButton(false);
+		buttonPanel.setRemoveAlbumButton(false);
+		buttonPanel.setAddSoundClipsButton(false);
+		buttonPanel.setRemoveSoundClipsButton(false);
+		buttonPanel.setPlayButton(false);
+		buttonPanel.setRateButton(false);
+		buttonPanel.setFlagButton(false);
+	}
 }

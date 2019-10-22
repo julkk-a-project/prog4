@@ -23,16 +23,13 @@ public class MusicOrganizerController implements Actions {
 	
 	private Stack<Command> undoStack = new Stack<>();
 	private Stack<Command> redoStack = new Stack<>();
-	//private UndoRedoHandler undoRedoHandler;
-	private boolean redo = false;
-	
-	
-	//private Album previousAlbum; 
 	
 	
 	public MusicOrganizerController() {
 			
 		root = new Album("All Sound Clips");
+		
+		doubleSelectedAlbum = root;
 
 		
 		// Create the View in Model-View-Controller
@@ -203,10 +200,10 @@ public class MusicOrganizerController implements Actions {
 		
 		if(!view.getSelectedSoundClips().equals(null)) {
 
-			x.setParent((Album) selectedAlbum);
+			x.setParent((Album) doubleSelectedAlbum);
 			x.setSoundClips((ArrayList<SoundClip>) view.getSelectedSoundClips());
 			
-			selectedAlbum.removeSoundClips(view.getSelectedSoundClips());
+			doubleSelectedAlbum.removeSoundClips(view.getSelectedSoundClips());
 			
 			view.onClipsUpdated();
 					
