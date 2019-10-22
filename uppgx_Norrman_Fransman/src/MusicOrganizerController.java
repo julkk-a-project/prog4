@@ -78,7 +78,7 @@ public class MusicOrganizerController implements Actions {
 		newestAlbum = new Album(selectedAlbum, name);
 		x.setAlbum(newestAlbum);
 		x.setAlbumParent(newestAlbum.getParent());
-		x.setSoundClips(newestAlbum.getSoundClipsList());
+		x.setSoundClips(newestAlbum.getSoundClips());
 		view.onAlbumAdded(newestAlbum);
 		//undoStack.peek().getAlbum().setParent(newestAlbum.getParent());
 		redoStack.clear();
@@ -109,7 +109,7 @@ public class MusicOrganizerController implements Actions {
 			x.setAlbum(selectedAlbum);
 			x.setAlbumParent(selectedAlbum.getParent());
 			x.setSubAlbums(selectedAlbum.getSubAlbums());
-			x.setSoundClips(selectedAlbum.getSoundClipsList());
+			x.setSoundClips(selectedAlbum.getSoundClips());
 			view.onAlbumRemoved(selectedAlbum);
 			redoStack.clear();
 			
