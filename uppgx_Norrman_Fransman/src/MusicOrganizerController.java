@@ -149,8 +149,8 @@ public class MusicOrganizerController implements Actions {
 			selectedAlbum.addSoundClips(clips);
 			
 			
-			x.setSoundClips(selectedAlbum.getLastAddedSoundClips());
-			x.setParent(selectedAlbum);
+//			x.setSoundClips(selectedAlbum.getLastAddedSoundClips());
+//			x.setParent(selectedAlbum);
 			
 			
 			//undoRedoHandler.change(root);
@@ -281,13 +281,14 @@ public class MusicOrganizerController implements Actions {
 //		
 //	}
 
-	public ArrayList<SoundClip> addSoundClips(ArrayList<SoundClip> addedSoundClips, Album parent) {
+	public void addSoundClips(ArrayList<SoundClip> addedSoundClips, Album parent) {
 
-		ArrayList<SoundClip> newClipId =  parent.addSoundClips(addedSoundClips);
+		//ArrayList<SoundClip> newClipId =  
+		parent.addSoundClips(addedSoundClips);
 
 		view.onClipsUpdated();
 		
-		return newClipId;
+		//return newClipId;
 	}
 
 	@Override
