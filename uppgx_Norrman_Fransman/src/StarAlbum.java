@@ -7,10 +7,8 @@ public class StarAlbum extends AbstractSearchAlbum {
 		this.setName(name);
 	}
 
-	@Override
 	public ArrayList<SoundClip> getSoundClipsRec() {
-		// TODO Auto-generated method stub
-		return null;
+		return getSoundClips();
 	}
 
 }
