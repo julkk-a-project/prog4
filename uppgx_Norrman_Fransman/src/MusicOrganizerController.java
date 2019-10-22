@@ -137,7 +137,7 @@ public class MusicOrganizerController implements Actions {
 	public void addSoundClips(AddSoundClips x){
 		
 		String directory = JOptionPane.showInputDialog("where is ur file??? please define the path :)",
-				"C:\\Users\\julkk\\git\\prog4\\uppgx_Norrman_Fransman\\sample-sound\\punk.wav"); //<-- default path for testing pourposes!
+				"sample-sound\\punk.wav"); //<-- default path for testing pourposes!
 		
 		
 		//to prevent adding soundclip when nothing is selected.
