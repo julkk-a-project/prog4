@@ -63,7 +63,7 @@ public class AddAlbum implements Command {
 	}
 
 	public void setSoundClips(ArrayList<SoundClip> soundClips) {
-		addedAlbum.setSoundClipList(soundClips);
+		addedAlbum.setSoundClips(soundClips);
 	}
 
 	

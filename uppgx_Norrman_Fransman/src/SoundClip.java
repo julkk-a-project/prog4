@@ -10,7 +10,6 @@ import java.io.File;
 public class SoundClip{
 
 	private final File file;
-	private int id;
 	private AbstractAlbum album; 
 	private int rating;
 	boolean flagged;
@@ -24,7 +23,7 @@ public class SoundClip{
 		assert file != null;
 		this.album = album;
 		this.file = file;
-		id = album.getNextId();
+		
 	}
 	
 	/**

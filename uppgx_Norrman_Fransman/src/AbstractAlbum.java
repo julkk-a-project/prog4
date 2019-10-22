@@ -10,8 +10,10 @@ public abstract class AbstractAlbum {
 	private String name;
 //	private ArrayList<Album> subAlbums = new ArrayList<Album>();
 	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
-	private int idToSoundClip = 0;
-	private ArrayList<SoundClip> lastAddedSoundClips = new ArrayList<SoundClip>();
+	
+	
+	
+	public abstract  ArrayList<SoundClip> getSoundClipsRec();
 	
 	
 	
@@ -34,39 +36,6 @@ public abstract class AbstractAlbum {
 	public void setSoundClips(ArrayList<SoundClip> soundClips) {
 		this.soundClips = soundClips;
 	}
-//	public ArrayList<Album> getSubAlbums() {
-//		return subAlbums;
-//	}
-//	public void setSubAlbums(ArrayList<Album> subAlbums) {
-//		this.subAlbums = subAlbums;
-//	}
-	public int getIdToSoundClip() {
-		return idToSoundClip;
-	}
-	public void setIdToSoundClip(int idToSoundClip) {
-		this.idToSoundClip = idToSoundClip;
-	}
-	
-
-	
-	
-	
-
-
-	
-	/**
-	 * returns all soundclips from current album
-	 * 
-	 */
-//	public ArrayList<SoundClip> getSoundClips() {
-//		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
-//		soundClipsToBeShown.addAll(soundClips);
-//		
-//		return soundClipsToBeShown;
-//	}
-	
-	
-	
 	//to get specific index of soundclip
 	public SoundClip getSoundClip(int index) {
 		return getSoundClips().get(index);
@@ -83,9 +52,9 @@ public abstract class AbstractAlbum {
 	//TODO: LEGACY CODE COMBATABILITY
 	
 	//TODO: LEGACY CODE COMBATABILITY
-	public void setSoundClipList(ArrayList<SoundClip> x) {
-		this.setSoundClips(x);
-	}
+//	public void setSoundClipList(ArrayList<SoundClip> x) {
+//		this.setSoundClips(x);
+//	}
 	
 	
 	
@@ -192,59 +161,8 @@ public abstract class AbstractAlbum {
 			
 		}
 	
-	/**
-	 * (Legacycode)
-	 * Söker igenom ett albums ljudklipp och gemför namnet med det ljudklippet
-	 * vi vill hitta. 
-	 */
-	
-	public SoundClip findSoundClip(String name) {
-		
-		//Precondition
-		assert (getSoundClips().size() > 0): "This album has no soundclips";
-		
-		for (int i = 0; i < getSoundClips().size(); i++) {
-			
-			if(getSoundClips().get(i).getFile().toString().equals(name)) {
-				
-				return getSoundClips().get(i);
-				
-			}
-					
-		}
-		
-		return null;
-		
-	}
 
-	
 
-	/**
-	 * used to get the next ID from the album object.
-	 * the ID should be given unicley to each soundclip.
-	 * 
-	 * please don't overuse me unless you are my(this object) child :(
-	 * 
-	 * this ID system is used to differenciate SoundClip objects in a specific album.
-	 * 
-	 * 
-	 * @return
-	 */
-	synchronized int getNextId() {
-		
-		int id = getIdToSoundClip();
-		setIdToSoundClip(getIdToSoundClip()+1);
-
-		return id;
-
-	}
-
-//	public ArrayList<SoundClip> getLastAddedSoundClips() {
-//		ArrayList<SoundClip> temp = new ArrayList<>();
-//		temp.addAll(lastAddedSoundClips);
-//		lastAddedSoundClips.clear();
-//		return temp;
-//	}
 
 	public void addSoundClips(ArrayList<SoundClip> addedSoundClips) {
 		Set<SoundClip> set = new HashSet<SoundClip>();
@@ -255,6 +173,66 @@ public abstract class AbstractAlbum {
 		//return getLastAddedSoundClips();
 	}
 	
+	
+	
+
+//	public ArrayList<Album> getSubAlbums() {
+//		return subAlbums;
+//	}
+//	public void setSubAlbums(ArrayList<Album> subAlbums) {
+//		this.subAlbums = subAlbums;
+//	}
+//	public int getIdToSoundClip() {
+//		return idToSoundClip;
+//	}
+//	public void setIdToSoundClip(int idToSoundClip) {
+//		this.idToSoundClip = idToSoundClip;
+//	}
+	
+
+	
+	
+	
+
+
+	
+	/**
+	 * returns all soundclips from current album
+	 * 
+	 */
+//	public ArrayList<SoundClip> getSoundClips() {
+//		ArrayList<SoundClip> soundClipsToBeShown = new ArrayList<>();
+//		soundClipsToBeShown.addAll(soundClips);
+//		
+//		return soundClipsToBeShown;
+//	}
+	
+	
+
+	/**
+	 * (Legacycode)
+	 * Söker igenom ett albums ljudklipp och gemför namnet med det ljudklippet
+	 * vi vill hitta. 
+	 */
+	
+//	public SoundClip findSoundClip(String name) {
+//		
+//		//Precondition
+//		assert (getSoundClips().size() > 0): "This album has no soundclips";
+//		
+//		for (int i = 0; i < getSoundClips().size(); i++) {
+//			
+//			if(getSoundClips().get(i).getFile().toString().equals(name)) {
+//				
+//				return getSoundClips().get(i);
+//				
+//			}
+//					
+//		}
+//		
+//		return null;
+//		
+//	}
 
 
 

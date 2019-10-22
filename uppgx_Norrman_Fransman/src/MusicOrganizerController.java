@@ -12,8 +12,8 @@ public class MusicOrganizerController implements Actions {
 	private MusicOrganizerWindow view;
 	private SoundClipBlockingQueue queue;
 	private Album root;
-	private Album selectedAlbum;
-	private Album doubleSelectedAlbum;
+	private AbstractAlbum selectedAlbum;
+	private AbstractAlbum doubleSelectedAlbum;
 	private JTree albumTree;
 	private Album newestAlbum;
 	

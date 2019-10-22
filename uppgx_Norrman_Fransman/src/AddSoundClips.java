@@ -40,7 +40,9 @@ public class AddSoundClips implements Command {
 		
 		
 		//to work arround ID system
-		addedSoundClips = device.addSoundClips(addedSoundClips, parent);
+		//addedSoundClips = 
+				
+		device.addSoundClips(addedSoundClips, parent);
 		
 		device.getUndoStack().push(device.getRedoStack().pop());
 		device.setButtons();
