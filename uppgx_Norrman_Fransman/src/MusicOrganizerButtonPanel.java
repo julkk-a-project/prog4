@@ -89,6 +89,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createNewAlbumButton() {
 		ImageIcon newAlbumIcon = new ImageIcon("icons/folder_add_32.png");
 		JButton newAlbumButton = new JButton(newAlbumIcon);
+		newAlbumButton.setEnabled(false);
 		newAlbumButton.setToolTipText("New Album");
 		newAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -104,6 +105,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createDeleteAlbumButton() {
 		ImageIcon deleteAlbumIcon = new ImageIcon("icons/folder_delete_32.png");
 		JButton deleteAlbumButton = new JButton(deleteAlbumIcon);
+		deleteAlbumButton.setEnabled(false);
 		deleteAlbumButton.setToolTipText("Delete Selected Album");
 		deleteAlbumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -119,6 +121,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createAddSoundClipsButton() {
 		ImageIcon addSoundClipsIcon = new ImageIcon("icons/document_add_32.png");
 		JButton addSoundClipButton = new JButton(addSoundClipsIcon);
+		addSoundClipButton.setEnabled(false);
 		addSoundClipButton.setToolTipText ("Add Selected Sound Clips To Selected Album");
 		addSoundClipButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	
@@ -134,6 +137,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createRemoveSoundClipsButton() {
 		ImageIcon removeSoundClipsIcon = new ImageIcon("icons/document_delete_32.png");
 		JButton removeSoundClipsButton = new JButton(removeSoundClipsIcon);
+		removeSoundClipsButton.setEnabled(false);
 		removeSoundClipsButton.setToolTipText("Remove Selected Sound Clips From Selected Album");
 		removeSoundClipsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -149,6 +153,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createPlayButton() {
 		ImageIcon playIcon = new ImageIcon("icons/play_32.png");
 		JButton playButton = new JButton(playIcon);
+		playButton.setEnabled(false);
 		playButton.setToolTipText("Play Selected Sound Clip");
 		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -204,6 +209,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createFlagButton() {
 		ImageIcon flagIcon = new ImageIcon("icons//Actions-flag-icon.png");
 		JButton flagButton = new JButton(flagIcon);
+		flagButton.setEnabled(false);
 		flagButton.setVisible(true);
 		flagButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -238,6 +244,7 @@ public class MusicOrganizerButtonPanel extends JPanel {
 	private JButton createRateButton() {
 		ImageIcon rateIcon = new ImageIcon("icons//favourites_32.png");
 		JButton rateButton = new JButton(rateIcon);
+		rateButton.setEnabled(false);
 		rateButton.setVisible(true);
 		rateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -285,6 +292,41 @@ public class MusicOrganizerButtonPanel extends JPanel {
 		public JButton getUndoButton() {
 			return undoButton;
 		}
+
+		public void setAddAlbumButton(boolean b) {
+			newAlbumButton.setEnabled(b);
+		}
+
+		public void setRemoveAlbumButton(boolean b) {
+			deleteButton.setEnabled(b);
+			
+		}
+		
+		public void setAddSoundClipsButton(boolean b) {
+			addSoundClipsButton.setEnabled(b);
+			
+		}
+		
+		public void setRemoveSoundClipsButton(boolean b) {
+			removeSoundClipsButton.setEnabled(b);
+			
+		}
+
+		public void setPlayButton(boolean b) {
+			playButton.setEnabled(b);
+			
+		}
+
+		public void setRateButton(boolean b) {
+			rateButton.setEnabled(b);
+			
+		}
+
+		public void setFlagButton(boolean b) {
+			flagButton.setEnabled(b);
+			
+		}
+		
 		}
 
 

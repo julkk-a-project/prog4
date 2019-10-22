@@ -73,4 +73,9 @@ public class SoundClipTable extends JList {
 		return l;
 	}
 
+	public int getListSize() {
+		// TODO Auto-generated method stub
+		return clips.size();
+	}
+
 }

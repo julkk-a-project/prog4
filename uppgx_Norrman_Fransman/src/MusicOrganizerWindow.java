@@ -115,10 +115,56 @@ public class MusicOrganizerWindow extends JFrame {
 				// if left-double-click @@@changed =2 to ==1
 				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2){
 					
-					// TODO YOUR CODE HERE
+					// TODO YOUR CODE HERE ----------------------------------------------------------------------------------------------------------------------
 					// The code here gets invoked whenever the user double clicks in the album tree
 					try {
-						controller.setDoubleSelectedAlbum((AbstractAlbum)getSelectedTreeNode().getUserObject());	
+						controller.setDoubleSelectedAlbum((AbstractAlbum)getSelectedTreeNode().getUserObject());
+						
+						if(controller.getDoubleSelectedAlbum().isSearchAlbum()) { //search album
+							buttonPanel.setAddAlbumButton(false);
+							buttonPanel.setRemoveAlbumButton(false);
+							buttonPanel.setAddSoundClipsButton(false);
+							buttonPanel.setRemoveSoundClipsButton(false);
+							if(controller.getDoubleSelectedAlbum().getSoundClips().isEmpty()) {
+								buttonPanel.setPlayButton(false);
+								buttonPanel.setRateButton(false);
+								buttonPanel.setFlagButton(false);
+							} else {
+								buttonPanel.setPlayButton(true);
+								buttonPanel.setRateButton(true);
+								buttonPanel.setFlagButton(true);
+							}
+							
+						} else if (controller.getDoubleSelectedAlbum().getParent() == null) { //rot album
+							buttonPanel.setAddAlbumButton(true);
+							buttonPanel.setRemoveAlbumButton(false);
+							buttonPanel.setAddSoundClipsButton(false);
+							buttonPanel.setRemoveSoundClipsButton(false);
+							if(controller.getDoubleSelectedAlbum().getSoundClips().isEmpty()) {
+								buttonPanel.setPlayButton(false);
+								buttonPanel.setRateButton(false);
+								buttonPanel.setFlagButton(false);
+							} else {
+								buttonPanel.setPlayButton(true);
+								buttonPanel.setRateButton(true);
+								buttonPanel.setFlagButton(true);	
+							}
+						}  else if (controller.getDoubleSelectedAlbum().getParent() != null) { //normalt album
+							buttonPanel.setAddAlbumButton(true);
+							buttonPanel.setRemoveAlbumButton(true);
+							buttonPanel.setAddSoundClipsButton(true);
+							buttonPanel.setRemoveSoundClipsButton(false);
+							if(controller.getDoubleSelectedAlbum().getSoundClips().isEmpty()) {
+								buttonPanel.setPlayButton(false);
+								buttonPanel.setRateButton(false);
+								buttonPanel.setFlagButton(false);
+							} else {
+								buttonPanel.setPlayButton(true);
+								buttonPanel.setRateButton(true);
+								buttonPanel.setFlagButton(true);
+								buttonPanel.setRemoveSoundClipsButton(true);
+							}
+						}
 						
 						
 					}
@@ -310,7 +356,11 @@ public class MusicOrganizerWindow extends JFrame {
 		try {
 			//Album a = (Album) getSelectedTreeNode().getUserObject();
 			AbstractAlbum a = controller.getDoubleSelectedAlbum();
-			clipTable.display(a);	
+			clipTable.display(a);
+			if(clipTable.getListSize() != 0)
+				buttonPanel.setRemoveSoundClipsButton(true);
+			else
+				buttonPanel.setRemoveSoundClipsButton(false);
 		}
 		catch (NullPointerException e) {
 			//when no soundclips seen
