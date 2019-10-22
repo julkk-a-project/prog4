@@ -6,7 +6,7 @@ import java.util.Set;
 
 public abstract class AbstractAlbum {
 	
-	private Album parent = null;
+	private Album parent;
 	private String name;
 //	private ArrayList<Album> subAlbums = new ArrayList<Album>();
 	private ArrayList<SoundClip> soundClips = new ArrayList<SoundClip>();
@@ -22,7 +22,7 @@ public abstract class AbstractAlbum {
 	
 	
 	
-	public abstract ArrayList<SoundClip> getSoundClipsRec();
+	public abstract  ArrayList<SoundClip> getSoundClipsRec();
 	
 	
 	
@@ -80,18 +80,18 @@ public abstract class AbstractAlbum {
 	
 	
 
-//	public void addSoundClip(File inFile) { //Lägger till en fil i albummet och skapar en SoundClip för filen
-//
-//		getSoundClips().add(new SoundClip(inFile, this));
-//
-//	}
+	public void addSoundClip(File inFile) { //Lägger till en fil i albummet och skapar en SoundClip för filen
+
+		getSoundClips().add(new SoundClip(inFile, this));
+
+	}
 	
 
 	
 	public void addSoundClip(SoundClip soundClip) { //Lägger till en färdig soundclip objekt i listan där de sparas i albumet!
 
-		//SoundClip newSoundClip = new SoundClip(soundClip.getFile(), this);
-		getSoundClips().add(soundClip);
+		SoundClip newSoundClip = new SoundClip(soundClip.getFile(), this);
+		getSoundClips().add(newSoundClip);
 		//return newSoundClip.getId();
 	 
 	}
